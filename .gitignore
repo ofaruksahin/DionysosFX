@@ -6,3 +6,5 @@ src/DionysosFX/DionysosFX.csproj
 /src/DionysosFX/obj
 /src/DionysosFX.Shared/bin
 /src/DionysosFX.Shared/obj
+/src/DionysosFX.Sample/bin
+/src/DionysosFX.Sample/obj

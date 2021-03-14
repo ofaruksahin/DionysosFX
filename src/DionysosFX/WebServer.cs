@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using DionysosFX.Net.Internal;
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,19 +9,25 @@ namespace DionysosFX
 {
     public partial class WebServer : WebServerBase<WebServerOptions>
     {
-        HttpListener Listener;
+        IHttpListener Listener;
 
-        public WebServer()
+        public WebServer() : base(new WebServerOptions())
         {
             Options.AddUrlPrefix("http://*:80");
 
             Listener = CreateHttpListener();
         }
 
+        public WebServer([NotNull] string prefix) : base(new WebServerOptions())
+        {
+            Options.AddUrlPrefix(prefix);
+        }
+
         public WebServer([NotNull] WebServerOptions options) : base(options)
         {
             Listener = CreateHttpListener();
         }
+
 
         protected override void Dispose(bool disposing)
         {
@@ -54,9 +62,30 @@ namespace DionysosFX
             throw new System.NotImplementedException();
         }
 
-        private HttpListener CreateHttpListener()
+        private IHttpListener CreateHttpListener()
         {
-            return new HttpListener();
+            IHttpListener DoCreate() => new SystemHttpListener(new System.Net.HttpListener()) as IHttpListener;
+
+            var listener = DoCreate();
+            System.Console.WriteLine($"Running HttpListener: {listener.Name}");
+
+            foreach (var prefix in Options.UrlPrefixes)
+            {
+                var urlPrefix = new string(prefix?.ToCharArray());
+
+                if (!urlPrefix.EndsWith("/", StringComparison.Ordinal))
+                    urlPrefix += "/";
+
+                urlPrefix = urlPrefix.ToLowerInvariant();
+
+                listener.AddPrefix(urlPrefix);
+
+                Console.WriteLine($"Web server prefix '{prefix}' added.");
+            }
+
+            //TODO:
+            //return new HttpListener();
+            return listener;
         }
     }
 }

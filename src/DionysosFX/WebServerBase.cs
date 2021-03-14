@@ -6,21 +6,17 @@ using System.Threading.Tasks;
 
 namespace DionysosFX
 {
-    public abstract class WebServerBase<TOptions> : ConfiguredObject, IWebServer
+    public abstract class WebServerBase<TOptions> : ConfiguredObject, IWebServer,IHttpContextHandler
         where TOptions :WebServerOptionsBase,new()
     {
 
         private WebServerState _state = WebServerState.Created;
-        public TOptions Options { get; }
+        public TOptions Options { get; set; }
 
-        protected WebServerBase() : this(new TOptions())
-        {
-
-        }
 
         protected WebServerBase([NotNull]TOptions options)
         {
-
+            Options = options;
         }
 
         ~WebServerBase()
@@ -87,6 +83,11 @@ namespace DionysosFX
         {
             if (!disposing)
                 return;
+        }
+
+        public Task HandleContextAsync(IHttpContextImpl context)
+        {
+            throw new NotImplementedException();
         }
     }
 }

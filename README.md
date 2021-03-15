@@ -1,2 +1,2 @@
 # DionysosFX
-.Net Core 6 Based Web Framework
+.Net 6 Based Web Framework

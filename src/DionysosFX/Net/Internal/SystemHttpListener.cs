@@ -34,7 +34,7 @@ namespace DionysosFX.Net.Internal
 
 
         public void Start()
-        {
+        {            
             _httpListener.Start();
         }
 
@@ -42,9 +42,18 @@ namespace DionysosFX.Net.Internal
         {
             _httpListener.Stop();
         }
-        public Task<IHttpContextImpl> GetContextAsync(CancellationToken cancellationToken)
+        public async Task<IHttpContextImpl> GetContextAsync(CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            System.Net.HttpListenerContext context;
+            try
+            {
+                context = await _httpListener.GetContextAsync().ConfigureAwait(false);
+            }
+            catch (Exception e) when(cancellationToken.IsCancellationRequested)
+            {
+                throw new OperationCanceledException(e.Message);
+            }
+            return new SystemHttpContext(context);
         }
     }
 }

@@ -10,13 +10,19 @@ namespace DionysosFX.Net.Internal
         public SystemHttpContext(System.Net.HttpListenerContext context)
         {
             _context = context;
+            _request = new SystemHttpRequest(context.Request);
+            _response = new SystemHttpResponse(context.Response);
         }
 
         private string _id = Guid.NewGuid().ToString();
         public string Id => _id;
 
-        private CancellationToken _cancellationToken = new CancellationToken();
-        public CancellationToken CancellationToken => _cancellationToken;
+        private CancellationToken _cancellationToken;
+        public CancellationToken CancellationToken
+        {
+            get => _cancellationToken;
+            set => _cancellationToken = value;
+        }
 
         private IHttpRequest _request;
         public IHttpRequest Request => _request;
@@ -27,16 +33,16 @@ namespace DionysosFX.Net.Internal
         private bool _isHandled;
         public bool IsHandled => _isHandled;
 
-        public void Close()
-        {
-            //Response.Close();
-        }
-
         public void SetHandled()
         {
             if (IsHandled)
                 return;
             _isHandled = true;
+        }
+
+        public void Close()
+        {
+            Response.Close();
         }
     }
 }

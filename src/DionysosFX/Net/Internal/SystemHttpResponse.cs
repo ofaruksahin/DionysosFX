@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.IO;
 
 namespace DionysosFX.Net.Internal
@@ -13,19 +12,23 @@ namespace DionysosFX.Net.Internal
             _response = response;
         }
 
-        public int StatusCode { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int StatusCode
+        {
+            get => _response.StatusCode;
+            set => _response.StatusCode = value;
+        }
 
-        public NameValueCollection Headers => throw new NotImplementedException();
+        public NameValueCollection Headers => _response.Headers;
 
-        public string ContentType => throw new NotImplementedException();
+        public string ContentType => _response.ContentType;
 
-        public Stream Body => throw new NotImplementedException();
+        public Stream Body => _response.OutputStream;
 
-        public long ContentLength => throw new NotImplementedException();
+        public long ContentLength => _response.ContentLength64;
 
         public void Close()
         {
-            throw new NotImplementedException();
+            _response.Close();
         }
     }
 }

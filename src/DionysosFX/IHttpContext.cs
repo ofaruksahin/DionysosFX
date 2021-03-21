@@ -6,11 +6,11 @@ namespace DionysosFX
     public interface IHttpContext
     {
         string Id { get; }
-        CancellationToken CancellationToken { get; }
+        CancellationToken CancellationToken { get; set; }
         IHttpRequest Request { get; }
         IHttpResponse Response { get; }
         bool IsHandled { get; }
-        void SetHandled();
         void Close();
+        void SetHandled();        
     }
 }

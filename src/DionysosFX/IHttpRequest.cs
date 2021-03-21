@@ -1,4 +1,7 @@
-﻿using System.Collections.Specialized;
+﻿using HttpMultipartParser;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 
 namespace DionysosFX
@@ -8,10 +11,11 @@ namespace DionysosFX
         NameValueCollection Query { get; }
         NameValueCollection Headers { get; }
         Stream Body { get; }
-        string Path { get; }
+        Uri Path { get; }
         long ContentLength { get; }
         string ContentType { get; }
-        NameValueCollection Form { get; }
+        IReadOnlyList<ParameterPart> Form { get; }
+        IReadOnlyList<FilePart> Files { get; }
         string Host { get; }
         bool IsHttps { get; }
         string Method { get; }

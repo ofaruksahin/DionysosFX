@@ -1,6 +1,8 @@
 ﻿using DionysosFX.Shared;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -72,6 +74,51 @@ namespace DionysosFX
 
         protected abstract void OnFatalException();
 
+        protected async Task DoHandleContextAsync(IHttpContextImpl context)
+        {
+            try
+            {
+                try
+                {
+                    if (context.CancellationToken.IsCancellationRequested)
+                        return;
+
+                    try
+                    {
+                        using (var writer = new StreamWriter(context.Response.Body))
+                            writer.WriteLine("<html><head><body><h1>First Web Server Application</h1></body></head></html>");
+                    }
+                    catch (OperationCanceledException) when(context.CancellationToken.IsCancellationRequested)
+                    {
+                        throw;
+                    }
+                    catch (HttpListenerException)
+                    {
+                        throw;
+                    }catch(Exception exception)
+                    {
+                        Console.WriteLine(exception);
+                    }
+                }
+                finally
+                {
+                    await context.Response.Body.FlushAsync(context.CancellationToken).ConfigureAwait(false);
+                    context.Close();
+                    
+                }
+            }
+            catch (OperationCanceledException) when(context.CancellationToken.IsCancellationRequested)
+            {
+
+            }catch(HttpListenerException ex)
+            {
+                Console.WriteLine(ex);
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                OnFatalException();
+            }
+        }
 
         public void Dispose()
         {

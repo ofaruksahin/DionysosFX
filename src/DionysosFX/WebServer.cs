@@ -48,18 +48,23 @@ namespace DionysosFX
 
         protected override void Prepare(CancellationToken cancellationToken)
         {
-            base.Prepare(cancellationToken);
+            Listener.Start();
         }       
 
 
-        protected override Task ProcessRequestsAsync(CancellationToken cancellationToken)
+        protected override async Task ProcessRequestsAsync(CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            while (!cancellationToken.IsCancellationRequested && (Listener?.IsListening ?? false))
+            {
+                var context = await Listener.GetContextAsync(cancellationToken);
+                context.CancellationToken = cancellationToken;
+
+                Task.Run(() => DoHandleContextAsync(context), cancellationToken);
+            }
         }
 
         protected override void OnFatalException()
         {
-            throw new System.NotImplementedException();
         }
 
         private IHttpListener CreateHttpListener()

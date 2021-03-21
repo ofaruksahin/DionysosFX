@@ -10,6 +10,7 @@ namespace DionysosFX
         string ContentType { get; }
         Stream Body { get; }
         long ContentLength { get; }
+
         void Close();
     }
 }

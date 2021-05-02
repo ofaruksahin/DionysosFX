@@ -1,0 +1,11 @@
+C:\Projects\DionysosFX\src\Swan\src\DionysosFX.Swan\obj\Debug\net5.0\DionysosFX.Swan.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\DionysosFX\src\Swan\src\DionysosFX.Swan\obj\Debug\net5.0\DionysosFX.Swan.AssemblyInfoInputs.cache
+C:\Projects\DionysosFX\src\Swan\src\DionysosFX.Swan\obj\Debug\net5.0\DionysosFX.Swan.AssemblyInfo.cs
+C:\Projects\DionysosFX\src\Swan\src\DionysosFX.Swan\obj\Debug\net5.0\DionysosFX.Swan.csproj.CoreCompileInputs.cache
+C:\Projects\DionysosFX\src\Swan\src\DionysosFX.Swan\bin\Debug\net5.0\DionysosFX.Swan.deps.json
+C:\Projects\DionysosFX\src\Swan\src\DionysosFX.Swan\bin\Debug\net5.0\DionysosFX.Swan.dll
+C:\Projects\DionysosFX\src\Swan\src\DionysosFX.Swan\bin\Debug\net5.0\ref\DionysosFX.Swan.dll
+C:\Projects\DionysosFX\src\Swan\src\DionysosFX.Swan\bin\Debug\net5.0\DionysosFX.Swan.pdb
+C:\Projects\DionysosFX\src\Swan\src\DionysosFX.Swan\obj\Debug\net5.0\DionysosFX.Swan.dll
+C:\Projects\DionysosFX\src\Swan\src\DionysosFX.Swan\obj\Debug\net5.0\ref\DionysosFX.Swan.dll
+C:\Projects\DionysosFX\src\Swan\src\DionysosFX.Swan\obj\Debug\net5.0\DionysosFX.Swan.pdb

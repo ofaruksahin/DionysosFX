@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "CH2i6CVVknInlfkeURKDp8LI3o3O62K9Jg+0jbAJ/Ad7kUapb+XqcqOpOIY2mZ+e3mBjKkw/bsFZCuqHu+wpcw==",
+  "success": true,
+  "projectFilePath": "C:\\Projects\\DionysosFX\\src\\Sample\\src\\DionysosFX.Sample\\DionysosFX.Sample.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Faruk\\.nuget\\packages\\httpmultipartparser\\5.0.0\\httpmultipartparser.5.0.0.nupkg.sha512",
+    "C:\\Users\\Faruk\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\Faruk\\.nuget\\packages\\microsoft.io.recyclablememorystream\\1.3.6\\microsoft.io.recyclablememorystream.1.3.6.nupkg.sha512",
+    "C:\\Users\\Faruk\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512"
+  ],
+  "logs": []
+}

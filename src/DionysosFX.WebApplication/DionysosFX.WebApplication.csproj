@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DionysosFX.Host\DionysosFX.Host.csproj" />
+    <ProjectReference Include="..\DionysosFX.Swan\DionysosFX.Swan.csproj" />
   </ItemGroup>
 
 </Project>

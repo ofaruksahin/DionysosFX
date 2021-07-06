@@ -1,6 +1,5 @@
 ﻿using DionysosFX.Swan;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,9 +8,9 @@ namespace DionysosFX.Host
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="TOptions"></typeparam>
-    public abstract class WebServerBase<TOptions> : ConfiguredObject, IWebServer, IHttpContextHandler
-        where TOptions : WebServerOptionsBase, new()
+    /// <typeparam name="TStarup"></typeparam>
+    public abstract class WebServerBase<TStarup> : ConfiguredObject, IWebServer, IHttpContextHandler
+        where TStarup : IHostBuilder
     {
         /// <summary>
         /// 
@@ -21,12 +20,17 @@ namespace DionysosFX.Host
         /// <summary>
         /// 
         /// </summary>
-        private TOptions _options = default;
+        private IHostBuilder _hostBuilder;
 
         /// <summary>
         /// 
         /// </summary>
-        public TOptions options => _options;
+        public IHostBuilder HostBuilder => _hostBuilder;
+
+        public WebServerBase(IHostBuilder hostBuilder)
+        {
+            _hostBuilder = hostBuilder;
+        }
 
         /// <summary>
         /// 
@@ -54,15 +58,6 @@ namespace DionysosFX.Host
         /// 
         /// </summary>
         public event EventHandler<WebServerStateChangeEventArgs> StateChanged;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="options"></param>
-        public WebServerBase([NotNull]TOptions options)
-        {
-            _options = options;
-        }
 
         /// <summary>
         /// 
@@ -102,7 +97,6 @@ namespace DionysosFX.Host
         /// <returns></returns>
         public Task HandleContextAsync(IHttpContextImpl context)
         {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -110,9 +104,22 @@ namespace DionysosFX.Host
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task RunAsync(CancellationToken cancellationToken = default)
+        public async Task RunAsync(CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            try
+            {
+                State = WebServerState.Loading;
+                Prepare(cancellationToken);
+                State = WebServerState.Listening;
+                await ProcessRequestAsync(cancellationToken).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+            {
+            }
+            finally
+            {
+                State = WebServerState.Stopped;
+            }
         }
 
         /// <summary>

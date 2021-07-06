@@ -4,10 +4,28 @@ using System.Threading.Tasks;
 
 namespace DionysosFX.Host
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IWebServer : IDisposable
     {
+        /// <summary>
+        /// 
+        /// </summary>
         event EventHandler<WebServerStateChangeEventArgs> StateChanged;
-        WebServerState State { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        WebServerState State 
+        { 
+            get;
+            set; 
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         Task RunAsync(CancellationToken cancellationToken = default);
     }
 }

@@ -2,11 +2,23 @@
 
 namespace DionysosFX.Swan
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ConfiguredObject
     {
+        /// <summary>
+        /// 
+        /// </summary>
         readonly object _syncRoot = new();
+        /// <summary>
+        /// 
+        /// </summary>
         bool _configurationLocked;
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected bool ConfigurationLocker
         {
             get
@@ -18,12 +30,18 @@ namespace DionysosFX.Swan
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool ConfigurationLocked
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected void LockConfiguration()
         {
             lock (_syncRoot)
@@ -35,16 +53,21 @@ namespace DionysosFX.Swan
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         protected virtual void OnBeforeConfiguration()
         {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void EnsureConfigurationNotLocked()
         {
             if (ConfigurationLocked)
                 throw new InvalidOperationException($"{GetType().Name} Is Locked");
         }
-
     }
 }

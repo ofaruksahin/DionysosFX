@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DionysosFX.Host.Net.Internal
+﻿namespace DionysosFX.Host.Net.Internal
 {
     internal class SystemHttpListener
     {
+        private System.Net.HttpListener _listener;
+
+        public SystemHttpListener(System.Net.HttpListener listener)
+        {
+            _listener = listener;
+        }
     }
 }

@@ -3,15 +3,29 @@ using System.Linq;
 
 namespace DionysosFX.Host
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class HostBuilder : IHostBuilder
     {
+        /// <summary>
+        /// 
+        /// </summary>
         List<string> _prefixes = null;
-        List<string> Prefixes => _prefixes ?? new();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public IReadOnlyList<string> Prefixes => _prefixes;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="prefix"></param>
         public void AddPrefix(string prefix)
         {
-            if (!Prefixes.Any(f => f == prefix))
-                Prefixes.Add(prefix);
+            if (!_prefixes.Any(f => f == prefix))
+                _prefixes.Add(prefix);
         }
     }
 }

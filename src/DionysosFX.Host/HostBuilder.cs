@@ -18,6 +18,11 @@ namespace DionysosFX.Host
         /// </summary>
         public IReadOnlyList<string> Prefixes => _prefixes;
 
+        public HostBuilder()
+        {
+            _prefixes = new();
+        }
+
         /// <summary>
         /// 
         /// </summary>

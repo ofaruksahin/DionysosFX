@@ -1,4 +1,7 @@
 ﻿using DionysosFX.Host;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DionysosFX.WebApplication
 {
@@ -36,6 +39,26 @@ namespace DionysosFX.WebApplication
         public void Build()
         {
             System.Console.WriteLine("On Build Method");
+
+            using (var cts = new CancellationTokenSource())
+            {
+                Task.WaitAll(RunWebServer(cts.Token));
+            }            
+        }
+
+        private IWebServer CreateWebServer()
+        {
+            IWebServer webServer = new WebServer(_hostBuilder);
+
+            webServer.StateChanged += (sender, e) => Console.WriteLine($"Server New State {e.NewState}");
+
+            return webServer;
+        }
+
+        private async Task RunWebServer(CancellationToken cancellationToken)
+        {
+            using var server = CreateWebServer();
+            await server.RunAsync(cancellationToken).ConfigureAwait(false);
         }
     }
 }

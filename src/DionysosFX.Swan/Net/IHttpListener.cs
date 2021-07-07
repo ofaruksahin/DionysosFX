@@ -3,35 +3,25 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DionysosFX.Host
+namespace DionysosFX.Swan.Net
 {
     /// <summary>
     /// 
     /// </summary>
-    internal interface IHttpListener : IDisposable
+    public interface IHttpListener : IDisposable
     {
         /// <summary>
         /// 
         /// </summary>
-        IReadOnlyList<string> Prefixes 
-        { 
-            get;
-        }
+        IReadOnlyList<string> Prefixes { get; }
         /// <summary>
         /// 
         /// </summary>
-        bool IsListening 
-        { 
-            get;
-        }
+        bool IsListening { get; }
         /// <summary>
         /// 
         /// </summary>
-        public string Name 
-        { 
-            get;
-            set; 
-        }
+        string Name { get; }
         /// <summary>
         /// 
         /// </summary>
@@ -43,8 +33,8 @@ namespace DionysosFX.Host
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="prefix"></param>
-        void AddPrefix(string prefix);
+        /// <param name="urlPrefix"></param>
+        void AddPrefix(string urlPrefix);
         /// <summary>
         /// 
         /// </summary>

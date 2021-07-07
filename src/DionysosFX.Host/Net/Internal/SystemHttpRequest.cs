@@ -1,6 +1,12 @@
-﻿namespace DionysosFX.Host.Net.Internal
+﻿using DionysosFX.Swan.Net;
+
+namespace DionysosFX.Host.Net.Internal
 {
-    internal class SystemHttpRequest
+    /// <summary>
+    /// 
+    /// </summary>
+    internal class SystemHttpRequest : IHttpRequest
     {
+        private System.Net.HttpListenerRequest _request;
     }
 }

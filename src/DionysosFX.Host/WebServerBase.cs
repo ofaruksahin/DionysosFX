@@ -1,5 +1,8 @@
 ﻿using DionysosFX.Swan;
+using DionysosFX.Swan.Net;
 using System;
+using System.IO;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -87,7 +90,50 @@ namespace DionysosFX.Host
         /// <returns></returns>
         protected async Task DoHandleContextAsync(IHttpContextImpl context)
         {
+            try
+            {
+                try
+                {
+                    if (context.CancellationToken.IsCancellationRequested)
+                        return;
 
+                    try
+                    {
+                        using (var writer = new StreamWriter(context.Response.Body))
+                            writer.WriteLine("<html><head><body><h1>First Web Server Application</h1></body></head></html>");
+                    }
+                    catch (OperationCanceledException) when (context.CancellationToken.IsCancellationRequested)
+                    {
+                        throw;
+                    }
+                    catch (HttpListenerException)
+                    {
+                        throw;
+                    }
+                    catch (Exception exception)
+                    {
+                        Console.WriteLine(exception);
+                    }
+
+                }
+                finally
+                {
+                    await context.Response.Body.FlushAsync(context.CancellationToken).ConfigureAwait(false);
+                    context.Close();
+                }
+            }
+            catch (OperationCanceledException) when(context.CancellationToken.IsCancellationRequested)
+            {
+
+            }catch(HttpListenerException ex)
+            {
+                Console.WriteLine(ex);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                OnFatalException();
+            }
         }
 
         /// <summary>
@@ -95,7 +141,7 @@ namespace DionysosFX.Host
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public Task HandleContextAsync(IHttpContextImpl context)
+        public async Task HandleContextAsync(IHttpContextImpl context)
         {
         }
 

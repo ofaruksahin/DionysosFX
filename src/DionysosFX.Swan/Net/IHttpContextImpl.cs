@@ -1,4 +1,4 @@
-﻿namespace DionysosFX.Host
+﻿namespace DionysosFX.Swan.Net
 {
     /// <summary>
     /// 

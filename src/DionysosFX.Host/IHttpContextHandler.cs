@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using DionysosFX.Swan.Net;
+using System.Threading.Tasks;
 
 namespace DionysosFX.Host
 {

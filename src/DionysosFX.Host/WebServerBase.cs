@@ -96,7 +96,7 @@ namespace DionysosFX.Host
                 {
                     if (context.CancellationToken.IsCancellationRequested)
                         return;
-
+                    
                     try
                     {
                         using (var writer = new StreamWriter(context.Response.Body))

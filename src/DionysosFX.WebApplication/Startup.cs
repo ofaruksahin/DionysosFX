@@ -46,6 +46,10 @@ namespace DionysosFX.WebApplication
             }            
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private IWebServer CreateWebServer()
         {
             IWebServer webServer = new WebServer(_hostBuilder);
@@ -55,9 +59,14 @@ namespace DionysosFX.WebApplication
             return webServer;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         private async Task RunWebServer(CancellationToken cancellationToken)
         {
-            using var server = CreateWebServer();
+            using var server = CreateWebServer();            
             await server.RunAsync(cancellationToken).ConfigureAwait(false);
         }
     }

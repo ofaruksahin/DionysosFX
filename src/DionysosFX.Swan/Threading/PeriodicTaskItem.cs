@@ -1,67 +1,76 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace DionysosFX.Swan.Threading
 {
+    /// <summary>
+    /// 
+    /// </summary>
     internal class PeriodicTaskItem
     {
-        private object SyncLock
+        /// <summary>
+        /// 
+        /// </summary>
+        private Action Action
         {
             get;
             set;
         }
 
-        private TimerCallback Callback
-        {
-            get;
-            set;
-        }
-
-        private int PeriodSecond
-        {
-            get;
-            set;
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
         private CancellationToken CancellationToken
         {
             get;
             set;
         }
 
-        private Timer Timer
+        /// <summary>
+        /// 
+        /// </summary>
+        private int PeriodSecond
         {
-            get;
-            set;
+            get; set;
         }
 
-        public PeriodicTaskItem(TimerCallback callback,int periodSecond, CancellationToken cancellationToken)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="periodSecond"></param>
+        /// <param name="cancellationToken"></param>
+        public PeriodicTaskItem(Action action, int periodSecond, CancellationToken cancellationToken = default)
         {
-            SyncLock = new();
-            Callback = callback;
+            Action = action;
             PeriodSecond = periodSecond;
-            CancellationToken = cancellationToken;
 
-            Timer = new Timer(DoWork, null, 0, (int)TimeSpan.FromSeconds(periodSecond).TotalMilliseconds);
+            if (cancellationToken == default)
+                cancellationToken = new CancellationToken();
+            else
+                CancellationToken = cancellationToken;
+
+            DoWork();
         }
 
-        private void DoWork(object state)
+        /// <summary>
+        /// 
+        /// </summary>
+        private async void DoWork()
         {
-            if (!Monitor.TryEnter(SyncLock))
-                return;
-
             try
             {
-                CancellationToken.ThrowIfCancellationRequested();
-                Callback(SyncLock);
+                while (!CancellationToken.IsCancellationRequested)
+                {
+                    Action();
+                    await Task.Delay((int)TimeSpan.FromSeconds(PeriodSecond).TotalMilliseconds, CancellationToken);
+                }
             }
             catch (Exception)
             {
-                Timer.Dispose();
-                Timer = null;
-            }
-
-            Monitor.Exit(SyncLock);
+                
+            }           
         }
     }
 }

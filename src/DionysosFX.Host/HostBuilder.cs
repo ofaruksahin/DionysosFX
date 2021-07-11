@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Autofac;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DionysosFX.Host
@@ -18,9 +19,30 @@ namespace DionysosFX.Host
         /// </summary>
         public IReadOnlyList<string> Prefixes => _prefixes;
 
+        /// <summary>
+        /// 
+        /// </summary>        
+        private ContainerBuilder _containerBuilder = null;
+        /// <summary>
+        /// 
+        /// </summary>
+        public ContainerBuilder ContainerBuilder => _containerBuilder;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private IContainer _container = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IContainer Container => _container;
+
+
         public HostBuilder()
         {
             _prefixes = new();
+            _containerBuilder = new();
         }
 
         /// <summary>
@@ -31,6 +53,11 @@ namespace DionysosFX.Host
         {
             if (!_prefixes.Any(f => f == prefix))
                 _prefixes.Add(prefix);
+        }
+
+        public void BuilderContainer()
+        {
+            _container = _containerBuilder?.Build();
         }
     }
 }

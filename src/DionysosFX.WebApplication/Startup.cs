@@ -1,5 +1,4 @@
 ﻿using DionysosFX.Host;
-using DionysosFX.Swan.Threading;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,9 +37,10 @@ namespace DionysosFX.WebApplication
         /// 
         /// </summary>
         public void Build()
-        {
+        {            
             System.Console.WriteLine("On Build Method");
-
+            _hostBuilder.BuilderContainer();    
+            
             using (var cts = new CancellationTokenSource())
             {
                 Task.WaitAll(RunWebServer(cts.Token));

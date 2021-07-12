@@ -26,17 +26,26 @@ namespace DionysosFX.Swan.Net
         /// <summary>
         /// 
         /// </summary>
-        IHttpRequest Request { get; }
+        IHttpRequest Request 
+        { 
+            get;
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        IHttpResponse Response { get; }
+        IHttpResponse Response 
+        { 
+            get;
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        bool IsHandled { get; }
+        bool IsHandled 
+        { 
+            get;
+        }
 
         /// <summary>
         /// 

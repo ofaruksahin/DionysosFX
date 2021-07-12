@@ -25,7 +25,7 @@ namespace DionysosFX.Host.Net.Internal
             _cancellationToken = cancellationToken;
 
             _response = new SystemHttpResponse(context.Response);
-
+            _request = new SystemHttpRequest(context.Request); 
         }
 
         /// <summary>
@@ -47,7 +47,11 @@ namespace DionysosFX.Host.Net.Internal
         /// <summary>
         /// 
         /// </summary>
-        public IHttpRequest Request => throw new System.NotImplementedException();
+        private IHttpRequest _request;
+        /// <summary>
+        /// 
+        /// </summary>
+        public IHttpRequest Request => _request;
         /// <summary>
         /// 
         /// </summary>

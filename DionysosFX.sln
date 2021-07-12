@@ -7,13 +7,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Host", "Host", "{59E30FED-7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Swan", "Swan", "{359CCA25-D27B-4EE5-A3C3-428745E27EB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Host", "src\DionysosFX.Host\DionysosFX.Host.csproj", "{FFBDA4BA-ED22-4846-B5CF-764F06DA6522}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Host", "src\DionysosFX.Host\DionysosFX.Host.csproj", "{FFBDA4BA-ED22-4846-B5CF-764F06DA6522}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Swan", "src\DionysosFX.Swan\DionysosFX.Swan.csproj", "{DED9D86E-BDF1-4303-845B-A5F98CEE2319}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Swan", "src\DionysosFX.Swan\DionysosFX.Swan.csproj", "{DED9D86E-BDF1-4303-845B-A5F98CEE2319}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{D5C10A04-B629-4B38-9483-C00A239C2B3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.WebApplication", "src\DionysosFX.WebApplication\DionysosFX.WebApplication.csproj", "{BCF2396D-746D-4BE4-B301-05AF974121F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.WebApplication", "src\DionysosFX.WebApplication\DionysosFX.WebApplication.csproj", "{BCF2396D-746D-4BE4-B301-05AF974121F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.StaticFile", "src\DionysosFX.Module.StaticFile\DionysosFX.Module.StaticFile.csproj", "{C03D7200-F60C-465F-97EB-A2574FD45DD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,10 @@ Global
 		{BCF2396D-746D-4BE4-B301-05AF974121F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCF2396D-746D-4BE4-B301-05AF974121F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCF2396D-746D-4BE4-B301-05AF974121F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C03D7200-F60C-465F-97EB-A2574FD45DD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C03D7200-F60C-465F-97EB-A2574FD45DD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C03D7200-F60C-465F-97EB-A2574FD45DD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C03D7200-F60C-465F-97EB-A2574FD45DD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +49,7 @@ Global
 		{FFBDA4BA-ED22-4846-B5CF-764F06DA6522} = {59E30FED-7AE3-4AB8-AF4D-036891BDACA0}
 		{DED9D86E-BDF1-4303-845B-A5F98CEE2319} = {359CCA25-D27B-4EE5-A3C3-428745E27EB3}
 		{BCF2396D-746D-4BE4-B301-05AF974121F9} = {D5C10A04-B629-4B38-9483-C00A239C2B3F}
+		{C03D7200-F60C-465F-97EB-A2574FD45DD3} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {649875DE-A7F9-4D8E-BD5C-D785B7554E16}

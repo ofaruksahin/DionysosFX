@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using DionysosFX.Swan;
+using DionysosFX.Swan.Modules;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -38,11 +40,20 @@ namespace DionysosFX.Host
         /// </summary>
         public IContainer Container => _container;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private IWebModuleCollection _moduleCollection = null;
+        /// <summary>
+        /// 
+        /// </summary>
+        public IWebModuleCollection ModuleCollection => _moduleCollection;
 
         public HostBuilder()
         {
             _prefixes = new();
             _containerBuilder = new();
+            _moduleCollection = new WebModuleCollection();
         }
 
         /// <summary>

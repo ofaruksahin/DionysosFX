@@ -1,18 +1,16 @@
 ﻿using Autofac;
+using DionysosFX.Swan.Modules;
 using System.Collections.Generic;
 
-namespace DionysosFX.Host
+namespace DionysosFX.Swan
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public interface IHostBuilder
     {
         /// <summary>
         /// 
         /// </summary>
         IReadOnlyList<string> Prefixes
-        { 
+        {
             get;
         }
 
@@ -24,7 +22,18 @@ namespace DionysosFX.Host
             get;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         IContainer Container
+        {
+            get;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        IWebModuleCollection ModuleCollection
         {
             get;
         }

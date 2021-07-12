@@ -13,15 +13,24 @@ namespace DionysosFX.Swan.Net
         /// <summary>
         /// 
         /// </summary>
-        IReadOnlyList<string> Prefixes { get; }
+        IReadOnlyList<string> Prefixes 
+        {
+            get;
+        }
         /// <summary>
         /// 
         /// </summary>
-        bool IsListening { get; }
+        bool IsListening 
+        {
+            get;
+        }
         /// <summary>
         /// 
         /// </summary>
-        string Name { get; }
+        string Name 
+        { 
+            get; 
+        }
         /// <summary>
         /// 
         /// </summary>

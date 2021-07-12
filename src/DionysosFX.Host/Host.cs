@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DionysosFX.Swan;
+using System;
 
 namespace DionysosFX.Host
 {

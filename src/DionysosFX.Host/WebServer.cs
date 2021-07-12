@@ -1,5 +1,5 @@
-﻿using Autofac;
-using DionysosFX.Host.Net.Internal;
+﻿using DionysosFX.Host.Net.Internal;
+using DionysosFX.Swan;
 using DionysosFX.Swan.Net;
 using System;
 using System.Diagnostics.CodeAnalysis;

@@ -1,4 +1,5 @@
 ﻿using DionysosFX.Swan;
+using DionysosFX.Swan.Modules;
 using DionysosFX.Swan.Net;
 using System;
 using System.IO;
@@ -14,7 +15,7 @@ namespace DionysosFX.Host
     /// <typeparam name="TStarup"></typeparam>
     public abstract class WebServerBase<TStarup> : ConfiguredObject, IWebServer, IHttpContextHandler
         where TStarup : IHostBuilder
-    {
+    {        
         /// <summary>
         /// 
         /// </summary>
@@ -99,8 +100,12 @@ namespace DionysosFX.Host
                     
                     try
                     {
-                        using (var writer = new StreamWriter(context.Response.Body))
-                            writer.WriteLine("<html><head><body><h1>First Web Server Application</h1></body></head></html>");
+                        await _hostBuilder.ModuleCollection.DispatchRequestAsync(context).ConfigureAwait(false);
+                        if (!context.IsHandled)
+                        {
+                            using (var writer = new StreamWriter(context.Response.OutputStream))
+                                writer.WriteLine("<html><head><body><h1>First Web Server Application</h1></body></head></html>");
+                        }                       
                     }
                     catch (OperationCanceledException) when (context.CancellationToken.IsCancellationRequested)
                     {
@@ -118,7 +123,7 @@ namespace DionysosFX.Host
                 }
                 finally
                 {
-                    await context.Response.Body.FlushAsync(context.CancellationToken).ConfigureAwait(false);
+                    await context.Response.OutputStream.FlushAsync(context.CancellationToken).ConfigureAwait(false);
                     context.Close();
                 }
             }
@@ -157,6 +162,7 @@ namespace DionysosFX.Host
                 State = WebServerState.Loading;
                 Prepare(cancellationToken);
                 State = WebServerState.Listening;
+                _hostBuilder.ModuleCollection.Start(cancellationToken);
                 await ProcessRequestAsync(cancellationToken).ConfigureAwait(false);
             }
             catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)

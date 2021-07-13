@@ -58,9 +58,7 @@ namespace DionysosFX.WebApplication
         private IWebServer CreateWebServer()
         {
             IWebServer webServer = new WebServer(_hostBuilder);
-
-            webServer.StateChanged += (sender, e) => Console.WriteLine($"Server New State {e.NewState}");
-
+            webServer.StateChanged += (sender, e) => Console.WriteLine($"Server New State {e.NewState}");            
             return webServer;
         }
 

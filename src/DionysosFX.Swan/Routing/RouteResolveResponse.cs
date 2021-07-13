@@ -2,6 +2,10 @@
 {
     public class RouteResolveResponse
     {
-
+        public string Route
+        {
+            get;
+            set;
+        }
     }
 }

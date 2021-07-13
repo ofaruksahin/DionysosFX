@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DionysosFX.Host\DionysosFX.Host.csproj" />
     <ProjectReference Include="..\DionysosFX.Module.StaticFile\DionysosFX.Module.StaticFile.csproj" />
+    <ProjectReference Include="..\DionysosFX.Module.WebApi\DionysosFX.Module.WebApi.csproj" />
     <ProjectReference Include="..\DionysosFX.Swan\DionysosFX.Swan.csproj" />
   </ItemGroup>
 

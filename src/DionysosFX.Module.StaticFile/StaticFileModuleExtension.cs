@@ -18,7 +18,7 @@ namespace DionysosFX.Module.StaticFile
             var module = @this.Container.Resolve<StaticFileModule>();
             if (module == null)
                 throw new Exception($"{nameof(module)} Module not found");
-            @this.ModuleCollection.Add(nameof(module), module);
+            @this.ModuleCollection.Add(module.GetType().Name, module);
             return @this;
         }
     }

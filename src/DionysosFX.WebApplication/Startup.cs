@@ -1,5 +1,6 @@
 ﻿using DionysosFX.Host;
 using DionysosFX.Module.StaticFile;
+using DionysosFX.Module.WebApi;
 using DionysosFX.Swan;
 using System;
 using System.Threading;
@@ -34,6 +35,7 @@ namespace DionysosFX.WebApplication
             System.Console.WriteLine("On Configure Method");
             _hostBuilder.AddPrefix("http://*:1923");
             _hostBuilder.AddStaticFileModule();
+            _hostBuilder.AddWebApiModule();
         }
 
         /// <summary>
@@ -44,6 +46,7 @@ namespace DionysosFX.WebApplication
             System.Console.WriteLine("On Build Method");
             _hostBuilder.BuilderContainer();
             _hostBuilder.UseStaticFileModule();
+            _hostBuilder.UseWebApiModule();
 
             using (var cts = new CancellationTokenSource())
             {

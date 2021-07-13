@@ -2,6 +2,10 @@
 
 namespace DionysosFX.Swan.Routing
 {
+    [AttributeUsage(
+        AttributeTargets.Class | 
+        AttributeTargets.Method, 
+        AllowMultiple = false)]        
     public class RouteAttribute : Attribute
     {
         public HttpVerb Verb
@@ -21,5 +25,11 @@ namespace DionysosFX.Swan.Routing
             Verb = verb;
             Route = route;
         }
+
+        public RouteAttribute(string route)
+        {
+            Route = route;
+        }
+
     }
 }

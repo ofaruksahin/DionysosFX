@@ -1,4 +1,5 @@
-﻿using DionysosFX.Swan.Net;
+﻿using DionysosFX.Swan.Associations;
+using DionysosFX.Swan.Net;
 using System;
 using System.IO;
 using System.Net;
@@ -11,10 +12,12 @@ namespace DionysosFX.Host.Net.Internal
     /// </summary>
     internal class SystemHttpResponse : IHttpResponse
     {
+        private SystemHttpContext _context;
         private System.Net.HttpListenerResponse _response;
 
-        public SystemHttpResponse(System.Net.HttpListenerResponse response)
+        public SystemHttpResponse(SystemHttpContext context,System.Net.HttpListenerResponse response)
         {
+            _context = context;
             _response = response;
         }
 
@@ -67,7 +70,11 @@ namespace DionysosFX.Host.Net.Internal
         public int StatusCode
         {
             get => _response.StatusCode;
-            set => _response.StatusCode = value;
+            set
+            {
+                _response.StatusCode = value;
+                StatusDescription = HttpStatusDescription.Get(value);
+            }
         }
 
         public string StatusDescription
@@ -110,11 +117,13 @@ namespace DionysosFX.Host.Net.Internal
         public void Close()
         {
             _response.Close();
+            _context.SetHandled();
         }
 
         public void Close(byte[] responseEntity, bool willBlock)
         {
             _response.Close(responseEntity, willBlock);
+            _context.SetHandled();
         }
 
         public void CopyFrom(HttpListenerResponse templateResponse)
@@ -125,6 +134,7 @@ namespace DionysosFX.Host.Net.Internal
         public void Redirect(string url)
         {
             _response.Redirect(url);
+            _context.SetHandled();
         }
 
         public void SetCookie(Cookie cookie)

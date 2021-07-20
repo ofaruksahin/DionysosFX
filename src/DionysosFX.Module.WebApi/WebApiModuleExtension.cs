@@ -8,7 +8,7 @@ namespace DionysosFX.Module.WebApi
     {
         public static IHostBuilder AddWebApiModule(this IHostBuilder @this)
         {
-            @this.ContainerBuilder.RegisterType<WebApiModule>();
+            @this.ContainerBuilder.RegisterType<WebApiModule>().SingleInstance();
             return @this;
         }
 
@@ -20,5 +20,18 @@ namespace DionysosFX.Module.WebApi
             @this.ModuleCollection.Add(module.GetType().Name, module);
             return @this;
         }
+
+        public static bool IsWebApiController(this Type @this)
+        {
+            if (@this.BaseType == null)
+                return false;
+
+            if (@this.BaseType == typeof(WebApiController))
+                return true;
+            else
+                return @this.BaseType.IsWebApiController();
+
+        }
+
     }
 }

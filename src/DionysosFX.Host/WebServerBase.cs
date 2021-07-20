@@ -100,6 +100,7 @@ namespace DionysosFX.Host
                     
                     try
                     {
+                        context.Container = HostBuilder.Container;
                         await _hostBuilder.ModuleCollection.DispatchRequestAsync(context).ConfigureAwait(false);
                         if (!context.IsHandled)
                         {

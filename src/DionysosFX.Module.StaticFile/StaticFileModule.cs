@@ -24,6 +24,8 @@ namespace DionysosFX.Module.StaticFile
 
         public async Task HandleRequestAsync(IHttpContext context)
         {
+            if (context.IsHandled)
+                return;
             string fileName = string.Empty;
             if (context.Request.RawUrl == "/")
             {

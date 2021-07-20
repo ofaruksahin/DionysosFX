@@ -1,4 +1,5 @@
-﻿using DionysosFX.Swan.Net;
+﻿using Autofac;
+using DionysosFX.Swan.Net;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
@@ -68,6 +69,17 @@ namespace DionysosFX.Host.Net.Internal
         /// 
         /// </summary>
         public bool IsHandled => _isHandled;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private IContainer _container;
+        public IContainer Container
+        {
+            get => _container;
+            set => _container = value;
+        }
+
         /// <summary>
         /// 
         /// </summary>

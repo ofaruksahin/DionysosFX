@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using Autofac;
+using System.Threading;
 
 namespace DionysosFX.Swan.Net
 {
@@ -56,5 +57,11 @@ namespace DionysosFX.Swan.Net
         /// 
         /// </summary>
         void SetHandled();
+
+        IContainer Container
+        {
+            get;
+            set;
+        }
     }
 }

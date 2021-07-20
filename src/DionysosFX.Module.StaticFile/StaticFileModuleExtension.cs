@@ -9,7 +9,7 @@ namespace DionysosFX.Module.StaticFile
     {
         public static IHostBuilder AddStaticFileModule(this IHostBuilder @this)
         {
-            @this.ContainerBuilder.RegisterType<StaticFileModule>();
+            @this.ContainerBuilder.RegisterType<StaticFileModule>().SingleInstance();
             return @this;
         }
 

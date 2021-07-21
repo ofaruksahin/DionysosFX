@@ -1,5 +1,7 @@
 ﻿using DionysosFX.Swan.Net;
+using HttpMultipartParser;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
@@ -22,6 +24,18 @@ namespace DionysosFX.Host.Net.Internal
         public SystemHttpRequest(System.Net.HttpListenerRequest request)
         {
             _request = request;
+
+            if (!String.IsNullOrEmpty(ContentType) && ContentType.Contains("multipart/form-data"))
+            {
+                multipartFormDataParser = MultipartFormDataParser.Parse(InputStream);
+                _form = multipartFormDataParser.Parameters;
+                _files = multipartFormDataParser.Files;
+            }
+            else
+            {
+                _form = new List<ParameterPart>();
+                _files = new List<FilePart>();
+            }
         }
 
         public bool IsSecureConnection => _request.IsSecureConnection;
@@ -58,6 +72,7 @@ namespace DionysosFX.Host.Net.Internal
 
         public string[] UserLanguages => _request.UserLanguages;
 
+        private MultipartFormDataParser multipartFormDataParser = null;
         public Stream InputStream => _request.InputStream;
 
         public string HttpMethod => _request.HttpMethod;
@@ -80,12 +95,18 @@ namespace DionysosFX.Host.Net.Internal
 
         public bool IsLocal => _request.IsLocal;
 
+        private IReadOnlyList<ParameterPart> _form = null;
+        public IReadOnlyList<ParameterPart> Form => _form;
+
+        private IReadOnlyList<FilePart> _files = null;
+        public IReadOnlyList<FilePart> Files => _files;
+
         public IAsyncResult BeginGetClientCertificate(AsyncCallback requestCallback, object state) => _request.BeginGetClientCertificate(requestCallback, state);
 
         public X509Certificate2 EndGetClientCertificate(IAsyncResult asyncResult) => _request.EndGetClientCertificate(asyncResult);
 
         public X509Certificate2 GetClientCertificate() => _request.GetClientCertificate();
 
-        public Task<X509Certificate2> GetClientCertificateAsync() => _request.GetClientCertificateAsync();        
+        public Task<X509Certificate2> GetClientCertificateAsync() => _request.GetClientCertificateAsync();
     }
 }

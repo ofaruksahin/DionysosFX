@@ -1,13 +1,16 @@
 ﻿using DionysosFX.Swan.Routing;
+using DionysosFX.WebApplication.IRepository;
 using System.Threading.Tasks;
 
 namespace DionysosFX.WebApplication.Controllers
 {
     public class PersonController : BaseController
     {
-        public PersonController(string qwe)
-        {
+        IUserRepository _userService;
 
+        public PersonController(IUserRepository userService)
+        {
+            _userService = userService;
         }
 
         [Route(HttpVerb.GET,"list")]

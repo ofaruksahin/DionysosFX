@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HttpMultipartParser;
+using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
@@ -235,6 +237,16 @@ namespace DionysosFX.Swan.Net
         /// 
         /// </summary>
         bool IsLocal
+        {
+            get;
+        }
+
+        IReadOnlyList<ParameterPart> Form
+        {
+            get;
+        }
+
+        IReadOnlyList<FilePart> Files
         {
             get;
         }

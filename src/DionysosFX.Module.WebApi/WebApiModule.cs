@@ -1,8 +1,10 @@
-﻿using DionysosFX.Swan.Modules;
+﻿using Autofac;
+using DionysosFX.Swan.Modules;
 using DionysosFX.Swan.Net;
 using DionysosFX.Swan.Routing;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -47,8 +49,25 @@ namespace DionysosFX.Module.WebApi
                 HttpVerb verb = (HttpVerb)_verb;
                 var routeItems = routes.Where(f => f.Route == context.Request.Url.LocalPath && f.Verb == verb);
                 WebApiController instance = null;
+                string body = string.Empty;
                 foreach (var routeItem in routeItems)
                 {
+                    var invokeParameters = routeItem.Invoke.GetParameters().ToList();
+                    if (!invokeParameters.Any() && (context.Request.QueryString.Count > 0 || context.Request.Form.Count > 0 || context.Request.Files.Count > 0))
+                    {
+                        if (context.Request.ContentType != "application/x-www-form-urlencoded")
+                            continue;
+                        if (string.IsNullOrEmpty(body))
+                        {
+                            using (StreamReader reader = new StreamReader(context.Request.InputStream))
+                            {
+                                body = reader.ReadToEnd();
+                            }
+                        }
+
+                        if (string.IsNullOrEmpty(body))
+                            continue;
+                    }
                     if (instance == null)
                     {
                         var constructors = routeItem.EndpointType.GetConstructors();
@@ -58,10 +77,28 @@ namespace DionysosFX.Module.WebApi
                             var ctorParameters = constructor.GetParameters();
                             foreach (var ctorParameter in ctorParameters)
                             {
-                                
+                                try
+                                {
+                                    var ctParam = context.Container.Resolve(ctorParameter.ParameterType);
+                                    _ctorParameters.Add(ctParam);
+                                }
+                                catch (Exception)
+                                {
+                                    _ctorParameters.Add(null);
+                                }
                             }
-                            //instance = (WebApiController)Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo());
+                            instance = (WebApiController)Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo(), _ctorParameters.ToArray());
+                            break;
                         }
+
+                        if (instance == null)
+                            instance = (WebApiController)Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo());
+                    }
+
+
+                    if (!invokeParameters.Any())
+                    {
+                        routeItem.Invoke.Invoke(instance, null);
                     }
                 }
             }

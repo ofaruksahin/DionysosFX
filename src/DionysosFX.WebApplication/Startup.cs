@@ -1,7 +1,10 @@
-﻿using DionysosFX.Host;
+﻿using Autofac;
+using DionysosFX.Host;
 using DionysosFX.Module.StaticFile;
 using DionysosFX.Module.WebApi;
 using DionysosFX.Swan;
+using DionysosFX.WebApplication.IRepository;
+using DionysosFX.WebApplication.Repository;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,6 +39,11 @@ namespace DionysosFX.WebApplication
             _hostBuilder.AddPrefix("http://*:1923");
             _hostBuilder.AddStaticFileModule();
             _hostBuilder.AddWebApiModule();
+
+            _hostBuilder
+                .ContainerBuilder
+                .RegisterType<UserRepository>()
+                .As<IUserRepository>();
         }
 
         /// <summary>

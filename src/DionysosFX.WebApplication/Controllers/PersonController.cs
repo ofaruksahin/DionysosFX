@@ -1,4 +1,6 @@
-﻿using DionysosFX.Swan.Routing;
+﻿using DionysosFX.Module.WebApi;
+using DionysosFX.Swan.Routing;
+using DionysosFX.WebApplication.Dtos;
 using DionysosFX.WebApplication.IRepository;
 using System.Threading.Tasks;
 
@@ -20,7 +22,19 @@ namespace DionysosFX.WebApplication.Controllers
         }
 
         [Route(HttpVerb.GET,"get/{id}/{age}")]
-        public async Task<bool> GetUser()
+        public async Task<bool> GetUser([QueryData]int id,[QueryData]int age)
+        {
+            return true;
+        }
+
+        [Route(HttpVerb.GET,"/get/{id}/{age}/{name}")]
+        public async Task<bool> GetUser([QueryData] int id,[QueryData]int age,[QueryData]string name)
+        {
+            return true;
+        }
+
+        [Route(HttpVerb.GET,"/insert")]
+        public async Task<bool> Insert([JsonData]User user)
         {
             return true;
         }

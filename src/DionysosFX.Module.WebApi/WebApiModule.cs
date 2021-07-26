@@ -2,6 +2,7 @@
 using DionysosFX.Swan.Modules;
 using DionysosFX.Swan.Net;
 using DionysosFX.Swan.Routing;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -93,6 +94,7 @@ namespace DionysosFX.Module.WebApi
 
                     if (!invokeParameters.Any())
                     {
+                        routeItem.SetHttpContext?.Invoke(instance, new[] { context});
                         routeItem.Invoke.Invoke(instance, null);
                     }
                     else
@@ -113,13 +115,14 @@ namespace DionysosFX.Module.WebApi
                             }
                             if (attribute is JsonDataAttribute)
                             {
-                                //_invokeParameters.Add(JsonConvert)
+                                _invokeParameters.Add(JsonConvert.DeserializeObject(body, invokeParameter.ParameterType));
                             }
                             if (attribute is QueryDataAttribute)
                             {
                                 _invokeParameters.Add(Convert.ChangeType(context.Request.QueryString[invokeParameter.Name], invokeParameter.ParameterType));
                             }
                         }
+                        routeItem.SetHttpContext?.Invoke(instance, new[] { context });
                         routeItem.Invoke.Invoke(instance, _invokeParameters.ToArray());
                     }
                 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DionysosFX.WebApplication.Controllers
 {
+    [Route("person")]
     public class PersonController : BaseController
     {
         IUserRepository _userService;
@@ -33,7 +34,7 @@ namespace DionysosFX.WebApplication.Controllers
             return true;
         }
 
-        [Route(HttpVerb.GET,"/insert")]
+        [Route(HttpVerb.POST,"/insert")]
         public async Task<bool> Insert([JsonData]User user)
         {
             return true;

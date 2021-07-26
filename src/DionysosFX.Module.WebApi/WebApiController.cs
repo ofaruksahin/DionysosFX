@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DionysosFX.Swan.Net;
+using System;
 
 namespace DionysosFX.Module.WebApi
 {
@@ -6,10 +7,18 @@ namespace DionysosFX.Module.WebApi
     public abstract class WebApiController : IDisposable
     {
         bool _disposed;
+
+        public IHttpContext Context;
+
         public virtual void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        private void SetHttpContext(IHttpContext _context)
+        {
+            Context = _context;
         }
 
         private void Dispose(bool disposing)

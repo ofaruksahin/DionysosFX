@@ -49,7 +49,7 @@ namespace DionysosFX.Module.WebApi
             {
                 HttpVerb verb = (HttpVerb)_verb;
                 var routeItems = routes.Where(f => f.Route == context.Request.Url.LocalPath && f.Verb == verb);
-                WebApiController instance = null;
+                object instance = null;
                 string body = string.Empty;
                 using (StreamReader reader = new StreamReader(context.Request.InputStream))
                 {
@@ -83,12 +83,12 @@ namespace DionysosFX.Module.WebApi
                                     _ctorParameters.Add(null);
                                 }
                             }
-                            instance = (WebApiController)Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo(), _ctorParameters.ToArray());
+                            instance = Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo(), _ctorParameters.ToArray());
                             break;
                         }
 
                         if (instance == null)
-                            instance = (WebApiController)Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo());
+                            instance = Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo());
                     }
 
 
@@ -111,7 +111,7 @@ namespace DionysosFX.Module.WebApi
 
                             if (attribute is FormDataAttribute)
                             {
-
+                                
                             }
                             if (attribute is JsonDataAttribute)
                             {

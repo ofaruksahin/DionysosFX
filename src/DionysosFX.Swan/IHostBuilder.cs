@@ -46,6 +46,6 @@ namespace DionysosFX.Swan
         /// <summary>
         /// 
         /// </summary>
-        void BuilderContainer();
+        void BuildContainer();
     }
 }

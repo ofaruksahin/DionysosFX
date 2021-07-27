@@ -32,6 +32,5 @@ namespace DionysosFX.Module.WebApi
                 return @this.BaseType.IsWebApiController();
 
         }
-
     }
 }

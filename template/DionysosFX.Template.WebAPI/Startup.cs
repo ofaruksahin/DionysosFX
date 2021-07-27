@@ -1,25 +1,24 @@
 ﻿using Autofac;
 using DionysosFX.Host;
 using DionysosFX.Module.OpenApi;
-using DionysosFX.Module.StaticFile;
 using DionysosFX.Module.WebApi;
 using DionysosFX.Swan;
-using DionysosFX.WebApplication.IRepository;
-using DionysosFX.WebApplication.Repository;
+using DionysosFX.Template.WebAPI.IService;
+using DionysosFX.Template.WebAPI.Service;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DionysosFX.WebApplication
+namespace DionysosFX.Template.WebAPI
 {
     /// <summary>
     /// 
     /// </summary>
     public class Startup : IStartup
     {
-        /// <summary>
-        /// 
-        /// </summary>
         IHostBuilder _hostBuilder;
 
         /// <summary>
@@ -29,40 +28,38 @@ namespace DionysosFX.WebApplication
         public Startup(IHostBuilder hostBuilder)
         {
             _hostBuilder = hostBuilder;
-        }       
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Configure()
-        {
-            System.Console.WriteLine("On Configure Method");
-            _hostBuilder.AddPrefix("http://*:1923");
-            _hostBuilder.AddStaticFileModule();
-            _hostBuilder.AddWebApiModule();
-            _hostBuilder.AddOpenApiModule();
-
-            _hostBuilder
-                .ContainerBuilder
-                .RegisterType<UserRepository>()
-                .As<IUserRepository>();
         }
 
         /// <summary>
         /// 
         /// </summary>
         public void Build()
-        {            
-            System.Console.WriteLine("On Build Method");
+        {
             _hostBuilder.BuildContainer();
-            _hostBuilder.UseStaticFileModule();
             _hostBuilder.UseWebApiModule();
             _hostBuilder.UseOpenApiModule();
 
             using (var cts = new CancellationTokenSource())
             {
                 Task.WaitAll(RunWebServer(cts.Token));
-            }            
+            }
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Configure()
+        {
+            _hostBuilder.AddPrefix("http://*:1923");
+            _hostBuilder.AddWebApiModule();
+            _hostBuilder.AddOpenApiModule();
+
+            _hostBuilder
+                .ContainerBuilder
+                .RegisterType<UserService>()
+                .As<IUserService>()
+                .SingleInstance();
         }
 
         /// <summary>
@@ -72,7 +69,7 @@ namespace DionysosFX.WebApplication
         private IWebServer CreateWebServer()
         {
             IWebServer webServer = new WebServer(_hostBuilder);
-            webServer.StateChanged += (sender, e) => Console.WriteLine($"Server New State {e.NewState}");            
+            webServer.StateChanged += (sender, e) => Console.WriteLine($"Server New State {e.NewState}");
             return webServer;
         }
 
@@ -83,7 +80,7 @@ namespace DionysosFX.WebApplication
         /// <returns></returns>
         private async Task RunWebServer(CancellationToken cancellationToken)
         {
-            using var server = CreateWebServer();            
+            using var server = CreateWebServer();
             await server.RunAsync(cancellationToken).ConfigureAwait(false);
         }
     }

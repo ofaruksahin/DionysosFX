@@ -66,7 +66,7 @@ namespace DionysosFX.Host
                 _prefixes.Add(prefix);
         }
 
-        public void BuilderContainer()
+        public void BuildContainer()
         {
             _container = _containerBuilder?.Build();
         }

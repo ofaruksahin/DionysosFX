@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31423.177
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Host", "Host", "{59E30FED-7AE3-4AB8-AF4D-036891BDACA0}"
 EndProject
@@ -19,13 +19,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{C6DA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.StaticFile", "src\DionysosFX.Module.StaticFile\DionysosFX.Module.StaticFile.csproj", "{C03D7200-F60C-465F-97EB-A2574FD45DD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.Cors", "src\DionysosFX.Module.Cors\DionysosFX.Module.Cors.csproj", "{3825E263-4D29-447B-91A5-312DFB6B175F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.Cors", "src\DionysosFX.Module.Cors\DionysosFX.Module.Cors.csproj", "{3825E263-4D29-447B-91A5-312DFB6B175F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.WebApi", "src\DionysosFX.Module.WebApi\DionysosFX.Module.WebApi.csproj", "{09E6FF0A-59B2-4EF3-9053-252DCD9D7D96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.WebApi", "src\DionysosFX.Module.WebApi\DionysosFX.Module.WebApi.csproj", "{09E6FF0A-59B2-4EF3-9053-252DCD9D7D96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.WebSocket", "src\DionysosFX.Module.WebSocket\DionysosFX.Module.WebSocket.csproj", "{8E51D603-3489-4BA2-BC48-2BC0E7D50FB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.WebSocket", "src\DionysosFX.Module.WebSocket\DionysosFX.Module.WebSocket.csproj", "{8E51D603-3489-4BA2-BC48-2BC0E7D50FB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.OpenApi", "src\DionysosFX.Module.OpenApi\DionysosFX.Module.OpenApi.csproj", "{B70C4E1F-9136-4238-A617-38DEA38A4423}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.OpenApi", "src\DionysosFX.Module.OpenApi\DionysosFX.Module.OpenApi.csproj", "{B70C4E1F-9136-4238-A617-38DEA38A4423}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.FluentValidator", "src\DionysosFX.Module.FluentValidator\DionysosFX.Module.FluentValidator.csproj", "{E62C27FA-E0B9-4377-8DC7-2C1B9A11BB8B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{14B3CC56-9B46-48AD-8DCD-E18A458D08C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Template.WebAPI", "template\DionysosFX.Template.WebAPI\DionysosFX.Template.WebAPI.csproj", "{09991608-7CC3-40F6-A69D-F78B2ED494D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +71,14 @@ Global
 		{B70C4E1F-9136-4238-A617-38DEA38A4423}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B70C4E1F-9136-4238-A617-38DEA38A4423}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B70C4E1F-9136-4238-A617-38DEA38A4423}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E62C27FA-E0B9-4377-8DC7-2C1B9A11BB8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E62C27FA-E0B9-4377-8DC7-2C1B9A11BB8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E62C27FA-E0B9-4377-8DC7-2C1B9A11BB8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E62C27FA-E0B9-4377-8DC7-2C1B9A11BB8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09991608-7CC3-40F6-A69D-F78B2ED494D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09991608-7CC3-40F6-A69D-F78B2ED494D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09991608-7CC3-40F6-A69D-F78B2ED494D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09991608-7CC3-40F6-A69D-F78B2ED494D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +92,8 @@ Global
 		{09E6FF0A-59B2-4EF3-9053-252DCD9D7D96} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
 		{8E51D603-3489-4BA2-BC48-2BC0E7D50FB5} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
 		{B70C4E1F-9136-4238-A617-38DEA38A4423} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
+		{E62C27FA-E0B9-4377-8DC7-2C1B9A11BB8B} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
+		{09991608-7CC3-40F6-A69D-F78B2ED494D7} = {14B3CC56-9B46-48AD-8DCD-E18A458D08C9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {649875DE-A7F9-4D8E-BD5C-D785B7554E16}

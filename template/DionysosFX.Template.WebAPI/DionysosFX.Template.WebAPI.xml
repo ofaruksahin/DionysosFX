@@ -81,6 +81,13 @@
             </summary>
             <param name="id"></param>
         </member>
+        <member name="M:DionysosFX.Template.WebAPI.Controllers.UserController.UploadFile(System.Int32,DionysosFX.Template.WebAPI.Entities.User)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="entity"></param>
+        </member>
         <member name="T:DionysosFX.Template.WebAPI.Entities.User">
             <summary>
             
@@ -97,6 +104,11 @@
             </summary>
         </member>
         <member name="P:DionysosFX.Template.WebAPI.Entities.User.Surname">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DionysosFX.Template.WebAPI.Entities.User.Files">
             <summary>
             
             </summary>

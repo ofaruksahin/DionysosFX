@@ -1,4 +1,5 @@
 ﻿using DionysosFX.Module.WebApi;
+using DionysosFX.Swan.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,27 +17,32 @@ namespace DionysosFX.Template.WebAPI.Controllers
         /// <summary>
         /// 
         /// </summary>
+        [Route(HttpVerb.GET, "/list")]
         void List();
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
-        void Get([QueryData]int id);
+        [Route(HttpVerb.GET,"/get")]
+        void Get([QueryData] int id);
         /// <summary>
         /// 
         /// </summary>
         /// <param name="entity"></param>
-        void Insert([JsonData]TEntity entity);
+        [Route(HttpVerb.POST,"/insert")]
+        void Insert([JsonData] TEntity entity);
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
         /// <param name="entity"></param>
+        [Route(HttpVerb.PUT,"/update")]
         void Update([QueryData] int id, [JsonData] TEntity entity);
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
+        [Route(HttpVerb.DELETE,"/delete")]
         void Delete([QueryData] int id);
     }
 }

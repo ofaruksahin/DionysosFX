@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DionysosFX.Swan.HttpMultipart;
 using DionysosFX.Swan.Modules;
 using DionysosFX.Swan.Net;
 using DionysosFX.Swan.Routing;
@@ -111,6 +112,7 @@ namespace DionysosFX.Module.WebApi
 
                             if (attribute is FormDataAttribute)
                             {
+                                var t = context.ToFormObject(invokeParameter.ParameterType);
                                 _invokeParameters.Add(null);
                             }
                             if (attribute is JsonDataAttribute)

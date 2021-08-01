@@ -112,8 +112,7 @@ namespace DionysosFX.Module.WebApi
 
                             if (attribute is FormDataAttribute)
                             {
-                                var t = context.ToFormObject(invokeParameter.ParameterType);
-                                _invokeParameters.Add(null);
+                                _invokeParameters.Add(context.ToFormObject(invokeParameter.ParameterType));
                             }
                             if (attribute is JsonDataAttribute)
                             {

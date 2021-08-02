@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31424.327
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31521.260
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Host", "Host", "{59E30FED-7AE3-4AB8-AF4D-036891BDACA0}"
 EndProject
@@ -27,11 +27,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.WebSocket
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.OpenApi", "src\DionysosFX.Module.OpenApi\DionysosFX.Module.OpenApi.csproj", "{B70C4E1F-9136-4238-A617-38DEA38A4423}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.FluentValidator", "src\DionysosFX.Module.FluentValidator\DionysosFX.Module.FluentValidator.csproj", "{E62C27FA-E0B9-4377-8DC7-2C1B9A11BB8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.FluentValidator", "src\DionysosFX.Module.FluentValidator\DionysosFX.Module.FluentValidator.csproj", "{E62C27FA-E0B9-4377-8DC7-2C1B9A11BB8B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{14B3CC56-9B46-48AD-8DCD-E18A458D08C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Template.WebAPI", "template\DionysosFX.Template.WebAPI\DionysosFX.Template.WebAPI.csproj", "{09991608-7CC3-40F6-A69D-F78B2ED494D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Template.WebAPI", "template\DionysosFX.Template.WebAPI\DionysosFX.Template.WebAPI.csproj", "{09991608-7CC3-40F6-A69D-F78B2ED494D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.Cors.Test", "test\DionysosFX.Module.Cors.Test\DionysosFX.Module.Cors.Test.csproj", "{CF28EBCC-CB31-4904-AC5E-68A0FDDD81BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.FluentValidator.Test", "test\DionysosFX.Module.FluentValidator.Test\DionysosFX.Module.FluentValidator.Test.csproj", "{E5551B9C-BB68-497B-AA94-74A5949B6F29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.OpenApi.Test", "test\DionysosFX.Module.OpenApi.Test\DionysosFX.Module.OpenApi.Test.csproj", "{881D9924-A161-4882-B54E-FA7F7DB72D76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.StaticFile.Test", "test\DionysosFX.Module.StaticFile.Test\DionysosFX.Module.StaticFile.Test.csproj", "{AC4B1756-F8A4-42CF-A383-C7C9256C79B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.WebApi.Test", "test\DionysosFX.Module.WebApi.Test\DionysosFX.Module.WebApi.Test.csproj", "{C950CB16-6BA7-404A-8724-7B49FFF26DC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.WebSocket.Test", "test\DionysosFX.Module.WebSocket.Test\DionysosFX.Module.WebSocket.Test.csproj", "{980DB7C7-682D-4FDA-B360-2FFEDA76477E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +91,30 @@ Global
 		{09991608-7CC3-40F6-A69D-F78B2ED494D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09991608-7CC3-40F6-A69D-F78B2ED494D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09991608-7CC3-40F6-A69D-F78B2ED494D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF28EBCC-CB31-4904-AC5E-68A0FDDD81BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF28EBCC-CB31-4904-AC5E-68A0FDDD81BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF28EBCC-CB31-4904-AC5E-68A0FDDD81BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF28EBCC-CB31-4904-AC5E-68A0FDDD81BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5551B9C-BB68-497B-AA94-74A5949B6F29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5551B9C-BB68-497B-AA94-74A5949B6F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5551B9C-BB68-497B-AA94-74A5949B6F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5551B9C-BB68-497B-AA94-74A5949B6F29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{881D9924-A161-4882-B54E-FA7F7DB72D76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{881D9924-A161-4882-B54E-FA7F7DB72D76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{881D9924-A161-4882-B54E-FA7F7DB72D76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{881D9924-A161-4882-B54E-FA7F7DB72D76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC4B1756-F8A4-42CF-A383-C7C9256C79B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC4B1756-F8A4-42CF-A383-C7C9256C79B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC4B1756-F8A4-42CF-A383-C7C9256C79B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC4B1756-F8A4-42CF-A383-C7C9256C79B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C950CB16-6BA7-404A-8724-7B49FFF26DC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C950CB16-6BA7-404A-8724-7B49FFF26DC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C950CB16-6BA7-404A-8724-7B49FFF26DC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C950CB16-6BA7-404A-8724-7B49FFF26DC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{980DB7C7-682D-4FDA-B360-2FFEDA76477E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{980DB7C7-682D-4FDA-B360-2FFEDA76477E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{980DB7C7-682D-4FDA-B360-2FFEDA76477E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{980DB7C7-682D-4FDA-B360-2FFEDA76477E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +130,12 @@ Global
 		{B70C4E1F-9136-4238-A617-38DEA38A4423} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
 		{E62C27FA-E0B9-4377-8DC7-2C1B9A11BB8B} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
 		{09991608-7CC3-40F6-A69D-F78B2ED494D7} = {14B3CC56-9B46-48AD-8DCD-E18A458D08C9}
+		{CF28EBCC-CB31-4904-AC5E-68A0FDDD81BF} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
+		{E5551B9C-BB68-497B-AA94-74A5949B6F29} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
+		{881D9924-A161-4882-B54E-FA7F7DB72D76} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
+		{AC4B1756-F8A4-42CF-A383-C7C9256C79B9} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
+		{C950CB16-6BA7-404A-8724-7B49FFF26DC3} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
+		{980DB7C7-682D-4FDA-B360-2FFEDA76477E} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {649875DE-A7F9-4D8E-BD5C-D785B7554E16}

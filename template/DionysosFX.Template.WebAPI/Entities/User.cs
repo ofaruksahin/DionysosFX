@@ -25,5 +25,10 @@ namespace DionysosFX.Template.WebAPI.Entities
         /// 
         /// </summary>
         public List<FilePart> Files { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public FilePart ProfilePhoto { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using DionysosFX.Module.WebApi;
 using DionysosFX.Swan.Routing;
 using DionysosFX.Template.WebAPI.Entities;
 using DionysosFX.Template.WebAPI.IService;
+using DionysosFX.Template.WebAPI.WebApiFilters;
 using System.Collections.Generic;
 using System.Net;
 
@@ -12,6 +13,7 @@ namespace DionysosFX.Template.WebAPI.Controllers
     /// 
     /// </summary>
     [Route("/user")]
+    [AuthorizeFilter]
     public class UserController : WebApiController, IController<User>
     {
         IUserService _userService;
@@ -94,6 +96,7 @@ namespace DionysosFX.Template.WebAPI.Controllers
         /// <param name="id"></param>
         /// <param name="entity"></param>
         [Route(HttpVerb.PUT,"/upload/{id}")]
+        [ResponseType(HttpStatusCode.OK,typeof(bool),"Upload File")]
         public void UploadFile([QueryData]int id,[FormData]User entity)
         {
 

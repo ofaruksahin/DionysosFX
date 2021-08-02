@@ -35,7 +35,7 @@ namespace DionysosFX.Module.WebApi
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
             }
@@ -92,7 +92,10 @@ namespace DionysosFX.Module.WebApi
                             instance = Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo());
                     }
 
-
+                    IWebApiFilter webApiFilter = (IWebApiFilter?)routeItem.Attributes.FirstOrDefault(f=>f is IWebApiFilter);
+                    webApiFilter?.OnBefore(context);
+                    if (context.IsHandled)
+                        break;
                     if (!invokeParameters.Any())
                     {
                         routeItem.SetHttpContext?.Invoke(instance, new[] { context});
@@ -126,6 +129,8 @@ namespace DionysosFX.Module.WebApi
                         routeItem.SetHttpContext?.Invoke(instance, new[] { context });
                         routeItem.Invoke.Invoke(instance, _invokeParameters.ToArray());
                     }
+                    if (context.IsHandled)
+                        webApiFilter?.OnAfter(context);
                 }
             }
         }

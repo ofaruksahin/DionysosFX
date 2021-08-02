@@ -19,6 +19,7 @@ namespace DionysosFX.Swan.Routing
                 prefix = ((RouteAttribute)mainAttr).Route;
             if (!string.IsNullOrEmpty(prefix) && !prefix.StartsWith("/"))
                 prefix = string.Format("/{0}", prefix);
+            var mainAttributes = @this.GetCustomAttributes().ToList();
             var endpoints = @this.GetMethods(BindingFlags.Instance | BindingFlags.Public).ToList();
             if (endpoints.Any())
             {
@@ -55,6 +56,8 @@ namespace DionysosFX.Swan.Routing
                             if (!isUrl)
                                 throw new UrlFormatException(routeResolveResponse.Route);
                             routeResolveResponse.EndpointType = @this;
+                            routeResolveResponse.Attributes.AddRange(mainAttributes);
+                            routeResolveResponse.Attributes.AddRange(endpoint.GetCustomAttributes().ToList());
                             resolveResponses.Add(routeResolveResponse);
                         }
                     }

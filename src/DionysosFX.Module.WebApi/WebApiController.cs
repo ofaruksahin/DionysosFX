@@ -1,5 +1,8 @@
 ﻿using DionysosFX.Swan.Net;
+using Newtonsoft.Json;
 using System;
+using System.IO;
+using System.Net;
 
 namespace DionysosFX.Module.WebApi
 {
@@ -30,6 +33,30 @@ namespace DionysosFX.Module.WebApi
                     _disposed = true;
                 }
             }
+        }
+
+        private void ExecuteJson(HttpStatusCode code,object responseItem)
+        {
+            Context.Response.StatusCode = (int)code;
+            Context.Response.ContentType = "application/json";
+            using (var writer = new StreamWriter(Context.Response.OutputStream))
+                writer.WriteLine(JsonConvert.SerializeObject(responseItem));
+            Context.SetHandled();
+        }
+
+        public void Ok(ResponseType responseType, object response = default)
+        {
+            switch (responseType)
+            {
+                case ResponseType.Json:
+                    if (response == null)
+                        ExecuteJson(HttpStatusCode.OK, new { });
+                    else
+                        ExecuteJson(HttpStatusCode.OK, response);
+                    break;
+                case ResponseType.XML:
+                    throw new Exception("XML Response Type Not Supported");
+            }  
         }
     }
 }

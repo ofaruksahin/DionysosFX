@@ -1,7 +1,4 @@
-﻿using HttpMultipartParser;
-using System.Collections.Generic;
-
-namespace DionysosFX.Template.WebAPI.Entities
+﻿namespace DionysosFX.Template.WebAPI.Entities
 {
     /// <summary>
     /// 
@@ -20,15 +17,5 @@ namespace DionysosFX.Template.WebAPI.Entities
         /// 
         /// </summary>
         public string Surname { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<FilePart> Files { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public FilePart ProfilePhoto { get; set; }
     }
 }

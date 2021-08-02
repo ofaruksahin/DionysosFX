@@ -16,7 +16,7 @@ namespace DionysosFX.Template.WebAPI.WebApiFilters
         /// <param name="httpContext"></param>
         public void OnAfter(IHttpContext httpContext)
         {
-            Console.WriteLine("OnAfter");
+            Console.WriteLine("On After Method : {0} {1}",DateTime.Now.ToLongTimeString(),httpContext.Request.Url);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace DionysosFX.Template.WebAPI.WebApiFilters
         /// <param name="httpContext"></param>
         public void OnBefore(IHttpContext httpContext)
         {
-            Console.WriteLine("OnBefore");
+            Console.WriteLine("On After Method : {0} {1}", DateTime.Now.ToLongTimeString(), httpContext.Request.Url);
         }
     }
 }

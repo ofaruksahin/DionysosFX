@@ -15,7 +15,7 @@ namespace DionysosFX.Host
     /// <typeparam name="TStarup"></typeparam>
     public abstract class WebServerBase<TStarup> : ConfiguredObject, IWebServer, IHttpContextHandler
         where TStarup : IHostBuilder
-    {        
+    {
         /// <summary>
         /// 
         /// </summary>
@@ -97,16 +97,17 @@ namespace DionysosFX.Host
                 {
                     if (context.CancellationToken.IsCancellationRequested)
                         return;
-                    
+
                     try
                     {
                         context.Container = HostBuilder.Container;
                         await _hostBuilder.ModuleCollection.DispatchRequestAsync(context).ConfigureAwait(false);
                         if (!context.IsHandled)
                         {
-                            using (var writer = new StreamWriter(context.Response.OutputStream))
-                                writer.WriteLine("<html><head><body><h1>First Web Server Application</h1></body></head></html>");
-                        }                       
+                            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                            context.SetHandled();
+                            context.Close();
+                        }
                     }
                     catch (OperationCanceledException) when (context.CancellationToken.IsCancellationRequested)
                     {
@@ -124,18 +125,22 @@ namespace DionysosFX.Host
                 }
                 finally
                 {
-                    await context.Response.OutputStream.FlushAsync(context.CancellationToken).ConfigureAwait(false);
+                    if (!context.IsHandled)
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                    }
                     context.Close();
                 }
             }
-            catch (OperationCanceledException) when(context.CancellationToken.IsCancellationRequested)
+            catch (OperationCanceledException) when (context.CancellationToken.IsCancellationRequested)
             {
 
-            }catch(HttpListenerException ex)
+            }
+            catch (HttpListenerException ex)
             {
                 Console.WriteLine(ex);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 OnFatalException();

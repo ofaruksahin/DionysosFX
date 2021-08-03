@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DionysosFX.Module.WebApi.EnpointResults;
 using DionysosFX.Swan.HttpMultipart;
 using DionysosFX.Swan.Modules;
 using DionysosFX.Swan.Net;
@@ -14,10 +15,18 @@ using System.Threading.Tasks;
 
 namespace DionysosFX.Module.WebApi
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class WebApiModule : IWebModule
     {
         List<RouteResolveResponse> routes = new List<RouteResolveResponse>();
         Assembly assembly = null;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="cancellationToken"></param>
         public void Start(CancellationToken cancellationToken)
         {
             try
@@ -41,6 +50,11 @@ namespace DionysosFX.Module.WebApi
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public async Task HandleRequestAsync(IHttpContext context)
         {
             if (context.IsHandled)
@@ -67,39 +81,34 @@ namespace DionysosFX.Module.WebApi
                     var invokeParameters = routeItem.Invoke.GetParameters().ToList();
                     if (instance == null)
                     {
-                        var constructors = routeItem.EndpointType.GetConstructors();
-                        foreach (var constructor in constructors)
+                        List<object> _ctorParameters = new List<object>();
+                        foreach (var item in routeItem.ConstructorParameters)
                         {
-                            List<object> _ctorParameters = new List<object>();
-                            var ctorParameters = constructor.GetParameters();
-                            foreach (var ctorParameter in ctorParameters)
+                            try
                             {
-                                try
-                                {
-                                    var ctParam = context.Container.Resolve(ctorParameter.ParameterType);
-                                    _ctorParameters.Add(ctParam);
-                                }
-                                catch (Exception)
-                                {
-                                    _ctorParameters.Add(null);
-                                }
+                                var ctParam = context.Container.Resolve(item.ParameterType);
+                                _ctorParameters.Add(ctParam);
                             }
-                            instance = Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo(), _ctorParameters.ToArray());
-                            break;
+                            catch (Exception)
+                            {
+                                _ctorParameters.Add(null);
+                            }
                         }
+                        instance = Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo(), _ctorParameters.ToArray());
 
                         if (instance == null)
                             instance = Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo());
                     }
 
-                    IEndpointFilter webApiFilter = (IEndpointFilter?)routeItem.Attributes.FirstOrDefault(f=>f is IEndpointFilter);
+                    IEndpointFilter webApiFilter = (IEndpointFilter?)routeItem.Attributes.FirstOrDefault(f => f is IEndpointFilter);
                     webApiFilter?.OnBefore(context);
                     if (context.IsHandled)
                         break;
+                    object invokeResult = null;
                     if (!invokeParameters.Any())
                     {
-                        routeItem.SetHttpContext?.Invoke(instance, new[] { context});
-                        routeItem.Invoke.Invoke(instance, null);
+                        routeItem.SetHttpContext?.Invoke(instance, new[] { context });
+                        invokeResult = routeItem.Invoke.Invoke(instance, null);
                     }
                     else
                     {
@@ -127,8 +136,10 @@ namespace DionysosFX.Module.WebApi
                             }
                         }
                         routeItem.SetHttpContext?.Invoke(instance, new[] { context });
-                        routeItem.Invoke.Invoke(instance, _invokeParameters.ToArray());
+                        invokeResult = routeItem.Invoke.Invoke(instance, _invokeParameters.ToArray());
                     }
+                    if (invokeResult is IEndpointResult invkResult)
+                        invkResult.ExecuteResponse(context);                        
                     if (context.IsHandled)
                         webApiFilter?.OnAfter(context);
                 }

@@ -1,5 +1,6 @@
 ﻿using DionysosFX.Template.WebAPI.Entities;
 using DionysosFX.Template.WebAPI.IService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -10,15 +11,27 @@ namespace DionysosFX.Template.WebAPI.Service
     /// </summary>
     public class UserService : IUserService
     {
-        List<User> list = new List<User>()
+        List<User> list = new List<User>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public UserService()
         {
-            new User
+            if(list.Count == 0)
             {
-                Id = 1,
-                Name = "Ömer Faruk",
-                Surname = "Şahin"
+                int length = new Random().Next(1, 10000);
+                for (int i = 0; i < length; i++)
+                {
+                    list.Add(new User
+                    {
+                        Id = i + 1,
+                        Name = "Ömer Faruk",
+                        Surname = "Şahin"
+                    });
+                }
             }
-        };
+        }
 
         /// <summary>
         /// 

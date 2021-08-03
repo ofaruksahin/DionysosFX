@@ -47,5 +47,11 @@ namespace DionysosFX.Swan.Routing
             get;
             set;
         } = new List<Attribute>();
+
+        public List<ParameterInfo> ConstructorParameters
+        {
+            get;
+            set;
+        } = new List<ParameterInfo>();
     }
 }

@@ -20,9 +20,16 @@ namespace DionysosFX.Swan.Routing
             if (!string.IsNullOrEmpty(prefix) && !prefix.StartsWith("/"))
                 prefix = string.Format("/{0}", prefix);
             var mainAttributes = @this.GetCustomAttributes().ToList();
+            var constructorParameters = new List<ParameterInfo>();
             var endpoints = @this.GetMethods(BindingFlags.Instance | BindingFlags.Public).ToList();
             if (endpoints.Any())
             {
+                var constructors = @this.GetConstructors().ToList();
+                if (constructors.Any())
+                {
+                    var constructor = constructors.FirstOrDefault();
+                    constructorParameters = constructor.GetParameters().ToList();
+                }
                 MethodInfo setHttpContextMethod = @this.GetCustomMethod(WebApiModuleConstants.SetHttpContextMethodName, BindingFlags.Instance | BindingFlags.NonPublic);
                 foreach (var endpoint in endpoints)
                 {
@@ -58,6 +65,7 @@ namespace DionysosFX.Swan.Routing
                             routeResolveResponse.EndpointType = @this;
                             routeResolveResponse.Attributes.AddRange(mainAttributes);
                             routeResolveResponse.Attributes.AddRange(endpoint.GetCustomAttributes().ToList());
+                            routeResolveResponse.ConstructorParameters = constructorParameters;
                             resolveResponses.Add(routeResolveResponse);
                         }
                     }

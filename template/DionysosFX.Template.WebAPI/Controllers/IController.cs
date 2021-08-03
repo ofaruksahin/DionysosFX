@@ -1,4 +1,5 @@
 ﻿using DionysosFX.Module.WebApi;
+using DionysosFX.Module.WebApi.EnpointResults;
 using DionysosFX.Swan.Routing;
 using System;
 using System.Collections.Generic;
@@ -18,13 +19,13 @@ namespace DionysosFX.Template.WebAPI.Controllers
         /// 
         /// </summary>
         [Route(HttpVerb.GET, "/list")]
-        void List();
+        IEndpointResult List();
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
         [Route(HttpVerb.GET,"/get")]
-        void Get([QueryData] int id);
+        IEndpointResult Get([QueryData] int id);
         /// <summary>
         /// 
         /// </summary>

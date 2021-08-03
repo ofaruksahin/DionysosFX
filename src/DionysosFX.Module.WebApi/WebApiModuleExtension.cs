@@ -1,14 +1,18 @@
 ﻿using Autofac;
 using DionysosFX.Swan;
+using DionysosFX.Swan.Net;
 using System;
 
 namespace DionysosFX.Module.WebApi
 {
     public static class WebApiModuleExtension
     {
-        public static IHostBuilder AddWebApiModule(this IHostBuilder @this)
+        public static IHostBuilder AddWebApiModule(this IHostBuilder @this,WebApiModuleOptions options = null)
         {
             @this.ContainerBuilder.RegisterType<WebApiModule>().SingleInstance();
+            if (options == null)
+                options = new WebApiModuleOptions();
+            @this.ContainerBuilder.Register(r => options).As<WebApiModuleOptions>().SingleInstance();
             return @this;
         }
 
@@ -30,7 +34,8 @@ namespace DionysosFX.Module.WebApi
                 return true;
             else
                 return @this.BaseType.IsWebApiController();
-
         }
+        
+        public static WebApiModuleOptions GetWebApiModuleOptions(this IHttpContext @this) => @this.Container.Resolve<WebApiModuleOptions>();   
     }
 }

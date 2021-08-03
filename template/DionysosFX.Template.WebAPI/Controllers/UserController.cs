@@ -1,6 +1,8 @@
 ﻿using DionysosFX.Module.OpenApi;
 using DionysosFX.Module.WebApi;
+using DionysosFX.Module.WebApi.EnpointResults;
 using DionysosFX.Swan.Routing;
+using DionysosFX.Template.WebAPI.Constants;
 using DionysosFX.Template.WebAPI.Entities;
 using DionysosFX.Template.WebAPI.IService;
 using DionysosFX.Template.WebAPI.WebApiFilters;
@@ -32,10 +34,10 @@ namespace DionysosFX.Template.WebAPI.Controllers
         /// </summary>
         [ResponseType(HttpStatusCode.OK, typeof(List<User>), "Get All User List")]
         [Route(HttpVerb.GET, "/list")]
-        public void List()
+        public IEndpointResult List()
         {
             var list = _userService.GetAll();
-            Ok(ResponseType.Json, list);
+            return new Ok(list);
         }
 
         /// <summary>
@@ -43,14 +45,14 @@ namespace DionysosFX.Template.WebAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         [ResponseType(HttpStatusCode.OK, typeof(User), "Get User")]
-        [Route(HttpVerb.GET, "/get")]
-        public void Get([QueryData] int id)
+        [Route(HttpVerb.GET, "/get/{id}")]
+        public IEndpointResult Get([QueryData] int id)
         {
             var user = _userService.Get(id);
             if (user != null)
-            {
-
-            }
+                return new Ok(new BaseResult<User>(user,Messages.Success,HttpStatusCode.OK));
+            else
+                return new NotFound(new BaseResult<User>(null,Messages.Error,HttpStatusCode.NotFound));
         }
 
         /// <summary>

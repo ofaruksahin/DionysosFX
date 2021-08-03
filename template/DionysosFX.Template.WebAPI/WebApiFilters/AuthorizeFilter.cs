@@ -1,5 +1,6 @@
 ﻿using DionysosFX.Module.WebApi;
 using DionysosFX.Swan.Net;
+using DionysosFX.Swan.Routing;
 using System;
 
 namespace DionysosFX.Template.WebAPI.WebApiFilters
@@ -8,7 +9,7 @@ namespace DionysosFX.Template.WebAPI.WebApiFilters
     /// 
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method,AllowMultiple = false)]
-    public class AuthorizeFilter : Attribute, IWebApiFilter
+    public class AuthorizeFilter : Attribute, IEndpointFilter
     {
         /// <summary>
         /// 

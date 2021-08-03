@@ -1,8 +1,8 @@
 ﻿using DionysosFX.Swan.Net;
 
-namespace DionysosFX.Module.WebApi
+namespace DionysosFX.Swan.Routing
 {
-    public interface IWebApiFilter
+    public interface IEndpointFilter
     {
         void OnBefore(IHttpContext httpContext);
         void OnAfter(IHttpContext httpContext);

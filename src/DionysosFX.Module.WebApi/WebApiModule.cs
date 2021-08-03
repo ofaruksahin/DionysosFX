@@ -92,7 +92,7 @@ namespace DionysosFX.Module.WebApi
                             instance = Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo());
                     }
 
-                    IWebApiFilter webApiFilter = (IWebApiFilter?)routeItem.Attributes.FirstOrDefault(f=>f is IWebApiFilter);
+                    IEndpointFilter webApiFilter = (IEndpointFilter?)routeItem.Attributes.FirstOrDefault(f=>f is IEndpointFilter);
                     webApiFilter?.OnBefore(context);
                     if (context.IsHandled)
                         break;

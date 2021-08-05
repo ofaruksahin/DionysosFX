@@ -1,8 +1,7 @@
-﻿using DionysosFX.Swan.Net;
+﻿using DionysosFX.Swan.Extensions;
+using DionysosFX.Swan.Net;
 using HttpMultipartParser;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -16,7 +15,7 @@ namespace DionysosFX.Swan.HttpMultipart
             var properties = result.GetType().GetProperties();
             foreach (PropertyInfo property in properties)
             {
-                bool isArray = (property.PropertyType.IsArray) || (property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(List<>));
+                bool isArray = property.IsArray();
                 if (isArray)
                 {
                     if (property.PropertyType.GenericTypeArguments.Any(f=>f.UnderlyingSystemType != typeof(FilePart)))

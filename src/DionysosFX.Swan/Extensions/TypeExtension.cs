@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace DionysosFX.Swan.Extensions
@@ -12,7 +13,7 @@ namespace DionysosFX.Swan.Extensions
 
             methodInfo = @this.GetMethod(methodName, flags);
 
-            if(methodInfo == null)
+            if (methodInfo == null)
             {
                 baseType = null;
                 do
@@ -28,6 +29,10 @@ namespace DionysosFX.Swan.Extensions
             }
 
             return methodInfo;
-        }
+        }    
+        
+        public static bool IsArray(this ParameterInfo parameterInfo) => (parameterInfo.ParameterType.IsArray) || (parameterInfo.ParameterType.IsGenericType && parameterInfo.ParameterType.GetGenericTypeDefinition() == typeof(List<>));
+
+        public static bool IsArray(this PropertyInfo propertyInfo) => (propertyInfo.PropertyType.IsArray) || (propertyInfo.PropertyType.IsGenericType && propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(List<>));
     }
 }

@@ -50,9 +50,9 @@ namespace DionysosFX.Template.WebAPI.Controllers
         {
             var user = _userService.Get(id);
             if (user != null)
-                return new Ok(new BaseResult<User>(user,Messages.Success,HttpStatusCode.OK));
+                return new Ok(new BaseResult<User>(user, Messages.Success, HttpStatusCode.OK));
             else
-                return new NotFound(new BaseResult<User>(null,Messages.Error,HttpStatusCode.NotFound));
+                return new NotFound(new BaseResult<User>(null, Messages.Error, HttpStatusCode.NotFound));
         }
 
         /// <summary>

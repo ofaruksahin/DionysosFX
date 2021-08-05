@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Faker.Net" Version="1.5.138" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
@@ -20,8 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\DionysosFX.Module.WebApi\DionysosFX.Module.WebApi.csproj" />
-    <ProjectReference Include="..\DionysosFX.Module.Test\DionysosFX.Module.Test.csproj" />
+    <ProjectReference Include="..\..\src\DionysosFX.Host\DionysosFX.Host.csproj" />
+    <ProjectReference Include="..\..\src\DionysosFX.Swan\DionysosFX.Swan.csproj" />
   </ItemGroup>
 
 </Project>

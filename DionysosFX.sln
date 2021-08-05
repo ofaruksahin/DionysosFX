@@ -51,6 +51,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		logo.png = logo.png
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.Test", "test\DionysosFX.Module.Test\DionysosFX.Module.Test.csproj", "{009D0859-57C0-4E0F-95F2-380ABEB5D735}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +123,10 @@ Global
 		{980DB7C7-682D-4FDA-B360-2FFEDA76477E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{980DB7C7-682D-4FDA-B360-2FFEDA76477E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{980DB7C7-682D-4FDA-B360-2FFEDA76477E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{009D0859-57C0-4E0F-95F2-380ABEB5D735}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{009D0859-57C0-4E0F-95F2-380ABEB5D735}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{009D0859-57C0-4E0F-95F2-380ABEB5D735}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{009D0859-57C0-4E0F-95F2-380ABEB5D735}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,6 +148,7 @@ Global
 		{AC4B1756-F8A4-42CF-A383-C7C9256C79B9} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
 		{C950CB16-6BA7-404A-8724-7B49FFF26DC3} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
 		{980DB7C7-682D-4FDA-B360-2FFEDA76477E} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
+		{009D0859-57C0-4E0F-95F2-380ABEB5D735} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {649875DE-A7F9-4D8E-BD5C-D785B7554E16}

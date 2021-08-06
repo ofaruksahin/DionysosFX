@@ -32,27 +32,35 @@ namespace DionysosFX.Module.WebApi.Test.Lab.Service
 
         public int Insert(User user)
         {
-            throw new NotImplementedException();
+            user.Id = users.Max(f => f.Id);
+            users.Add(user);
+            return user.Id;
         }
 
         public bool Update(int id, User user)
         {
-            throw new NotImplementedException();
+            var _user = users.FirstOrDefault(f => f.Id == id);
+            if (_user == null)
+                return false;
+            _user = user;
+            return true;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            var _user = users.FirstOrDefault(f => f.Id == id);
+            if (_user == null)
+                return false;
+            users.Remove(_user);
+            return true;
         }
 
         public User Get(int id)
         {
-            throw new NotImplementedException();
+            var _user = users.FirstOrDefault(f => f.Id == id);
+            return _user;
         }
 
-        public List<User> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        public List<User> GetAll() => users;
     }
 }

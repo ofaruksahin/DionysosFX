@@ -30,6 +30,12 @@ namespace DionysosFX.Swan.Routing
             set;
         }
 
+        public List<ParameterInfo> InvokeParameters
+        {
+            get;
+            set;
+        }
+
         public MethodInfo SetHttpContext
         {
             get;

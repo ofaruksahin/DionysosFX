@@ -47,6 +47,7 @@ namespace DionysosFX.Swan.Routing
                                 routeResolveResponse.Route = routeAttr.Route;
                             routeResolveResponse.Verb = routeAttr.Verb;
                             routeResolveResponse.Invoke = endpoint;
+                            routeResolveResponse.InvokeParameters = endpoint.GetParameters().ToList();
                             routeResolveResponse.SetHttpContext = setHttpContextMethod;
                             routeResolveResponse.Route = prefix + routeResolveResponse.Route;
                             if (routeResolveResponse.Route.Contains("{"))

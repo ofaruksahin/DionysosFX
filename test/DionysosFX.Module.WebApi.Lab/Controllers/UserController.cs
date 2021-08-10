@@ -48,6 +48,12 @@ namespace DionysosFX.Module.WebApi.Lab
         [Route(HttpVerb.POST, "/insert")]
         public IEndpointResult Insert([JsonData] User user)
         {
+            if(user==null)
+                return new NotFound(new BaseResult<object>()
+                {
+                    Message = Messages.Error,
+                    StatusCode = HttpStatusCode.NotFound
+                });
             var id = _userService.Insert(user);
             if (id > 0)
                 return new Ok(new BaseResult<int>()
@@ -65,6 +71,12 @@ namespace DionysosFX.Module.WebApi.Lab
         [Route(HttpVerb.PATCH, "/update/{id}")]
         public IEndpointResult Update([QueryData] int id, [JsonData] User user)
         {
+            if(user==null)
+                return new NotFound(new BaseResult<object>()
+                {
+                    Message = Messages.Error,
+                    StatusCode = HttpStatusCode.NotFound
+                });
             var isUpdated = _userService.Update(id, user);
             if (isUpdated)
                 return new Ok(new BaseResult<bool>()

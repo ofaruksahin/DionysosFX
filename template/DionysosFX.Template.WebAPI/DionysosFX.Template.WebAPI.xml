@@ -4,6 +4,21 @@
         <name>DionysosFX.Template.WebAPI</name>
     </assembly>
     <members>
+        <member name="T:DionysosFX.Template.WebAPI.Constants.Messages">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DionysosFX.Template.WebAPI.Constants.Messages.Success">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DionysosFX.Template.WebAPI.Constants.Messages.Error">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:DionysosFX.Template.WebAPI.Controllers.IController`1">
             <summary>
             
@@ -81,6 +96,42 @@
             </summary>
             <param name="id"></param>
         </member>
+        <member name="T:DionysosFX.Template.WebAPI.Entities.BaseResult`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="TResult"></typeparam>
+        </member>
+        <member name="P:DionysosFX.Template.WebAPI.Entities.BaseResult`1.Data">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DionysosFX.Template.WebAPI.Entities.BaseResult`1.Message">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:DionysosFX.Template.WebAPI.Entities.BaseResult`1.StatusCode">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:DionysosFX.Template.WebAPI.Entities.BaseResult`1.#ctor(System.String,System.Net.HttpStatusCode)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+            <param name="statusCode"></param>
+        </member>
+        <member name="M:DionysosFX.Template.WebAPI.Entities.BaseResult`1.#ctor(`0,System.String,System.Net.HttpStatusCode)">
+            <summary>
+            
+            </summary>
+            <param name="data"></param>
+            <param name="message"></param>
+            <param name="statusCode"></param>
+        </member>
         <member name="T:DionysosFX.Template.WebAPI.Entities.User">
             <summary>
             
@@ -148,6 +199,11 @@
             </summary>
         </member>
         <member name="T:DionysosFX.Template.WebAPI.Service.UserService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:DionysosFX.Template.WebAPI.Service.UserService.#ctor">
             <summary>
             
             </summary>

@@ -78,89 +78,90 @@ namespace DionysosFX.Module.WebApi
 
                 foreach (var routeItem in routeItems)
                 {
-                    try
+                    if (routeItem.QueryString.Count != context.Request.QueryString.Count)
+                        continue;
+                    var invokeParameters = routeItem.Invoke.GetParameters().ToList();
+                    if (instance == null)
                     {
-                        if (routeItem.QueryString.Count != context.Request.QueryString.Count)
-                            continue;
-                        var invokeParameters = routeItem.Invoke.GetParameters().ToList();
+                        List<object> _ctorParameters = new List<object>();
+                        foreach (var item in routeItem.ConstructorParameters)
+                        {
+                            try
+                            {
+                                var ctParam = context.Container.Resolve(item.ParameterType);
+                                _ctorParameters.Add(ctParam);
+                            }
+                            catch (Exception)
+                            {
+                                _ctorParameters.Add(null);
+                            }
+                        }
+                        instance = Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo(), _ctorParameters.ToArray());
+
                         if (instance == null)
-                        {
-                            List<object> _ctorParameters = new List<object>();
-                            foreach (var item in routeItem.ConstructorParameters)
-                            {
-                                try
-                                {
-                                    var ctParam = context.Container.Resolve(item.ParameterType);
-                                    _ctorParameters.Add(ctParam);
-                                }
-                                catch (Exception)
-                                {
-                                    _ctorParameters.Add(null);
-                                }
-                            }
-                            instance = Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo(), _ctorParameters.ToArray());
-
-                            if (instance == null)
-                                instance = Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo());
-                        }
-
-                        IEndpointFilter webApiFilter = (IEndpointFilter?)routeItem.Attributes.FirstOrDefault(f => f is IEndpointFilter);
-                        webApiFilter?.OnBefore(context);
-                        if (context.IsHandled)
-                            break;
-                        object invokeResult = null;
-                        if (!invokeParameters.Any())
-                        {
-                            routeItem.SetHttpContext?.Invoke(instance, new[] { context });
-                            invokeResult = routeItem.Invoke.Invoke(instance, null);
-                        }
-                        else
-                        {
-                            List<object> _invokeParameters = new List<object>();
-                            foreach (var invokeParameter in invokeParameters)
-                            {
-                                var customAttributes = invokeParameter.GetCustomAttributes();
-                                var attribute = customAttributes.FirstOrDefault(f =>
-                                    f.GetType() == typeof(FormDataAttribute) ||
-                                    f.GetType() == typeof(JsonDataAttribute) ||
-                                    f.GetType() == typeof(QueryDataAttribute)
-                                    );
-
-                                if (attribute is FormDataAttribute)
-                                {
-                                    _invokeParameters.Add(context.ToFormObject(invokeParameter.ParameterType));
-                                }
-                                if (attribute is JsonDataAttribute)
-                                {
-                                    _invokeParameters.Add(JsonConvert.DeserializeObject(body, invokeParameter.ParameterType));
-                                }
-                                if (attribute is QueryDataAttribute)
-                                {
-                                    bool isArray = invokeParameter.IsArray();
-                                    if (isArray)
-                                    {
-                                        if (invokeParameter.ParameterType.GenericTypeArguments.Any())
-                                            _invokeParameters.Add(context.Request.QueryString[invokeParameter.Name].Split(',').Select(f => f).ToList());
-                                        else
-                                            _invokeParameters.Add(context.Request.QueryString[invokeParameter.Name].Split(',').Select(f => f).ToArray());
-                                    }
-                                    else
-                                    {
-                                        _invokeParameters.Add(Convert.ChangeType(context.Request.QueryString[invokeParameter.Name], invokeParameter.ParameterType));
-                                    }
-                                }
-                            }
-                            routeItem.SetHttpContext?.Invoke(instance, new[] { context });
-                            invokeResult = routeItem.Invoke.Invoke(instance, _invokeParameters.ToArray());
-                        }
-                        if (invokeResult is IEndpointResult invkResult)
-                            invkResult.ExecuteResponse(context);
-                        if (context.IsHandled)
-                            webApiFilter?.OnAfter(context);
+                            instance = Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo());
                     }
-                    catch (Exception)
+
+                    IEndpointFilter webApiFilter = (IEndpointFilter?)routeItem.Attributes.FirstOrDefault(f => f is IEndpointFilter);
+                    webApiFilter?.OnBefore(context);
+                    if (context.IsHandled)
+                        break;
+                    object invokeResult = null;
+                    if (!invokeParameters.Any())
                     {
+                        routeItem.SetHttpContext?.Invoke(instance, new[] { context });
+                        invokeResult = routeItem.Invoke.Invoke(instance, null);
                     }
+                    else
+                    {
+                        List<object> _invokeParameters = new List<object>();
+                        var isInvoke = true;
+                        foreach (var invokeParameter in invokeParameters)
+                        {
+                            if (!routeItem.QueryString.Any(f => f == invokeParameter.Name))
+                                isInvoke = false;
+                            if (!isInvoke)
+                                break;
+                            var customAttributes = invokeParameter.GetCustomAttributes();
+                            var attribute = customAttributes.FirstOrDefault(f =>
+                                f.GetType() == typeof(FormDataAttribute) ||
+                                f.GetType() == typeof(JsonDataAttribute) ||
+                                f.GetType() == typeof(QueryDataAttribute)
+                                );
+
+                            if (attribute is FormDataAttribute)
+                            {
+                                _invokeParameters.Add(context.ToFormObject(invokeParameter.ParameterType));
+                            }
+                            if (attribute is JsonDataAttribute)
+                            {
+                                _invokeParameters.Add(JsonConvert.DeserializeObject(body, invokeParameter.ParameterType));
+                            }
+                            if (attribute is QueryDataAttribute)
+                            {
+                                bool isArray = invokeParameter.IsArray();
+                                if (isArray)
+                                {
+                                    if (invokeParameter.ParameterType.GenericTypeArguments.Any())
+                                        _invokeParameters.Add(context.Request.QueryString[invokeParameter.Name].Split(',').Select(f => f).ToList());
+                                    else
+                                        _invokeParameters.Add(context.Request.QueryString[invokeParameter.Name].Split(',').Select(f => f).ToArray());
+                                }
+                                else
+                                {
+                                    _invokeParameters.Add(Convert.ChangeType(context.Request.QueryString[invokeParameter.Name], invokeParameter.ParameterType));
+                                }
+                            }
+                        }
+                        if (!isInvoke)
+                            continue;
+                        routeItem.SetHttpContext?.Invoke(instance, new[] { context });
+                        invokeResult = routeItem.Invoke.Invoke(instance, _invokeParameters.ToArray());
+                    }
+                    if (invokeResult is IEndpointResult invkResult)
+                        invkResult.ExecuteResponse(context);
+                    if (context.IsHandled)
+                        webApiFilter?.OnAfter(context);
                 }
             }
         }

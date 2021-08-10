@@ -23,6 +23,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\DionysosFX.Module.WebApi\DionysosFX.Module.WebApi.csproj" />
     <ProjectReference Include="..\DionysosFX.Module.Test\DionysosFX.Module.Test.csproj" />
+    <ProjectReference Include="..\DionysosFX.Module.WebApi.Lab\DionysosFX.Module.WebApi.Lab.csproj" />
+    <ProjectReference Include="..\DionysosFX.Module.WebApi.Sample\DionysosFX.Module.WebApi.Lab.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
-﻿using DionysosFX.Swan.Associations;
+﻿using Autofac;
+using DionysosFX.Swan.Associations;
 using DionysosFX.Swan.Modules;
 using DionysosFX.Swan.Net;
 using DionysosFX.Swan.Threading;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,6 +16,7 @@ namespace DionysosFX.Module.StaticFile
 {
     public class StaticFileModule : IWebModule
     {
+        StaticFileOptions options = null;
         ConcurrentDictionary<string, StaticFileItem> _files = null;
 
         public void Start(CancellationToken cancellationToken)
@@ -24,6 +27,8 @@ namespace DionysosFX.Module.StaticFile
 
         public async Task HandleRequestAsync(IHttpContext context)
         {
+            if (options == null)
+                options = context.Container.Resolve<StaticFileOptions>();
             if (context.IsHandled)
                 return;
             string fileName = string.Empty;
@@ -67,10 +72,14 @@ namespace DionysosFX.Module.StaticFile
 
             if (bytes != null)
             {
-                context.Response.OutputStream.Write(bytes);
-                context.Response.ContentType = MimeType.Associations.GetValueOrDefault(Path.GetExtension(fileName));
-                context.Response.StatusCode = (int)HttpStatusCode.OK;
-                context.SetHandled();
+                var contentType = MimeType.Associations.GetValueOrDefault(Path.GetExtension(fileName));
+                if (options.AllowedMimeTypes.Any(f => f == "*" || f == contentType))
+                {
+                    context.Response.OutputStream.Write(bytes);
+                    context.Response.ContentType = contentType;
+                    context.Response.StatusCode = (int)HttpStatusCode.OK;
+                    context.SetHandled();
+                }
             }
         }
 

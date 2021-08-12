@@ -9,9 +9,20 @@ namespace DionysosFX.Module.StaticFile
     {
         public static IHostBuilder AddStaticFileModule(this IHostBuilder @this)
         {
+            StaticFileOptions options = new StaticFileOptions();
+            options.AllowedMimeTypes.Add("*");
             @this.ContainerBuilder.RegisterType<StaticFileModule>().SingleInstance();
+            @this.ContainerBuilder.Register(i => options).As<StaticFileOptions>().SingleInstance();
             return @this;
         }
+
+        public static IHostBuilder AddStaticFileModule(this IHostBuilder @this,StaticFileOptions options)
+        {
+            @this.ContainerBuilder.RegisterType<StaticFileModule>().SingleInstance();
+            @this.ContainerBuilder.Register(i => options).As<StaticFileOptions>().SingleInstance();
+            return @this;
+        }
+
 
         public static  IHostBuilder UseStaticFileModule(this IHostBuilder @this)
         {

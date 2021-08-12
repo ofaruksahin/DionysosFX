@@ -92,6 +92,30 @@ namespace DionysosFX.Module.WebApi.Lab
                 });
         }
 
+        [Route(HttpVerb.PATCH,"/updatewithform/{id}")]
+        public IEndpointResult UpdateWithFormData([QueryData]int id,[FormData] User user)
+        {
+            if (user == null)
+                return new NotFound(new BaseResult<object>()
+                {
+                    Message = Messages.Error,
+                    StatusCode = HttpStatusCode.NotFound
+                });
+            var isUpdated = _userService.Update(id, user);
+            if (isUpdated)
+                return new Ok(new BaseResult<bool>()
+                {
+                    Data = isUpdated
+                });
+            else
+                return new NotFound(new BaseResult<bool>()
+                {
+                    Data = isUpdated,
+                    Message = Messages.Error,
+                    StatusCode = HttpStatusCode.NotFound
+                });
+        }
+
         [Route(HttpVerb.DELETE, "/delete/{id}")]
         public IEndpointResult Delete([QueryData] int id)
         {

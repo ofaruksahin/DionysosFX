@@ -9,4 +9,8 @@
     <PackageReference Include="RestSharp" Version="106.12.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DionysosFX.Swan\DionysosFX.Swan.csproj" />
+  </ItemGroup>
+
 </Project>

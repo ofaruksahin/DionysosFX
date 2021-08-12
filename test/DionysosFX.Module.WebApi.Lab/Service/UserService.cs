@@ -10,21 +10,19 @@ namespace DionysosFX.Module.WebApi.Lab
 
         public void Initialize()
         {
-            if (!users.Any())
+            users.Clear();
+            for (int i = 0; i < 50; i++)
             {
-                for (int i = 0; i < 50; i++)
+                User user = new User()
                 {
-                    User user = new User()
-                    {
-                        Id = i + 1,
-                        Name = Faker.Name.First(),
-                        Surname = Faker.Name.Last(),
-                        PhoneNumber = Faker.Phone.Number(),
-                        Email = Faker.Internet.Email(),
-                        BirthDate = DateTime.Now
-                    };
-                    users.Add(user);
-                }
+                    Id = i + 1,
+                    Name = Faker.Name.First(),
+                    Surname = Faker.Name.Last(),
+                    PhoneNumber = Faker.Phone.Number(),
+                    Email = Faker.Internet.Email(),
+                    BirthDate = DateTime.Now
+                };
+                users.Add(user);
             }
         }
 

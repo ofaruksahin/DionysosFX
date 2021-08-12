@@ -38,7 +38,9 @@ namespace DionysosFX.WebApplication
         {
             System.Console.WriteLine("On Configure Method");
             _hostBuilder.AddPrefix("http://*:1923");
-            _hostBuilder.AddStaticFileModule();
+            StaticFileOptions staticFileOptions = new StaticFileOptions();
+            staticFileOptions.AllowedMimeTypes.Add("*");
+            _hostBuilder.AddStaticFileModule(staticFileOptions);
             _hostBuilder.AddWebApiModule();
             _hostBuilder.AddOpenApiModule();
 

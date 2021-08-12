@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -29,10 +30,31 @@ namespace DionysosFX.Swan.Extensions
             }
 
             return methodInfo;
-        }    
-        
+        }
+
         public static bool IsArray(this ParameterInfo parameterInfo) => (parameterInfo.ParameterType.IsArray) || (parameterInfo.ParameterType.IsGenericType && parameterInfo.ParameterType.GetGenericTypeDefinition() == typeof(List<>));
 
         public static bool IsArray(this PropertyInfo propertyInfo) => (propertyInfo.PropertyType.IsArray) || (propertyInfo.PropertyType.IsGenericType && propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(List<>));
+
+        public static List<(string, string)> ToFormData(this object @this)
+        {
+            List<(string, string)> result = new List<(string, string)>();
+            var properties = @this.GetType().GetProperties();
+            foreach (var property in properties)
+            {
+                var name = property.Name;
+                var value = property.GetValue(@this);
+                if (property.IsArray())
+                {
+                    foreach (var item in (IEnumerable)value)
+                        result.Add((name, item.ToString()));
+                }
+                else
+                {
+                    result.Add((name, value.ToString()));
+                }
+            }
+            return result;
+        }
     }
 }

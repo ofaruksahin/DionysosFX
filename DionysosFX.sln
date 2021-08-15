@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31521.260
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31605.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Host", "Host", "{59E30FED-7AE3-4AB8-AF4D-036891BDACA0}"
 EndProject
@@ -55,9 +55,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.Test", "t
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.WebApi.Lab", "test\DionysosFX.Module.WebApi.Lab\DionysosFX.Module.WebApi.Lab.csproj", "{9F1E9891-76F3-4233-A18C-0D1515B4BB4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.WebApiVersioning", "src\DionysosFX.Module.WebApiVersioning\DionysosFX.Module.WebApiVersioning.csproj", "{EF8B5F03-B747-4B7C-99FE-A2468BD362A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.WebApiVersioning", "src\DionysosFX.Module.WebApiVersioning\DionysosFX.Module.WebApiVersioning.csproj", "{EF8B5F03-B747-4B7C-99FE-A2468BD362A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.WebApiVersioning.Test", "test\DionysosFX.Module.WebApiVersioning.Test\DionysosFX.Module.WebApiVersioning.Test.csproj", "{65F01AAA-6419-467E-B16E-319CBC8B9BBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.WebApiVersioning.Test", "test\DionysosFX.Module.WebApiVersioning.Test\DionysosFX.Module.WebApiVersioning.Test.csproj", "{65F01AAA-6419-467E-B16E-319CBC8B9BBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.StaticFile.Lab", "test\DionysosFX.Module.StaticFile.Lab\DionysosFX.Module.StaticFile.Lab.csproj", "{1FA4227D-E0C4-4DCD-862C-30E31E5FE33A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,6 +147,10 @@ Global
 		{65F01AAA-6419-467E-B16E-319CBC8B9BBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65F01AAA-6419-467E-B16E-319CBC8B9BBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65F01AAA-6419-467E-B16E-319CBC8B9BBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FA4227D-E0C4-4DCD-862C-30E31E5FE33A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FA4227D-E0C4-4DCD-862C-30E31E5FE33A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FA4227D-E0C4-4DCD-862C-30E31E5FE33A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FA4227D-E0C4-4DCD-862C-30E31E5FE33A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -170,6 +176,7 @@ Global
 		{9F1E9891-76F3-4233-A18C-0D1515B4BB4B} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
 		{EF8B5F03-B747-4B7C-99FE-A2468BD362A2} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
 		{65F01AAA-6419-467E-B16E-319CBC8B9BBA} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
+		{1FA4227D-E0C4-4DCD-862C-30E31E5FE33A} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {649875DE-A7F9-4D8E-BD5C-D785B7554E16}

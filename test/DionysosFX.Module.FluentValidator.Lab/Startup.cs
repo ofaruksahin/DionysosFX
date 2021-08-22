@@ -2,13 +2,14 @@
 using DionysosFX.Module.WebApi;
 using DionysosFX.Swan;
 using DionysosFX.Swan.Modules;
+using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace DionysosFX.Module.WebApiVersioning.Lab
+namespace DionysosFX.Module.FluentValidator.Lab
 {
     public class Startup : IStartup
     {
@@ -23,27 +24,18 @@ namespace DionysosFX.Module.WebApiVersioning.Lab
         {
             _hostBuilder.AddPrefix("http://*:1923");
             _hostBuilder.AddWebApiModule(new WebApiModuleOptions(ResponseType.Json));
-            var webApiVersioningModuleOptions = new WebApiVersioningModuleOptions("0.0.0.5");
-            webApiVersioningModuleOptions.OnVersionException += WebApiVersioningModuleOptions_OnInvalidEvent;
-            _hostBuilder.AddWebApiVersionModule(webApiVersioningModuleOptions);
+            FluentValidatonOptions options = new FluentValidatonOptions();
+            options.OnValidationFail += Options_OnValidationFail;
+            _hostBuilder.AddFluentValidatorModule(options);
         }
 
-        private void WebApiVersioningModuleOptions_OnInvalidEvent(object sender, OnVersionExceptionEventArgs e)
+        private void Options_OnValidationFail(object sender, OnValidationFailEventArgs e)
         {
-            e.Context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            e.Context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
             e.Context.Response.ContentType = "application/json";
             using (var writer = new StreamWriter(e.Context.Response.OutputStream))
             {
-                if (e.Deprecated)
-                {
-                    Console.WriteLine($"{e.Version} is deprecated");
-                    writer.WriteLine($"{e.Version} is deprecated");
-                }
-                else
-                {
-                    Console.WriteLine($"{e.Version} is not defined");
-                    writer.WriteLine($"{e.Version} is not defined");
-                }
+                writer.WriteLine(JsonConvert.SerializeObject(e.ValidationResult.Errors));
             }
             e.Context.SetHandled();
         }
@@ -52,7 +44,7 @@ namespace DionysosFX.Module.WebApiVersioning.Lab
         {
             _hostBuilder.BuildContainer();
             _hostBuilder.UseWebApiModule();
-            _hostBuilder.UseWebApiVersionModule();
+            _hostBuilder.UseFluentValidatorModule();
             using (var cts = new CancellationTokenSource())
             {
                 Task.WaitAll(RunWebServer(cts.Token));

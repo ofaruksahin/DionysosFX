@@ -56,10 +56,9 @@ namespace DionysosFX.Module.WebApiVersioning
                 if (isInvalidVersion)
                 {
                     var triggerOnValidEvent = options.GetType().GetMethod(WebApiVersioningConstant.TriggerOnVersionException, BindingFlags.Instance | BindingFlags.NonPublic);
-                    if (triggerOnValidEvent != null)
-                    {
-                        triggerOnValidEvent.Invoke(options, new object[] { requestApiVersion, requestApiVersion == Version ? Deprecated : false, httpContext });
-                    }
+                    if (triggerOnValidEvent == null)
+                        throw new Exception("ApiVersioningModule trigger event method not found");
+                    triggerOnValidEvent.Invoke(options, new object[] { requestApiVersion, requestApiVersion == Version ? Deprecated : false, httpContext });
                 }
             }
 

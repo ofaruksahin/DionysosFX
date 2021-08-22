@@ -142,6 +142,7 @@ namespace DionysosFX.Module.WebApi
                     var endpointItem = routeItemsDictionary.Where(f => f.Value.Count == routeItemsDictionary.Values.Max(f => f.Count)).FirstOrDefault();
                     if (endpointItem.Key != null)
                     {
+                        endpointItem.Key.Parameters = endpointItem.Value;
                         var endpointFilters = endpointItem.Key.Attributes.Where(f => f is IEndpointFilter).ToList();
                         foreach (IEndpointFilter item in endpointFilters)
                         {

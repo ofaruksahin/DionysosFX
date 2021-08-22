@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -60,7 +61,7 @@ namespace DionysosFX.Module.StaticFile
                 {
                     if (File.Exists(fileName))
                     {
-                        bytes = File.ReadAllBytes(fileName);
+                        bytes = Encoding.UTF8.GetBytes(File.ReadAllText(fileName));
                         _files.TryAdd(fileName, new StaticFileItem(bytes, DateTime.Now.AddMinutes(5)));
                     }
                 }

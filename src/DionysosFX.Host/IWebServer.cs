@@ -16,6 +16,10 @@ namespace DionysosFX.Host
         /// <summary>
         /// 
         /// </summary>
+        event EventHandler<OnFatalExceptionEventArgs> OnFatalException;
+        /// <summary>
+        /// 
+        /// </summary>
         WebServerState State 
         { 
             get;

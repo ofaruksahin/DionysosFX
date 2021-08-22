@@ -1,4 +1,5 @@
-﻿using DionysosFX.Swan.Net;
+﻿using DionysosFX.Swan.Modules;
+using DionysosFX.Swan.Net;
 using Newtonsoft.Json;
 using System.IO;
 using System.Net;

@@ -1,4 +1,6 @@
-﻿namespace DionysosFX.Module.WebApi
+﻿using DionysosFX.Swan.Modules;
+
+namespace DionysosFX.Module.WebApi
 {
     public class WebApiModuleOptions
     {

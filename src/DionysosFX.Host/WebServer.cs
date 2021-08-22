@@ -30,9 +30,9 @@ namespace DionysosFX.Host
         /// <summary>
         /// 
         /// </summary>
-        protected override void OnFatalException()
-        {
-        }
+        //protected override void OnFatalException()
+        //{
+        //}
 
         /// <summary>
         /// 

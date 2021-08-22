@@ -1,4 +1,4 @@
-﻿namespace DionysosFX.Module.WebApi
+﻿namespace DionysosFX.Swan.Modules
 {
     public enum ResponseType
     {

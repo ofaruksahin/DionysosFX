@@ -3,12 +3,10 @@ using DionysosFX.Host;
 using DionysosFX.Module.OpenApi;
 using DionysosFX.Module.WebApi;
 using DionysosFX.Swan;
+using DionysosFX.Swan.Modules;
 using DionysosFX.Template.WebAPI.IService;
 using DionysosFX.Template.WebAPI.Service;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -70,6 +68,7 @@ namespace DionysosFX.Template.WebAPI
         {
             IWebServer webServer = new WebServer(_hostBuilder);
             webServer.StateChanged += (sender, e) => Console.WriteLine($"Server New State {e.NewState}");
+            webServer.OnFatalException += (sender, e) => { Console.WriteLine(e.Exception.Message); };
             return webServer;
         }
 

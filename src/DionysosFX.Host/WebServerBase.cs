@@ -66,6 +66,11 @@ namespace DionysosFX.Host
         /// <summary>
         /// 
         /// </summary>
+        public event EventHandler<OnFatalExceptionEventArgs> OnFatalException;
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="cancellationToken"></param>
         protected virtual void Prepare(CancellationToken cancellationToken)
         {
@@ -82,7 +87,7 @@ namespace DionysosFX.Host
         /// <summary>
         /// 
         /// </summary>
-        protected abstract void OnFatalException();
+        //protected abstract void OnFatalException();
 
         /// <summary>
         /// 
@@ -93,42 +98,15 @@ namespace DionysosFX.Host
         {
             try
             {
-                try
-                {
-                    if (context.CancellationToken.IsCancellationRequested)
-                        return;
+                if (context.CancellationToken.IsCancellationRequested)
+                    return;
 
-                    try
-                    {
-                        context.Container = HostBuilder.Container;
-                        await _hostBuilder.ModuleCollection.DispatchRequestAsync(context).ConfigureAwait(false);
-                        if (!context.IsHandled)
-                        {
-                            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                            context.SetHandled();
-                            context.Close();
-                        }
-                    }
-                    catch (OperationCanceledException) when (context.CancellationToken.IsCancellationRequested)
-                    {
-                        throw;
-                    }
-                    catch (HttpListenerException)
-                    {
-                        throw;
-                    }
-                    catch (Exception exception)
-                    {
-                        Console.WriteLine(exception);
-                    }
-
-                }
-                finally
+                context.Container = HostBuilder.Container;
+                await _hostBuilder.ModuleCollection.DispatchRequestAsync(context).ConfigureAwait(false);
+                if (!context.IsHandled)
                 {
-                    if (!context.IsHandled)
-                    {
-                        context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                    }
+                    context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                    context.SetHandled();
                     context.Close();
                 }
             }
@@ -143,7 +121,15 @@ namespace DionysosFX.Host
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                OnFatalException();
+                OnFatalException?.Invoke(this, new OnFatalExceptionEventArgs(context, ex));
+            }
+            finally
+            {
+                if (!context.IsHandled)
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                }
+                context.Close();
             }
         }
 

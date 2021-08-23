@@ -21,16 +21,20 @@ namespace DionysosFX.Module.OpenApi
         {
             if (context.IsHandled)
                 return;
-            if(context.Request.Url.LocalPath == "/openapi")
+            if (context.Request.Url.LocalPath == "/openapi")
             {
                 context.SetHandled();
+            }
+            else if (context.Request.Url.LocalPath == "/openapi-ui" || context.Request.Url.LocalPath == "/openapi-ui.html")
+            {
+
             }
         }
 
         public void Start(CancellationToken cancellationToken)
         {
             Assembly entryAssembly = Assembly.GetEntryAssembly();
-            var xmlPath = string.Format("{0}.xml", Path.Combine(Path.GetDirectoryName(entryAssembly.Location),entryAssembly.GetName().Name));
+            var xmlPath = string.Format("{0}.xml", Path.Combine(Path.GetDirectoryName(entryAssembly.Location), entryAssembly.GetName().Name));
             try
             {
                 XmlDocument xmlDocument = new XmlDocument();
@@ -40,24 +44,25 @@ namespace DionysosFX.Module.OpenApi
                 {
                     var memberName = member.Attributes["name"].Value;
 
-                    if(memberName.StartsWith("T"))
+                    if (memberName.StartsWith("T"))
                     {
                         memberName = memberName.Replace("T:", "");
                         var memberType = entryAssembly.GetType(memberName);
-                        if(memberType != null)
+                        if (memberType != null)
                         {
                             var isController = memberType.IsWebApiController();
                             if (isController)
                             {
-                                
+
                             }
                         }
-                    }else if (memberName.StartsWith("M:"))
+                    }
+                    else if (memberName.StartsWith("M:"))
                     {
                         memberName = memberName.Replace("M:", "");
                         var memberNamePieces = memberName.Split('.').ToList();
                         var namespaces = memberNamePieces.Where(f => !f.Contains("(") && !f.Contains(")")).ToList();
-                        string controllerName = string.Join(".", namespaces.Take(namespaces.Count-1));
+                        string controllerName = string.Join(".", namespaces.Take(namespaces.Count - 1));
                         var memberType = entryAssembly.GetType(controllerName);
                     }
                 }

@@ -1,1 +1,1 @@
-﻿dotnet .\bin\Debug\net6.0\DionysosFX.Module.WebApiVersioning.Lab.dll
+﻿dotnet .\bin\Debug\net6.0\DionysosFX.Module.FluentValidator.Lab.dll

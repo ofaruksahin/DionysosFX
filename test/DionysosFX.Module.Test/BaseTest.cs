@@ -1,8 +1,6 @@
 ﻿using DionysosFX.Swan.Extensions;
 using Newtonsoft.Json;
 using RestSharp;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace DionysosFX.Module.Test
@@ -13,7 +11,7 @@ namespace DionysosFX.Module.Test
         public Dictionary<string,string> Headers = new Dictionary<string, string>();
 
         public IRestResponse Get(string url)
-        {
+        {            
             var client = new RestClient(url);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);

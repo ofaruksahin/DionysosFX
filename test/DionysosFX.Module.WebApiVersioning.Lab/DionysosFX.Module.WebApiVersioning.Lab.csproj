@@ -5,6 +5,10 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Projects\DionysosFX\test\DionysosFX.Module.WebApiVersioning.Lab\DionysosFX.Module.WebApiVersioning.Lab.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\src\DionysosFX.Host\DionysosFX.Host.csproj" />
     <ProjectReference Include="..\..\src\DionysosFX.Module.WebApiVersioning\DionysosFX.Module.WebApiVersioning.csproj" />

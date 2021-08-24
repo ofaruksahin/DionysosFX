@@ -1,4 +1,5 @@
-﻿using DionysosFX.Swan.Modules;
+﻿using DionysosFX.Module.OpenApi.Entities;
+using DionysosFX.Swan.Modules;
 using DionysosFX.Swan.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,8 +8,10 @@ namespace DionysosFX.Module.OpenApi
 {
     public class OpenApiModule : IWebModule
     {
-        public void Dispose()
+        DocumentationResponse DocumentationResponse = new DocumentationResponse();
+        public void Start(CancellationToken cancellationToken)
         {
+
         }
 
         public async Task HandleRequestAsync(IHttpContext context)
@@ -23,11 +26,11 @@ namespace DionysosFX.Module.OpenApi
             {
 
             }
-        }
+        }   
 
-        public void Start(CancellationToken cancellationToken)
+        public void Dispose()
         {
-           
+            DocumentationResponse = null;
         }
     }
 }

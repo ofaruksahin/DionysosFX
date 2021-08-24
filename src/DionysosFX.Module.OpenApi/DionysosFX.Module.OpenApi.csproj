@@ -9,4 +9,9 @@
     <ProjectReference Include="..\DionysosFX.Swan\DionysosFX.Swan.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Attributes\" />
+    <Folder Include="Src\Styles\" />
+  </ItemGroup>
+
 </Project>

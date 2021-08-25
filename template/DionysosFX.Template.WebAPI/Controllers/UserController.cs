@@ -1,4 +1,4 @@
-﻿using DionysosFX.Module.OpenApi;
+﻿using DionysosFX.Module.OpenApi.Attributes;
 using DionysosFX.Module.WebApi;
 using DionysosFX.Module.WebApi.EnpointResults;
 using DionysosFX.Swan.Routing;
@@ -6,7 +6,6 @@ using DionysosFX.Template.WebAPI.Constants;
 using DionysosFX.Template.WebAPI.Entities;
 using DionysosFX.Template.WebAPI.IService;
 using DionysosFX.Template.WebAPI.WebApiFilters;
-using System.Collections.Generic;
 using System.Net;
 
 namespace DionysosFX.Template.WebAPI.Controllers
@@ -16,6 +15,7 @@ namespace DionysosFX.Template.WebAPI.Controllers
     /// </summary>
     [Route("/user")]
     [AuthorizeFilter]
+    [ControllerDescription("Controller Description")]
     public class UserController : WebApiController, IController<User>
     {
         IUserService _userService;
@@ -33,6 +33,7 @@ namespace DionysosFX.Template.WebAPI.Controllers
         /// Get all user
         /// </summary>
         [Route(HttpVerb.GET, "/list")]
+        [EndpointDescription("Get User List")]
         public IEndpointResult List()
         {
             var list = _userService.GetAll();

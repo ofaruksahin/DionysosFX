@@ -53,6 +53,11 @@ namespace DionysosFX.Module.StaticFile
                 if (_files.TryGetValue(fileName, out StaticFileItem staticFileItem))
                 {
                     bytes = staticFileItem.Data;
+                    if (options.CacheActive)
+                    {
+                        var cacheAge = (int)(staticFileItem.ExpireDate - DateTime.Now).TotalSeconds;
+                        AddCache(context, cacheAge);
+                    }
                 }
             }
             else
@@ -62,7 +67,12 @@ namespace DionysosFX.Module.StaticFile
                     if (File.Exists(fileName))
                     {
                         bytes = Encoding.UTF8.GetBytes(File.ReadAllText(fileName));
-                        _files.TryAdd(fileName, new StaticFileItem(bytes, DateTime.Now.AddMinutes(5)));
+                        if (options.CacheActive)
+                        {
+                            _files.TryAdd(fileName, new StaticFileItem(bytes, DateTime.Now.AddSeconds(options.ExpireTime)));
+                            var cacheAge = DateTime.Now.AddMinutes(5).Second;
+                            AddCache(context, cacheAge);
+                        }
                     }
                 }
                 catch (Exception)
@@ -98,6 +108,11 @@ namespace DionysosFX.Module.StaticFile
                 _files.TryRemove(item);
             }
 
+        }
+
+        private void AddCache(IHttpContext context, int cacheAge)
+        {
+            context.Response.Headers.Add("Cache-Control", $"private,max-age={cacheAge}");
         }
 
         public void Dispose()

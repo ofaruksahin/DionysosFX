@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace DionysosFX.Module.OpenApi.Entities
 {
@@ -7,10 +8,21 @@ namespace DionysosFX.Module.OpenApi.Entities
         /// <summary>
         /// 
         /// </summary>
+        [JsonProperty("controllers")]
         public List<ControllerItem> Controllers
         {
             get;
             set;
         } = new List<ControllerItem>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("versions")]
+        public List<string> Versions
+        {
+            get;
+            set;
+        } = new List<string>();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DionysosFX.Swan.Routing;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace DionysosFX.Module.OpenApi.Entities
@@ -8,21 +9,31 @@ namespace DionysosFX.Module.OpenApi.Entities
         /// <summary>
         /// 
         /// </summary>
+        [JsonProperty("name")]
         public string Name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
+        [JsonProperty("verb")]
         public HttpVerb Verb { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
-        public List<string> Versions { get; set; } = new List<string>();
+        [JsonProperty("description")]
+        public string Description { get; set; } = string.Empty;
 
+        [JsonProperty("parameters")]
+        public List<ParameterItem> Parameters { get; set; } = new List<ParameterItem>();
+
+        [JsonProperty("response_types")]
+        public List<ResponseTypeItem> ResponseTypes { get; set; } = new List<ResponseTypeItem>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("versions")]
+        public List<string> Versions { get; set; } = new List<string>();
     }
 }

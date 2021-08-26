@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DionysosFX.Swan.Extensions;
 using DionysosFX.Swan.Net;
 using DionysosFX.Swan.Routing;
 using System;

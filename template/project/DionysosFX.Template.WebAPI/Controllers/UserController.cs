@@ -1,11 +1,13 @@
 ﻿using DionysosFX.Module.OpenApi.Attributes;
 using DionysosFX.Module.WebApi;
 using DionysosFX.Module.WebApi.EnpointResults;
+using DionysosFX.Module.WebApiVersioning;
 using DionysosFX.Swan.Routing;
 using DionysosFX.Template.WebAPI.Constants;
 using DionysosFX.Template.WebAPI.Entities;
 using DionysosFX.Template.WebAPI.IService;
 using DionysosFX.Template.WebAPI.WebApiFilters;
+using System.Collections.Generic;
 using System.Net;
 
 namespace DionysosFX.Template.WebAPI.Controllers
@@ -15,7 +17,8 @@ namespace DionysosFX.Template.WebAPI.Controllers
     /// </summary>
     [Route("/user")]
     [AuthorizeFilter]
-    [ControllerDescription("Controller Description")]
+    [Description("Controller Description")]
+    [ApiVersion("1.0.0.0")]
     public class UserController : WebApiController, IController<User>
     {
         IUserService _userService;
@@ -33,7 +36,9 @@ namespace DionysosFX.Template.WebAPI.Controllers
         /// Get all user
         /// </summary>
         [Route(HttpVerb.GET, "/list")]
-        [EndpointDescription("Get User List")]
+        [Description("Get User List")]     
+        [ResponseType(HttpStatusCode.OK,typeof(List<User>),"User List")]
+        [ResponseType(HttpStatusCode.NotFound,typeof(List<User>),"User List")]
         public IEndpointResult List()
         {
             var list = _userService.GetAll();
@@ -43,8 +48,10 @@ namespace DionysosFX.Template.WebAPI.Controllers
         /// <summary>
         /// Get user from id
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id"></param>        
         [Route(HttpVerb.GET, "/get/{id}")]
+        [Description("Get User From Id")]
+        [Parameter("id", typeof(int),typeof(QueryDataAttribute), "User Id")]
         public IEndpointResult Get([QueryData] int id)
         {
             var user = _userService.Get(id);
@@ -59,9 +66,11 @@ namespace DionysosFX.Template.WebAPI.Controllers
         /// </summary>
         /// <param name="entity"></param>
         [Route(HttpVerb.POST, "/insert")]
-        public void Insert([JsonData] User entity)
+        [Parameter("entity",typeof(User),typeof(JsonDataAttribute),"User Item")]
+        public IEndpointResult Insert([JsonData] User entity)
         {
             _userService.Insert(entity);
+            return new Ok(entity);
         }
 
         /// <summary>
@@ -70,9 +79,10 @@ namespace DionysosFX.Template.WebAPI.Controllers
         /// <param name="id"></param>
         /// <param name="entity"></param>
         [Route(HttpVerb.PUT, "/update")]
-        public void Update([QueryData] int id, [JsonData] User entity)
+        public IEndpointResult Update([QueryData] int id, [JsonData] User entity)
         {
             _userService.Update(id, entity);
+            return new Ok(entity);
         }
 
         /// <summary>
@@ -80,12 +90,17 @@ namespace DionysosFX.Template.WebAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         [Route(HttpVerb.DELETE, "/delete")]
-        public void Delete([QueryData] int id)
+        public IEndpointResult Delete([QueryData] int id)
         {
             var user = _userService.Get(id);
             if (user != null)
             {
                 _userService.Delete(user);
+                return new Ok(user);
+            }
+            else
+            {
+                return new NotFound(new { });
             }
         }
     }

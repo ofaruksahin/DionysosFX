@@ -1,4 +1,6 @@
 ﻿using DionysosFX.Host;
+using DionysosFX.Module.FluentValidator.Lab.Entities;
+using DionysosFX.Module.FluentValidator.Lab.Validators;
 using DionysosFX.Module.WebApi;
 using DionysosFX.Swan;
 using DionysosFX.Swan.Modules;
@@ -25,6 +27,7 @@ namespace DionysosFX.Module.FluentValidator.Lab
             _hostBuilder.AddPrefix("http://*:1923");
             _hostBuilder.AddWebApiModule(new WebApiModuleOptions(ResponseType.Json));
             FluentValidatonOptions options = new FluentValidatonOptions();
+            options.AutoDetect = true;
             options.OnValidationFail += Options_OnValidationFail;
             _hostBuilder.AddFluentValidatorModule(options);
         }

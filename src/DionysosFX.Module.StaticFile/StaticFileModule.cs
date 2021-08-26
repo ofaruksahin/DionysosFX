@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using DionysosFX.Swan.Associations;
+using DionysosFX.Swan.Extensions;
 using DionysosFX.Swan.Modules;
 using DionysosFX.Swan.Net;
 using DionysosFX.Swan.Threading;
@@ -55,8 +56,8 @@ namespace DionysosFX.Module.StaticFile
                     bytes = staticFileItem.Data;
                     if (options.CacheActive)
                     {
-                        var cacheAge = (int)(staticFileItem.ExpireDate - DateTime.Now).TotalSeconds;
-                        AddCache(context, cacheAge);
+                        var expire = (staticFileItem.ExpireDate - DateTime.Now).TotalSeconds;
+                        context.AddCacheExpire(expire);
                     }
                 }
             }
@@ -70,8 +71,8 @@ namespace DionysosFX.Module.StaticFile
                         if (options.CacheActive)
                         {
                             _files.TryAdd(fileName, new StaticFileItem(bytes, DateTime.Now.AddSeconds(options.ExpireTime)));
-                            var cacheAge = DateTime.Now.AddMinutes(5).Second;
-                            AddCache(context, cacheAge);
+                            var expire = DateTime.Now.AddMinutes(5).Second;
+                            context.AddCacheExpire(expire);
                         }
                     }
                 }
@@ -110,10 +111,10 @@ namespace DionysosFX.Module.StaticFile
 
         }
 
-        private void AddCache(IHttpContext context, int cacheAge)
-        {
-            context.Response.Headers.Add("Cache-Control", $"private,max-age={cacheAge}");
-        }
+        //private void AddCache(IHttpContext context, int cacheAge)
+        //{
+        //    context.Response.Headers.Add("Cache-Control", $"private,max-age={cacheAge}");
+        //}
 
         public void Dispose()
         {

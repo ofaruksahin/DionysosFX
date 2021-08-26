@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace DionysosFX.Swan.Extensions
@@ -55,6 +56,44 @@ namespace DionysosFX.Swan.Extensions
                 }
             }
             return result;
+        }
+
+        public static List<T> GetAttributes<T>(this Type type) => type
+            .GetCustomAttributes()
+            .Where(f => f.GetType() == typeof(T))
+            .Select(f => (T)Convert.ChangeType(f, typeof(T)))
+            .ToList();
+
+        public static List<T> GetAttributes<T>(this MethodInfo methodInfo) =>
+            methodInfo
+            .GetCustomAttributes()
+            .Where(f => f.GetType() == typeof(T))
+            .Select(f => (T)Convert.ChangeType(f, typeof(T)))
+            .ToList();
+
+        public static List<T> GetAttributes<T>(this object obj) =>
+            obj
+            .GetType()
+            .GetCustomAttributes()
+            .Where(f => f.GetType() == typeof(T))
+            .Select(f => (T)Convert.ChangeType(f, typeof(T)))
+            .ToList();
+
+        public static bool IsSystemType(this Type type) => type.Assembly == typeof(object).Assembly;
+
+        public static void GetGenericTypesRecursive(this Type type, ref List<Type> types)
+        {
+            var genericArguments = type.GetGenericArguments();
+            if (genericArguments.Any())
+            {
+                foreach (var genericArgument in genericArguments)
+                    genericArgument.GetGenericTypesRecursive(ref types);
+            }
+            else
+            {
+                if (!types.Any(f => f.FullName == type.FullName))
+                    types.Add(type);
+            }
         }
     }
 }

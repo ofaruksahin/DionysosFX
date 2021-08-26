@@ -2,6 +2,7 @@
 using DionysosFX.Host;
 using DionysosFX.Module.OpenApi;
 using DionysosFX.Module.WebApi;
+using DionysosFX.Module.WebApiVersioning;
 using DionysosFX.Swan;
 using DionysosFX.Swan.Modules;
 using DionysosFX.Template.WebAPI.IService;
@@ -36,6 +37,7 @@ namespace DionysosFX.Template.WebAPI
             _hostBuilder.BuildContainer();
             _hostBuilder.UseWebApiModule();
             _hostBuilder.UseOpenApiModule();
+            _hostBuilder.AddWebApiVersionModule(new WebApiVersioningModuleOptions("1.0.0.0"));
 
             using (var cts = new CancellationTokenSource())
             {

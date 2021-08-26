@@ -1,15 +1,11 @@
 ﻿using Autofac;
+using DionysosFX.Module.WebApi.Attributes;
 using DionysosFX.Module.WebApi.EnpointResults;
-using DionysosFX.Swan.Extensions;
-using DionysosFX.Swan.HttpMultipart;
 using DionysosFX.Swan.Modules;
 using DionysosFX.Swan.Net;
 using DionysosFX.Swan.Routing;
-using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -67,18 +63,6 @@ namespace DionysosFX.Module.WebApi
                 HttpVerb verb = (HttpVerb)_verb;
                 var routeItems = routes.Where(f => f.Route == context.Request.Url.LocalPath && f.Verb == verb);
                 object instance = null;
-                string body = string.Empty;
-                using (StreamReader reader = new StreamReader(context.Request.InputStream))
-                {
-                    body = reader.ReadToEnd();
-                }
-
-                bool bodyIsNull = false;
-                if (string.IsNullOrWhiteSpace(body))
-                {
-                    bodyIsNull = true;
-                    body = "{}";
-                }
 
                 IDictionary<RouteResolveResponse, List<object>> routeItemsDictionary = new Dictionary<RouteResolveResponse, List<object>>();
                 foreach (var routeItem in routeItems)
@@ -95,39 +79,9 @@ namespace DionysosFX.Module.WebApi
                     foreach (var invokeParameter in routeItem.InvokeParameters)
                     {
                         var customAttributes = invokeParameter.GetCustomAttributes();
-                        var attribute = customAttributes.FirstOrDefault(f =>
-                            f.GetType() == typeof(FormDataAttribute) ||
-                            f.GetType() == typeof(JsonDataAttribute) ||
-                            f.GetType() == typeof(QueryDataAttribute)
-                            );
-
-                        if (attribute is FormDataAttribute)
-                        {
-                            _invokeParameters.Add(context.ToFormObject(invokeParameter.ParameterType));
-                        }
-                        if (attribute is JsonDataAttribute)
-                        {
-                            if (bodyIsNull)
-                                continue;
-                            _invokeParameters.Add(JsonConvert.DeserializeObject(body, invokeParameter.ParameterType));
-                        }
-                        if (attribute is QueryDataAttribute)
-                        {
-                            if (!routeItem.QueryString.Any(f => f == invokeParameter.Name))
-                                continue;
-                            bool isArray = invokeParameter.IsArray();
-                            if (isArray)
-                            {
-                                if (invokeParameter.ParameterType.GenericTypeArguments.Any())
-                                    _invokeParameters.Add(context.Request.QueryString[invokeParameter.Name].Split(',').Select(f => f).ToList());
-                                else
-                                    _invokeParameters.Add(context.Request.QueryString[invokeParameter.Name].Split(',').Select(f => f).ToArray());
-                            }
-                            else
-                            {
-                                _invokeParameters.Add(Convert.ChangeType(context.Request.QueryString[invokeParameter.Name], invokeParameter.ParameterType));
-                            }
-                        }
+                        var attribute = customAttributes.FirstOrDefault(f => f.GetType().GetInterface(typeof(IParameterConverter).Name) != null);
+                        if (attribute is IParameterConverter converter)
+                            _invokeParameters.Add(converter.Convert(context,routeItem, invokeParameter));                       
                     }
 
                     if (_invokeParameters.Count == routeItem.InvokeParameters.Count)

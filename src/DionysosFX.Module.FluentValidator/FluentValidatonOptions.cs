@@ -10,10 +10,29 @@ namespace DionysosFX.Module.FluentValidator
     {
         IDictionary<Type, Type> validators = new Dictionary<Type, Type>();
 
+        private bool _autoDetect;
+        public bool AutoDetect
+        {
+            get => _autoDetect;
+            set
+            {
+                _autoDetect = true;
+                validators.Clear();
+                if (_autoDetect)
+                    AutoDetectValidators();
+            }
+        }
+
         public event EventHandler<OnValidationFailEventArgs> OnValidationFail;
 
         public FluentValidatonOptions()
         {
+            AutoDetect = true;
+        }
+
+        private void AutoDetectValidators()
+        {
+            validators.Clear();
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             foreach (var assembly in assemblies)
             {
@@ -28,6 +47,8 @@ namespace DionysosFX.Module.FluentValidator
                 }
             }
         }
+
+        public void AddValidator(Type type, Type validator) => validators.TryAdd(type, validator);
 
         private bool IsValidatable(Type type)
         {
@@ -44,7 +65,7 @@ namespace DionysosFX.Module.FluentValidator
                     return (validateMethod.Invoke(instance, new object[] { obj }) is ValidationResult res) ? res : null;
             }
             return null;
-        }        
+        }
 
         private void TriggerOnValidationFail(OnValidationFailEventArgs eventArgs)
         {

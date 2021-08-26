@@ -111,11 +111,6 @@ namespace DionysosFX.Module.StaticFile
 
         }
 
-        //private void AddCache(IHttpContext context, int cacheAge)
-        //{
-        //    context.Response.Headers.Add("Cache-Control", $"private,max-age={cacheAge}");
-        //}
-
         public void Dispose()
         {
             _files.Clear();

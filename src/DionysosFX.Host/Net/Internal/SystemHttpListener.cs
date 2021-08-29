@@ -23,7 +23,7 @@ namespace DionysosFX.Host.Net.Internal
         public SystemHttpListener(System.Net.HttpListener listener)
         {
             _listener = listener;
-            _prefixes = new();
+            _prefixes = new();            
         }
 
         /// <summary>

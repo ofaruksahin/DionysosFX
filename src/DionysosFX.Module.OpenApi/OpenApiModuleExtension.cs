@@ -6,9 +6,9 @@ namespace DionysosFX.Module.OpenApi
 {
     public static class OpenApiModuleExtension
     {
-        public static IHostBuilder AddOpenApiModule(this IHostBuilder @this, OpenApiOptions options)
+        public static IHostBuilder AddOpenApiModule(this IHostBuilder @this, OpenApiModuleOptions options)
         {
-            @this.ContainerBuilder.Register(r => options).As<OpenApiOptions>().SingleInstance();
+            @this.ContainerBuilder.Register(r => options).As<OpenApiModuleOptions>().SingleInstance();
             @this
                 .ContainerBuilder
                 .RegisterType<OpenApiModule>()

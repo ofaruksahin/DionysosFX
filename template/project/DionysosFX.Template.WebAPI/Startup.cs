@@ -53,7 +53,7 @@ namespace DionysosFX.Template.WebAPI
         {
             _hostBuilder.AddPrefix("http://*:1923");
             _hostBuilder.AddWebApiModule(new WebApiModuleOptions(ResponseType.Json));
-            _hostBuilder.AddOpenApiModule(new OpenApiOptions("DionysosFX"));
+            _hostBuilder.AddOpenApiModule(new OpenApiModuleOptions("DionysosFX"));
 
             _hostBuilder
                 .ContainerBuilder

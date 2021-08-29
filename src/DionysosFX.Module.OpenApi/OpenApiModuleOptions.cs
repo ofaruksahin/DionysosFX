@@ -1,10 +1,10 @@
 ﻿namespace DionysosFX.Module.OpenApi
 {
-    public class OpenApiOptions
+    public class OpenApiModuleOptions
     {
         public string ApplicationName { get; set; }
 
-        public OpenApiOptions(string ApplicationName)
+        public OpenApiModuleOptions(string ApplicationName)
         {
             this.ApplicationName = ApplicationName;
         }

@@ -23,7 +23,7 @@ namespace DionysosFX.Module.OpenApi
     {
         DocumentationResponse DocumentationResponse = new DocumentationResponse();
         public void Start(CancellationToken cancellationToken)
-        {
+        {            
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             List<Type> schemaTypes = new List<Type>();
             foreach (var assembly in assemblies)
@@ -101,17 +101,10 @@ namespace DionysosFX.Module.OpenApi
                                 item.TypeName = methodParameter.ParameterType.GetName();
                                 if (!methodParameter.ParameterType.IsSystemType() && !schemaTypes.Any(f => f.FullName == methodParameter.ParameterType.FullName))
                                     schemaTypes.Add(methodParameter.ParameterType);
-                            }
-
-                            foreach (var parameter in endpointItem.Parameters)
-                            {
-                                var methodParameter = methodParameters.FirstOrDefault(f => f.Name == parameter.Name);
-                                if (methodParameter == null)
-                                    continue;
                                 var convertAttribute = methodParameter.GetCustomAttributes()
-                                    .Where(f => f.GetType().GetInterface(nameof(IParameterConverter)) != null)
-                                    .FirstOrDefault();
-                                parameter.PrefixType = convertAttribute.GetType().FullName;
+                                  .Where(f => f.GetType().GetInterface(nameof(IParameterConverter)) != null)
+                                  .FirstOrDefault();
+                                item.PrefixType = convertAttribute.GetType().FullName;
                             }
 
                             var responseTypeAttributes = endpoint.GetAttributes<ResponseTypeAttribute>();
@@ -157,6 +150,10 @@ namespace DionysosFX.Module.OpenApi
             var apiModuleOptions = context.Container.Resolve<WebApiModuleOptions>();
             if (apiModuleOptions == null || apiModuleOptions.ResponseType != ResponseType.Json)
                 throw new Exception("OpenAPI supported the only json");
+            var openApiOptions = context.Container.Resolve<OpenApiModuleOptions>();
+            if (openApiOptions == null)
+                throw new Exception("OpenAPI Options not found");
+            DocumentationResponse.ApplicationName = openApiOptions.ApplicationName;
             if (context.Request.Url.LocalPath == "/open-api" && context.Request.HttpMethod == "GET")
             {
                 var expireTime = TimeSpan.FromHours(1).TotalSeconds;

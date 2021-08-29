@@ -5,6 +5,10 @@ namespace DionysosFX.Module.OpenApi.Entities
 {
     public class DocumentationResponse
     {
+        [JsonProperty("application_name")]
+        ///
+        public string ApplicationName { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -24,5 +28,15 @@ namespace DionysosFX.Module.OpenApi.Entities
             get;
             set;
         } = new List<string>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("schema")]
+        public List<SchemaItem> Schemas
+        {
+            get;
+            set;
+        } = new List<SchemaItem>();
     }
 }

@@ -51,7 +51,7 @@ namespace DionysosFX.Template.WebAPI.Controllers
         /// <param name="id"></param>        
         [Route(HttpVerb.GET, "/get/{id}")]
         [Description("Get User From Id")]
-        [Parameter("id", typeof(int),typeof(QueryDataAttribute), "User Id")]
+        [Parameter("id",  "User Id")]
         public IEndpointResult Get([QueryData] int id)
         {
             var user = _userService.Get(id);
@@ -66,7 +66,7 @@ namespace DionysosFX.Template.WebAPI.Controllers
         /// </summary>
         /// <param name="entity"></param>
         [Route(HttpVerb.POST, "/insert")]
-        [Parameter("entity",typeof(User),typeof(JsonDataAttribute),"User Item")]
+        [Parameter("entity","User Item")]
         public IEndpointResult Insert([JsonData] User entity)
         {
             _userService.Insert(entity);

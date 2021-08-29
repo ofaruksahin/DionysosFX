@@ -12,23 +12,19 @@ namespace DionysosFX.Module.OpenApi.Entities
         public string TypeName { get; set; }
 
         [JsonProperty("prefix_type")]
-        public string PrefixTypeName { get; set; }
+        public string PrefixType { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; } = string.Empty;
 
-        public ParameterItem(string Name,string TypeName,string PrefixTypeName)
+        public ParameterItem(string Name)
         {
-            this.Name = Name;            
-            this.TypeName = TypeName;
-            this.PrefixTypeName = PrefixTypeName;
+            this.Name = Name;           
         }
 
-        public ParameterItem(string Name, string TypeName,string PrefixTypeName, string Description)
+        public ParameterItem(string Name,string Description)
         {
             this.Name = Name;
-            this.TypeName = TypeName;
-            this.PrefixTypeName = PrefixTypeName;
             this.Description = Description;
         }
 

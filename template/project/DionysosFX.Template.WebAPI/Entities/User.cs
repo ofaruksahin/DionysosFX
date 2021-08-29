@@ -1,13 +1,17 @@
-﻿namespace DionysosFX.Template.WebAPI.Entities
+﻿using DionysosFX.Module.OpenApi.Attributes;
+
+namespace DionysosFX.Template.WebAPI.Entities
 {
     /// <summary>
     /// 
     /// </summary>
+    [Description("User Entity")]
     public class User
     {
         /// <summary>
         /// 
         /// </summary>
+        [Description("User Id")]
         public int Id { get; set; }
         /// <summary>
         /// 

@@ -2,6 +2,7 @@
 using DionysosFX.Module.OpenApi.Attributes;
 using DionysosFX.Module.OpenApi.Entities;
 using DionysosFX.Module.WebApi;
+using DionysosFX.Module.WebApi.Attributes;
 using DionysosFX.Module.WebApi.EnpointResults;
 using DionysosFX.Module.WebApiVersioning;
 using DionysosFX.Swan.Extensions;
@@ -14,6 +15,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using static DionysosFX.Module.OpenApi.Entities.SchemaItem;
 
 namespace DionysosFX.Module.OpenApi
 {
@@ -84,12 +86,33 @@ namespace DionysosFX.Module.OpenApi
                                     DocumentationResponse.Versions.Add(version.Version);
                             }
 
+                            var methodParameters = endpoint.GetParameters();
+
                             var parameterAttributes = endpoint.GetAttributes<ParameterAttribute>();
                             endpointItem.Parameters = parameterAttributes
-                                .Select(f => new ParameterItem(f.Name, f.Type.GetName(), f.PrefixType.GetName(), f.Description))
+                                .Select(f => new ParameterItem(f.Name, f.Description))
                                 .ToList();
 
-                            schemaTypes.AddRange(parameterAttributes.Where(f => !f.Type.IsSystemType()).Select(f => f.Type));
+                            foreach (var item in endpointItem.Parameters)
+                            {
+                                var methodParameter = methodParameters.FirstOrDefault(f => f.Name == item.Name);
+                                if (methodParameter == null)
+                                    continue;
+                                item.TypeName = methodParameter.ParameterType.GetName();
+                                if (!methodParameter.ParameterType.IsSystemType() && !schemaTypes.Any(f => f.FullName == methodParameter.ParameterType.FullName))
+                                    schemaTypes.Add(methodParameter.ParameterType);
+                            }
+
+                            foreach (var parameter in endpointItem.Parameters)
+                            {
+                                var methodParameter = methodParameters.FirstOrDefault(f => f.Name == parameter.Name);
+                                if (methodParameter == null)
+                                    continue;
+                                var convertAttribute = methodParameter.GetCustomAttributes()
+                                    .Where(f => f.GetType().GetInterface(nameof(IParameterConverter)) != null)
+                                    .FirstOrDefault();
+                                parameter.PrefixType = convertAttribute.GetType().FullName;
+                            }
 
                             var responseTypeAttributes = endpoint.GetAttributes<ResponseTypeAttribute>();
                             endpointItem.ResponseTypes = responseTypeAttributes
@@ -111,7 +134,19 @@ namespace DionysosFX.Module.OpenApi
 
             foreach (var schemaType in schemaTypes)
             {
-
+                SchemaItem schemaItem = new SchemaItem(schemaType.FullName);
+                var schemaDescriptionAttribute = schemaType.GetAttributes<DescriptionAttribute>().FirstOrDefault();
+                if (schemaDescriptionAttribute != null)
+                    schemaItem.Description = schemaDescriptionAttribute.Description;
+                schemaItem.SchemaProperties = schemaType
+                    .GetProperties()
+                    .Select(f => new SchemaPropertyItem()
+                    {
+                        Name = f.Name,
+                        Type = f.PropertyType.FullName,
+                        Description = (f.GetCustomAttribute(typeof(DescriptionAttribute)) as DescriptionAttribute)?.Description
+                    }).ToList();
+                DocumentationResponse.Schemas.Add(schemaItem);
             }
         }
 
@@ -127,7 +162,7 @@ namespace DionysosFX.Module.OpenApi
                 var expireTime = TimeSpan.FromHours(1).TotalSeconds;
                 context.AddCacheExpire(expireTime);
                 new Ok(DocumentationResponse).ExecuteResponse(context);
-            }            
+            }
         }
 
         public void Dispose()

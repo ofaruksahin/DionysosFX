@@ -1,5 +1,4 @@
-﻿using DionysosFX.Swan.Routing;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace DionysosFX.Module.OpenApi.Entities
@@ -16,7 +15,7 @@ namespace DionysosFX.Module.OpenApi.Entities
         /// 
         /// </summary>
         [JsonProperty("verb")]
-        public HttpVerb Verb { get; set; }
+        public string Verb { get; set; }
 
         /// <summary>
         /// 

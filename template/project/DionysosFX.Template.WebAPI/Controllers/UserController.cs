@@ -1,4 +1,5 @@
-﻿using DionysosFX.Module.OpenApi.Attributes;
+﻿using DionysosFX.Module.Cors;
+using DionysosFX.Module.OpenApi.Attributes;
 using DionysosFX.Module.WebApi;
 using DionysosFX.Module.WebApi.EnpointResults;
 using DionysosFX.Module.WebApiVersioning;
@@ -19,6 +20,7 @@ namespace DionysosFX.Template.WebAPI.Controllers
     [AuthorizeFilter]
     [Description("Controller Description")]
     [ApiVersion("1.0.0.0")]
+    [EnableCors("Default")]
     public class UserController : WebApiController, IController<User>
     {
         IUserService _userService;

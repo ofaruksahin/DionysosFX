@@ -70,7 +70,7 @@ namespace DionysosFX.Module.OpenApi
                                 endpointItem.Name = string.Format("{0}{1}", routePrefix, ((RouteAttribute)routeAttribute).Route);
                                 if (endpointItem.Name.Contains("{"))
                                     endpointItem.Name = endpointItem.Name.Substring(0, endpointItem.Name.IndexOf("{"));
-                                endpointItem.Verb = ((RouteAttribute)routeAttribute).Verb;
+                                endpointItem.Verb = ((RouteAttribute)routeAttribute).Verb.ToString();
                             }
                             var endpointDescriptionAttribute = endpoint.GetCustomAttribute(typeof(DescriptionAttribute));
                             if (endpointDescriptionAttribute != null)
@@ -156,6 +156,7 @@ namespace DionysosFX.Module.OpenApi
             DocumentationResponse.ApplicationName = openApiOptions.ApplicationName;
             if (context.Request.Url.LocalPath == "/open-api" && context.Request.HttpMethod == "GET")
             {
+                context.Response.Headers["Access-Control-Allow-Origin"] = "*";
                 var expireTime = TimeSpan.FromHours(1).TotalSeconds;
                 context.AddCacheExpire(expireTime);
                 new Ok(DocumentationResponse).ExecuteResponse(context);

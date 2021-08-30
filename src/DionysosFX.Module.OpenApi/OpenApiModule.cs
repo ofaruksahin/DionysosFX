@@ -86,6 +86,9 @@ namespace DionysosFX.Module.OpenApi
                                     DocumentationResponse.Versions.Add(version.Version);
                             }
 
+                            endpointItem.Versions.AddRange(DocumentationResponse.Versions);
+                            endpointItem.Versions = endpointItem.Versions.Distinct().ToList();
+
                             var methodParameters = endpoint.GetParameters();
 
                             var parameterAttributes = endpoint.GetAttributes<ParameterAttribute>();

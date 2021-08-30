@@ -2,6 +2,7 @@
 using DionysosFX.Host;
 using DionysosFX.Module.Cors;
 using DionysosFX.Module.OpenApi;
+using DionysosFX.Module.StaticFile;
 using DionysosFX.Module.WebApi;
 using DionysosFX.Module.WebApiVersioning;
 using DionysosFX.Swan;
@@ -37,7 +38,9 @@ namespace DionysosFX.Template.WebAPI
         {
             _hostBuilder.BuildContainer();
             _hostBuilder.UseWebApiModule();
-            _hostBuilder.UseOpenApiModule();           
+            _hostBuilder.UseOpenApiModule();
+            _hostBuilder.UseCors("Default");
+            _hostBuilder.UseStaticFileModule();
 
             using (var cts = new CancellationTokenSource())
             {
@@ -52,10 +55,6 @@ namespace DionysosFX.Template.WebAPI
         public void Configure()
         {
             _hostBuilder.AddPrefix("http://*:1923");
-            _hostBuilder.AddWebApiModule(new WebApiModuleOptions(ResponseType.Json));
-            _hostBuilder.AddOpenApiModule(new OpenApiModuleOptions("DionysosFX"));
-            _hostBuilder.UseWebApiVersionModule();
-            _hostBuilder.AddWebApiVersionModule(new WebApiVersioningModuleOptions("1.0.0.0"));
             var corsOptions = new CorsModuleOptions();
             corsOptions.AddPolicy("Default")
                 .AllowAnyHeaders()
@@ -64,6 +63,11 @@ namespace DionysosFX.Template.WebAPI
             _hostBuilder.AddCors(
                 corsOptions
                 );
+            _hostBuilder.AddWebApiModule(new WebApiModuleOptions(ResponseType.Json));
+            _hostBuilder.AddOpenApiModule(new OpenApiModuleOptions("DionysosFX Example OpenAPI"));
+            _hostBuilder.UseWebApiVersionModule();
+            _hostBuilder.AddWebApiVersionModule(new WebApiVersioningModuleOptions("1.0.0.0"));
+            _hostBuilder.AddStaticFileModule();
 
             _hostBuilder
                 .ContainerBuilder

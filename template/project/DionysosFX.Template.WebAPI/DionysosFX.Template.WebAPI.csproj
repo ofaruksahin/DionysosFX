@@ -13,6 +13,7 @@
     <ProjectReference Include="..\..\..\src\DionysosFX.Host\DionysosFX.Host.csproj" />
     <ProjectReference Include="..\..\..\src\DionysosFX.Module.Cors\DionysosFX.Module.Cors.csproj" />
     <ProjectReference Include="..\..\..\src\DionysosFX.Module.OpenApi\DionysosFX.Module.OpenApi.csproj" />
+    <ProjectReference Include="..\..\..\src\DionysosFX.Module.StaticFile\DionysosFX.Module.StaticFile.csproj" />
     <ProjectReference Include="..\..\..\src\DionysosFX.Module.WebApi\DionysosFX.Module.WebApi.csproj" />
   </ItemGroup>
 

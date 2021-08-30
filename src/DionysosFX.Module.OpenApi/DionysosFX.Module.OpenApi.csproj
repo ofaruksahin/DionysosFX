@@ -10,4 +10,10 @@
     <ProjectReference Include="..\DionysosFX.Swan\DionysosFX.Swan.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="OpenApiUI.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

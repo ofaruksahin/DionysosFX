@@ -4,51 +4,41 @@ namespace DionysosFX.Module.Cors
 {
     public static class CorsModuleOptionsExtension
     {
-        public static CorsPolicy AddPolicy(this CorsModuleOptions corsModuleOptions,string name)
+
+        public static CorsModuleOptions AllowAnyOrigin(this CorsModuleOptions @this)
         {
-            var corsPolicy = corsModuleOptions.CorsPolicies.FirstOrDefault(f => f.Name == name);
-            if (corsPolicy != null)
-                return corsPolicy;
-            corsPolicy = new CorsPolicy();
-            corsPolicy.Name = name;
-            corsModuleOptions.CorsPolicies.Add(corsPolicy);
-            return corsPolicy;
+            @this.AllowedOrigins.Add("*");
+            return @this;
         }
 
-        public static CorsPolicy AllowAnyOrigin(this CorsPolicy corsPolicy)
+        public static CorsModuleOptions AllowAnyMethods(this CorsModuleOptions @this)
         {
-            corsPolicy.AllowedOrigins.Add("*");
-            return corsPolicy;
+            @this.AllowedMethods.Add("*");
+            return @this;
         }
 
-        public static CorsPolicy AllowAnyMethods(this CorsPolicy corsPolicy)
+        public static CorsModuleOptions AllowAnyHeaders(this CorsModuleOptions @this)
         {
-            corsPolicy.AllowedMethods.Add("*");
-            return corsPolicy;
+            @this.AllowedHeaders.Add("*");
+            return @this;
         }
 
-        public static CorsPolicy AllowAnyHeaders(this CorsPolicy corsPolicy)
+        public static CorsModuleOptions WithOrigins(this CorsModuleOptions @this,params string[] origins)
         {
-            corsPolicy.AllowedHeaders.Add("*");
-            return corsPolicy;
+            @this.AllowedOrigins.AddRange(origins);
+            return @this;
         }
 
-        public static CorsPolicy WithOrigins(this CorsPolicy corsPolicy,params string[] origins)
+        public static CorsModuleOptions WithMethods(this CorsModuleOptions @this,params string[] methods)
         {
-            corsPolicy.AllowedOrigins.AddRange(origins);
-            return corsPolicy;
+            @this.AllowedMethods.AddRange(methods);
+            return @this;
         }
 
-        public static CorsPolicy WithMethods(this CorsPolicy corsPolicy,params string[] methods)
+        public static CorsModuleOptions WithHeaders(this CorsModuleOptions @this,params string[] headers)
         {
-            corsPolicy.AllowedMethods.AddRange(methods);
-            return corsPolicy;
-        }
-
-        public static CorsPolicy WithHeaders(this CorsPolicy corsPolicy,params string[] headers)
-        {
-            corsPolicy.AllowedHeaders.AddRange(headers);
-            return corsPolicy;
+            @this.AllowedHeaders.AddRange(headers);
+            return @this;
         }
     }
 }

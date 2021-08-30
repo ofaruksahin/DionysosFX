@@ -14,19 +14,12 @@ namespace DionysosFX.Module.Cors
             return @this;
         }
 
-        public static IHostBuilder UseCors(this IHostBuilder @this,string policyName)
+        public static IHostBuilder UseCors(this IHostBuilder @this)
         {
             var module = @this.Container.Resolve<CorsModule>();
             if (module == null)
                 throw new Exception($"{nameof(module)} Module not found");
-            @this.ModuleCollection.Add(module.GetType().Name, module);
-            var options = @this.Container.Resolve<CorsModuleOptions>();
-            if (options == null)
-                throw new Exception("Cors module options is not defined");
-            var policy = options.CorsPolicies.FirstOrDefault(f => f.Name == policyName);
-            if (policy == null)
-                throw new Exception("Cors policy is not defined");
-            policy.IsDefault = true;
+            @this.ModuleCollection.Add(module.GetType().Name, module);            
             return @this; 
         }
     }

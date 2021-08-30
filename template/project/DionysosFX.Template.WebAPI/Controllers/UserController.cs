@@ -20,7 +20,6 @@ namespace DionysosFX.Template.WebAPI.Controllers
     [AuthorizeFilter]
     [Description("Controller Description")]
     [ApiVersion("1.0.0.0")]
-    [EnableCors("Default")]
     public class UserController : WebApiController, IController<User>
     {
         IUserService _userService;

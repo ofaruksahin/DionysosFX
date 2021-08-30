@@ -39,7 +39,7 @@ namespace DionysosFX.Template.WebAPI
             _hostBuilder.BuildContainer();
             _hostBuilder.UseWebApiModule();
             _hostBuilder.UseOpenApiModule();
-            _hostBuilder.UseCors("Default");
+            _hostBuilder.UseCors();
             _hostBuilder.UseStaticFileModule();
 
             using (var cts = new CancellationTokenSource())
@@ -56,7 +56,7 @@ namespace DionysosFX.Template.WebAPI
         {
             _hostBuilder.AddPrefix("http://*:1923");
             var corsOptions = new CorsModuleOptions();
-            corsOptions.AddPolicy("Default")
+            corsOptions
                 .AllowAnyHeaders()
                 .AllowAnyMethods().
                 AllowAnyOrigin();

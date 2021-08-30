@@ -21,16 +21,12 @@ namespace DionysosFX.Module.Cors
                 var options = context.Container.Resolve<CorsModuleOptions>();
                 if (options == null)
                     throw new Exception("Cors Module Options is not defined");
-                var defaultPolicy = options.CorsPolicies.FirstOrDefault(f => f.IsDefault);
-                if (defaultPolicy != null)
-                {
-                    context.Response.Headers[CorsModuleConstants.AccessControlAllowCredentials] = "true";
-                    context.Response.Headers[CorsModuleConstants.AccessControlAllowHeaders] = string.Join(',', defaultPolicy.AllowedHeaders);
-                    context.Response.Headers[CorsModuleConstants.AccessControlAllowMethods] = string.Join(',', defaultPolicy.AllowedMethods);
-                    context.Response.Headers[CorsModuleConstants.AccessControlAllowOrigin] = string.Join(',', defaultPolicy.AllowedOrigins);
-                    context.Response.Headers[CorsModuleConstants.AccessControlMaxAge] = defaultPolicy.MaxAge.ToString();
-                    context.SetHandled();
-                }
+                context.Response.Headers[CorsModuleConstants.AccessControlAllowCredentials] = "true";
+                context.Response.Headers[CorsModuleConstants.AccessControlAllowHeaders] = string.Join(',', options.AllowedHeaders);
+                context.Response.Headers[CorsModuleConstants.AccessControlAllowMethods] = string.Join(',', options.AllowedMethods);
+                context.Response.Headers[CorsModuleConstants.AccessControlAllowOrigin] = string.Join(',', options.AllowedOrigins);
+                context.Response.Headers[CorsModuleConstants.AccessControlMaxAge] = options.MaxAge.ToString();
+                context.SetHandled();
             }
         }
         public void Dispose()

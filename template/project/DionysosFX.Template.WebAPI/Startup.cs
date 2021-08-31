@@ -37,9 +37,9 @@ namespace DionysosFX.Template.WebAPI
         public void Build()
         {
             _hostBuilder.BuildContainer();
+            _hostBuilder.UseCors();
             _hostBuilder.UseWebApiModule();
             _hostBuilder.UseOpenApiModule();
-            _hostBuilder.UseCors();
             _hostBuilder.UseStaticFileModule();
 
             using (var cts = new CancellationTokenSource())

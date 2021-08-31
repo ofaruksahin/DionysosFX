@@ -20,6 +20,6 @@ namespace DionysosFX.Template.WebAPI.Entities
         /// <summary>
         /// 
         /// </summary>
-        public string Surname { get; set; }
+        public string Surname { get; set; }        
     }
 }

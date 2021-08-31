@@ -80,7 +80,9 @@ namespace DionysosFX.Template.WebAPI.Controllers
         /// <param name="id"></param>
         /// <param name="entity"></param>
         [Route(HttpVerb.PUT, "/update")]
-        public IEndpointResult Update([QueryData] int id, [JsonData] User entity)
+        [Parameter("id","User Id")]
+        [Parameter("entity","User entity")]
+        public IEndpointResult Update([QueryData] int id, [FormData] User entity)
         {
             _userService.Update(id, entity);
             return new Ok(entity);

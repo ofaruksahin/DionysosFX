@@ -17,13 +17,13 @@ namespace DionysosFX.Module.OpenApi
         public IEndpointResult Get()
         {
             if (!Container.TryResolve(out WebApiModuleOptions apiModuleOptions))
-                return new NotFound();
+                return new InternalServerError();
             if (apiModuleOptions.ResponseType != ResponseType.Json)
-                return new NotFound();
+                return new InternalServerError();
             if(!Container.TryResolve(out OpenApiModuleOptions openApiOptions))
-                return new NotFound();
+                return new InternalServerError();
             if (!Container.TryResolve(out OpenApiModule openApiModule))
-                return new NotFound();
+                return new InternalServerError();
             openApiModule.DocumentationResponse.ApplicationName = openApiOptions.ApplicationName;
             Context.AddCacheExpire(TimeSpan.FromHours(1).TotalSeconds);
             return new Ok(openApiModule.DocumentationResponse);

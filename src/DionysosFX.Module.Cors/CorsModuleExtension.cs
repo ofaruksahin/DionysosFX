@@ -16,7 +16,7 @@ namespace DionysosFX.Module.Cors
 
         public static IHostBuilder UseCors(this IHostBuilder @this)
         {
-            if(!@this.Container.TryResolve<CorsModule>(out CorsModule module))
+            if(!@this.Container.TryResolve(out CorsModule module))
                 throw new Exception($"{nameof(module)} Module not found");
             @this.ModuleCollection.Add(module.GetType().Name, module);            
             return @this; 

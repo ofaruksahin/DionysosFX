@@ -1,6 +1,6 @@
 ﻿namespace DionysosFX.Module.Cors
 {
-    public static class CorsModuleConstants
+    internal static class CorsModuleConstants
     {
         public static string AccessControlAllowCredentials => "Access-Control-Allow-Credentials";
         public static string AccessControlAllowHeaders => "Access-Control-Allow-Headers";

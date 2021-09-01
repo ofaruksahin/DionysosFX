@@ -12,7 +12,7 @@ namespace DionysosFX.Module.FluentValidator
     {
         public void OnBefore(object sender, IHttpContext httpContext)
         {
-            if(!httpContext.Container.TryResolve<FluentValidatonOptions>(out FluentValidatonOptions validationContainer))            
+            if(!httpContext.Container.TryResolve(out FluentValidatonOptions validationContainer))            
                 throw new ArgumentNullException(nameof(validationContainer), $"{nameof(validationContainer)} is null, you should use AddFluentValidatorModule method");
             if (sender is RouteResolveResponse rsv)
             {

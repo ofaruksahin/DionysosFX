@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace DionysosFX.Module.Cors
+﻿namespace DionysosFX.Module.Cors
 {
     public static class CorsModuleOptionsExtension
     {

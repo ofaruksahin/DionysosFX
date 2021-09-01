@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace DionysosFX.Module.StaticFile
 {
-    public class StaticFileModule : IWebModule
+    internal class StaticFileModule : IWebModule
     {
         StaticFileOptions options = null;
         ConcurrentDictionary<string, StaticFileItem> _files = null;
@@ -30,7 +30,7 @@ namespace DionysosFX.Module.StaticFile
         public async Task HandleRequestAsync(IHttpContext context)
         {
             if (options == null)
-                if(context.Container.TryResolve<StaticFileOptions>(out options))
+                if(context.Container.TryResolve(out options))
                 {
                 }
             if (context.IsHandled)

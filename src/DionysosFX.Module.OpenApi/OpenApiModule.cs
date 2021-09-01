@@ -5,6 +5,7 @@ using DionysosFX.Module.WebApi;
 using DionysosFX.Module.WebApi.Attributes;
 using DionysosFX.Module.WebApi.EnpointResults;
 using DionysosFX.Module.WebApiVersioning;
+using DionysosFX.Swan.DataAnnotations;
 using DionysosFX.Swan.Extensions;
 using DionysosFX.Swan.Modules;
 using DionysosFX.Swan.Net;
@@ -19,9 +20,9 @@ using static DionysosFX.Module.OpenApi.Entities.SchemaItem;
 
 namespace DionysosFX.Module.OpenApi
 {
-    public class OpenApiModule : IWebModule
+    internal class OpenApiModule : IWebModule
     {
-        public DocumentationResponse DocumentationResponse = new DocumentationResponse();
+        internal DocumentationResponse DocumentationResponse = new DocumentationResponse();
         public void Start(CancellationToken cancellationToken)
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();

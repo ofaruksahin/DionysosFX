@@ -95,5 +95,13 @@ namespace DionysosFX.Swan.Extensions
                     types.Add(type);
             }
         }
+
+        public static object? Invoke(this object instance,string methodName,BindingFlags bindingFlags, object[]? parameters)
+        {
+            var methodInfo = instance.GetType().GetMethod(methodName, bindingFlags);
+            if (methodInfo == null)
+                return null;
+            return methodInfo.Invoke(instance, parameters);
+        }
     }
 }

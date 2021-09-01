@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DionysosFX.Module.OpenApi.Entities
 {
-    public class DocumentationResponse
+    internal class DocumentationResponse
     {
         [JsonProperty("application_name")]
         ///

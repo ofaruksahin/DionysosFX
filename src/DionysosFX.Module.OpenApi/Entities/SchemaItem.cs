@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DionysosFX.Module.OpenApi.Entities
 {
-    public class SchemaItem
+    internal class SchemaItem
     {
         [JsonProperty("name")]
         public string Name { get; set; }

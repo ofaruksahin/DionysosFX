@@ -18,7 +18,7 @@ namespace DionysosFX.Module.OpenApi
 
         public static IHostBuilder UseOpenApiModule(this IHostBuilder @this)
         {
-            if(!@this.Container.TryResolve<OpenApiModule>(out OpenApiModule module))            
+            if(!@this.Container.TryResolve(out OpenApiModule module))            
                 throw new Exception($"{nameof(module)} Module not found");
             @this.ModuleCollection.Add(module.GetType().Name, module);
             return @this;

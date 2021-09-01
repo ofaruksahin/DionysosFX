@@ -1,7 +1,7 @@
 ﻿using Autofac;
-using DionysosFX.Module.OpenApi.Attributes;
 using DionysosFX.Module.WebApi;
 using DionysosFX.Module.WebApi.EnpointResults;
+using DionysosFX.Swan.DataAnnotations;
 using DionysosFX.Swan.Extensions;
 using DionysosFX.Swan.Modules;
 using DionysosFX.Swan.Routing;
@@ -11,18 +11,18 @@ namespace DionysosFX.Module.OpenApi
 {
     [Route("/open-api")]
     [NotMapped]
-    public class OpenApiController :WebApiController
+    internal class OpenApiController :WebApiController
     {
         [Route(HttpVerb.GET,"")]
         public IEndpointResult Get()
         {
-            if (!Container.TryResolve<WebApiModuleOptions>(out WebApiModuleOptions apiModuleOptions))
+            if (!Container.TryResolve(out WebApiModuleOptions apiModuleOptions))
                 return new NotFound();
             if (apiModuleOptions.ResponseType != ResponseType.Json)
                 return new NotFound();
-            if(!Container.TryResolve<OpenApiModuleOptions>(out OpenApiModuleOptions openApiOptions))
+            if(!Container.TryResolve(out OpenApiModuleOptions openApiOptions))
                 return new NotFound();
-            if (!Container.TryResolve<OpenApiModule>(out OpenApiModule openApiModule))
+            if (!Container.TryResolve(out OpenApiModule openApiModule))
                 return new NotFound();
             openApiModule.DocumentationResponse.ApplicationName = openApiOptions.ApplicationName;
             Context.AddCacheExpire(TimeSpan.FromHours(1).TotalSeconds);

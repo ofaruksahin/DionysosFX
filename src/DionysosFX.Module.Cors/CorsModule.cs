@@ -2,13 +2,12 @@
 using DionysosFX.Swan.Modules;
 using DionysosFX.Swan.Net;
 using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace DionysosFX.Module.Cors
 {
-    public class CorsModule : IWebModule
+    internal class CorsModule : IWebModule
     {
         public void Start(CancellationToken cancellationToken)
         {
@@ -16,7 +15,7 @@ namespace DionysosFX.Module.Cors
 
         public async Task HandleRequestAsync(IHttpContext context)
         {
-            if(!context.Container.TryResolve<CorsModuleOptions>(out CorsModuleOptions options))
+            if(!context.Container.TryResolve(out CorsModuleOptions options))
                 throw new Exception("Cors Module Options is not defined");
             context.Response.Headers[CorsModuleConstants.AccessControlAllowCredentials] = "true";
             context.Response.Headers[CorsModuleConstants.AccessControlAllowHeaders] = string.Join(',', options.AllowedHeaders);

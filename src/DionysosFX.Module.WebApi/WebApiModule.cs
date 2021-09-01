@@ -16,7 +16,7 @@ namespace DionysosFX.Module.WebApi
     /// <summary>
     /// 
     /// </summary>
-    public class WebApiModule : IWebModule
+    internal class WebApiModule : IWebModule
     {
         List<RouteResolveResponse> routes = new List<RouteResolveResponse>();
         Assembly assembly = null;

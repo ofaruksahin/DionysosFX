@@ -2,7 +2,7 @@
 
 namespace DionysosFX.Module.OpenApi.Entities
 {
-    public class VersionItem
+    internal class VersionItem
     {
         [JsonProperty("version")]
         public string Version { get; set; }

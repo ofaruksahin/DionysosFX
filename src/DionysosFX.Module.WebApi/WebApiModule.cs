@@ -29,18 +29,21 @@ namespace DionysosFX.Module.WebApi
         {
             try
             {
-                assembly = Assembly.GetEntryAssembly();
-                var types = assembly.GetTypes();
-                foreach (var ty in types)
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+                foreach (var assembly in assemblies)
                 {
-                    var isWebApiController = ty.IsWebApiController();
-                    if (isWebApiController)
+                    var types = assembly.GetTypes();
+                    foreach (var ty in types)
                     {
-                        var routeResolveRepsonse = ty.RouteResolve();
-                        foreach (var resolveResponse in routeResolveRepsonse)
-                            routes.Add(resolveResponse);
+                        var isWebApiController = ty.IsWebApiController();
+                        if (isWebApiController)
+                        {
+                            var routeResolveRepsonse = ty.RouteResolve();
+                            foreach (var resolveResponse in routeResolveRepsonse)
+                                routes.Add(resolveResponse);
+                        }
                     }
-                }
+                }               
             }
             catch (Exception)
             {
@@ -75,6 +78,7 @@ namespace DionysosFX.Module.WebApi
                     }
 
                     routeItem.SetHttpContext?.Invoke(instance, new[] { context });
+                    routeItem.SetContainer?.Invoke(instance, new[] { context.Container });
                     List<object> _invokeParameters = new List<object>();
                     foreach (var invokeParameter in routeItem.InvokeParameters)
                     {

@@ -49,8 +49,8 @@
                 </div>
                 <div class="col-12 col-md-4 col-sm-12 col-xs-12 p-1 ps-3 pe-3">
                     <select v-model="selectedVersion" class="form-select">
-                        <option v-for="(item,index) in documentation.versions" :value="item">
-                            {{item}}
+                        <option v-for="(item,index) in documentation.versions" :value="item.version">
+                            {{item.version}} {{item.deprecated ? ("Deprecated") : ""}}
                         </option>
                     </select>
                 </div>
@@ -80,7 +80,7 @@
                                         <div class="card" v-if="item.endpoints.length >0">
                                             <div class="card-body">
                                                 <div class="accordion accordion-flush" :id='"endpoint-"+item.name'>
-                                                    <div class="accordion-item" v-for="(endpoint,index) in item.endpoints" v-if="endpoint.versions.length == 0 || endpoint.versions.includes(selectedVersion)">
+                                                    <div class="accordion-item" v-for="(endpoint,index) in item.endpoints" v-if="isSelectedVersion(endpoint)">
                                                         <h2 class="accordion-header">
                                                             <button class="accordion-button collapsed" type="button" :data-bs-target='"#endpoint-" + item.name+index' v-on:click="collapseAccordion">
                                                                 <span :class="getVerbClass(endpoint)">{{endpoint.verb}}</span>  <span class="fw-bold">{{endpoint.name}}</span> <span class="fw-light ms-2">{{endpoint.description}}</span>
@@ -98,6 +98,11 @@
                                                                         <li class="nav-item" role="presentation">
                                                                             <button class="nav-link" :id="'endpoint'+item.name+index+'responsetab'" data-bs-toggle="tab" :data-bs-target='"#endpoint-" + item.name+index+"responsetype"' type="button" role="tab" aria-selected="true">
                                                                                 Response Types
+                                                                            </button>
+                                                                        </li>
+                                                                        <li class="nav-item" role="presentation">
+                                                                            <button class="nav-link" :id="'endpoint'+item.name+index+'responsetab'" data-bs-toggle="tab" :data-bs-target='"#endpoint-" + item.name+index+"version"' type="button" role="tab" aria-selected="true">
+                                                                                Versions
                                                                             </button>
                                                                         </li>
                                                                     </ul>
@@ -145,6 +150,24 @@
                                                                                 </table>
                                                                             </div>
                                                                         </div>
+                                                                        <div class="tab-pane fade" :id='"endpoint-" + item.name+index+"version"' role="tabpanel">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th scope="col">Version</th>
+                                                                                            <th scope="col">Deprecated</th>
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr v-for="version in endpoint.versions">
+                                                                                            <td>{{version.version}}</td>
+                                                                                            <td>{{version.deprecated}}</td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -159,72 +182,119 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="card mt-5">
-                    <div class="card-body"></div>
+                <div class="card mt-5" v-if="documentation.schema != null && documentation.schema.length >0">
+                    <div class="card-body">
+                        <div class="accordion accordion-flush" id="schema">
+                            <div class="accordion-item" v-for="(item,index) in documentation.schema">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" :data-bs-target='"#flush-"+index' v-on:click="collapseAccordion">
+                                        <span class="fw-bold">{{item.name}}</span> <span class="fw-light ms-2">{{item.description}}</span>
+                                    </button>
+                                </h2>
+                                <div :id='"flush-"+index' class="accordion-collapse collapse" data-bs-parent="schema">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Name</th>
+                                                            <th scope="col">Description</th>
+                                                            <th scope="col">Type</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for="schema_property in item.schema_properties">
+                                                            <td>{{schema_property.name}}</td>
+                                                            <td>{{schema_property.description}}</td>
+                                                            <td>{{schema_property.type}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
         </main>
     </div>
 
     <script>
-        window.onload = function () {
-            var app = new Vue({
-                el: "#app",
-                data: {
-                    url: '/open-api',
-                    selectedVersion: '',
-                    documentation: {}
-                },
-                methods: {
-                    fetchDocumentation() {
-                        var url = 'http://localhost:1923/open-api';
-                        fetch(url)
-                            .then(response => response.json())
-                            .then(data => {
-                                this.documentation = data;
-                                if (this.documentation.versions.length > 0) {
-                                    this.selectedVersion = this.documentation.versions[0]
-                                }
-                                console.log(this.documentation)
-                            }).catch((err) => {
-                                alert(err)
-                            });
+            window.onload = function() {
+                var app = new Vue({
+                    el: "#app",
+                    data: {
+                        url: '/open-api/',
+                        selectedVersion: '',
+                        documentation: {}
                     },
-                    collapseAccordion(e) {
-                        var target = e.target;
-                        var targetId = target.attributes['data-bs-target'].value.substr(1);
-                        var collapse = document.getElementById(targetId);
-                        if (collapse.classList.contains('show')) {
-                            $(collapse).collapse('hide')
-                        } else {
-                            $(collapse).collapse('show')
+                    methods: {
+                        fetchDocumentation() {
+                            var url = 'open-api';
+                            fetch(url)
+                                .then(response => response.json())
+                                .then(data => {
+                                    this.documentation = data;
+                                    if (this.documentation.versions.length > 0) {
+                                        this.selectedVersion = this.documentation.versions[0].version
+                                    }
+                                }).catch((err) => {
+                                    alert(err)
+                                });
+                        },
+                        collapseAccordion(e) {
+                            var target = e.target;
+                            var targetId = target.attributes['data-bs-target'].value.substr(1);
+                            var collapse = document.getElementById(targetId);
+                            if (collapse.classList.contains('show')) {
+                                $(collapse).collapse('hide')
+                            } else {
+                                $(collapse).collapse('show')
+                            }
+                        },
+                        getVerbClass(endpoint) {
+                            switch (endpoint.verb) {
+                                case 'GET':
+                                    return "badge bg-primary me-2";
+                                case "POST":
+                                    return "badge bg-success me-2";
+                                case "PUT":
+                                case "PATCH":
+                                    return "badge bg-warning me-2";
+                                case "DELETE":
+                                    return "badge bg-danger me-2";
+                            }
+                            return "badge bg-secondary me-2";
+                        },
+                        getSchema(parameter) {
+                            var schemas = this.documentation.schema.filter((f) => f.name == parameter.type);
+                            return schemas.length > 0 ? schemas[0] : null;
+                        },
+                        isSelectedVersion(endpoint) {
+                            if (endpoint.versions.length == 0)
+                                return true;
+                            var result = false;
+                            endpoint.versions.map((f) => {
+                                if (!result)
+                                    result = this.documentation.versions.filter((y) => y.version == f.version).length > 0;
+                            })
+                            return result;
                         }
                     },
-                    getVerbClass(endpoint) {
-                        switch (endpoint.verb) {
-                            case 'GET':
-                                return "badge bg-primary me-2";
-                            case "POST":
-                                return "badge bg-success me-2";
-                            case "PUT":
-                            case "PATCH":
-                                return "badge bg-warning me-2";
-                            case "DELETE":
-                                return "badge bg-danger me-2";
-                        }
-                        return "badge bg-secondary me-2";
+                    created() {
+                        this.fetchDocumentation();
                     },
-                    getSchema(parameter) {
-                        var schemas = this.documentation.schema.filter((f) => f.name == parameter.type);
-                        return schemas.length > 0 ? schemas[0] : null;
-                    }
-                },
-                created() {
-                    this.fetchDocumentation();
-                },
-            });
-        };
+                });
+            };
     </script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
 </body>
 
 </html>

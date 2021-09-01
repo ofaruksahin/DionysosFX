@@ -37,9 +37,10 @@ namespace DionysosFX.Template.WebAPI.Controllers
         /// Get all user
         /// </summary>
         [Route(HttpVerb.GET, "/list")]
-        [Description("Get User List")]     
-        [ResponseType(HttpStatusCode.OK,typeof(List<User>),"User List")]
-        [ResponseType(HttpStatusCode.NotFound,typeof(List<User>),"User List")]
+        [Description("Get User List")]
+        [ResponseType(HttpStatusCode.OK, typeof(List<User>), "User List")]
+        [ResponseType(HttpStatusCode.NotFound, typeof(List<User>), "User List")]
+        [ApiVersion("1.0.0.2")]
         public IEndpointResult List()
         {
             var list = _userService.GetAll();

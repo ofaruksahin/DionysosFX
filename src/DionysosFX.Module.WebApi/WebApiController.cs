@@ -1,4 +1,5 @@
-﻿using DionysosFX.Swan.Net;
+﻿using Autofac;
+using DionysosFX.Swan.Net;
 using System;
 
 namespace DionysosFX.Module.WebApi
@@ -10,15 +11,22 @@ namespace DionysosFX.Module.WebApi
 
         public IHttpContext Context;
 
+        public IContainer Container;
+
         public virtual void Dispose()
         {
-            Dispose(true);
+            Dispose(true);                      
             GC.SuppressFinalize(this);
         }
 
         private void SetHttpContext(IHttpContext _context)
         {
             Context = _context;
+        }
+
+        private void SetContainer(IContainer _container)
+        {
+            Container = _container;
         }
 
         private void Dispose(bool disposing)

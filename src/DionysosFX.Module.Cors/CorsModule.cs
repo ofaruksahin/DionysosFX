@@ -16,8 +16,7 @@ namespace DionysosFX.Module.Cors
 
         public async Task HandleRequestAsync(IHttpContext context)
         {
-            var options = context.Container.Resolve<CorsModuleOptions>();
-            if (options == null)
+            if(!context.Container.TryResolve<CorsModuleOptions>(out CorsModuleOptions options))
                 throw new Exception("Cors Module Options is not defined");
             context.Response.Headers[CorsModuleConstants.AccessControlAllowCredentials] = "true";
             context.Response.Headers[CorsModuleConstants.AccessControlAllowHeaders] = string.Join(',', options.AllowedHeaders);

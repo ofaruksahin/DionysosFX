@@ -35,8 +35,7 @@ namespace DionysosFX.Module.WebApiVersioning
         {
             if (sender is RouteResolveResponse rsv)
             {
-                var options = httpContext.Container.Resolve<WebApiVersioningModuleOptions>();
-                if (options == null)
+                if(!httpContext.Container.TryResolve<WebApiVersioningModuleOptions>(out WebApiVersioningModuleOptions options))      
                     throw new ArgumentNullException(nameof(WebApiVersioningModuleOptions), $"{nameof(WebApiVersioningModuleOptions)} is null, you should use AddWebApiVersion method");
                 var versions = rsv.Attributes
                     .Where(f => f.GetType() == typeof(ApiVersionAttribute))

@@ -42,6 +42,12 @@ namespace DionysosFX.Swan.Routing
             set;
         }
 
+        public MethodInfo SetContainer
+        {
+            get;
+            set;
+        }
+
         public List<string> QueryString
         {
             get;

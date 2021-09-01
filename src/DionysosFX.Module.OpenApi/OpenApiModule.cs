@@ -21,9 +21,9 @@ namespace DionysosFX.Module.OpenApi
 {
     public class OpenApiModule : IWebModule
     {
-        DocumentationResponse DocumentationResponse = new DocumentationResponse();
+        public DocumentationResponse DocumentationResponse = new DocumentationResponse();
         public void Start(CancellationToken cancellationToken)
-        {            
+        {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             List<Type> schemaTypes = new List<Type>();
             foreach (var assembly in assemblies)
@@ -33,6 +33,9 @@ namespace DionysosFX.Module.OpenApi
                 {
                     foreach (var controller in types)
                     {
+                        var controllerNotMappedAttributes = controller.GetAttributes<NotMappedAttribute>();
+                        if (controllerNotMappedAttributes.Any())
+                            continue;
                         var controllerItem = new ControllerItem();
                         controllerItem.Name = controller.Name;
 
@@ -53,14 +56,21 @@ namespace DionysosFX.Module.OpenApi
 
                         foreach (var controllerVersion in controllerVersions)
                         {
-                            if (DocumentationResponse.Versions.Any(f => f == controllerVersion.Version))
+                            if (DocumentationResponse.Versions.Any(f => f.Version == controllerVersion.Version))
                                 continue;
-                            DocumentationResponse.Versions.Add(controllerVersion.Version);
+                            DocumentationResponse.Versions.Add(new VersionItem()
+                            {
+                                Version = controllerVersion.Version,
+                                Deprecated = controllerVersion.Deprecated
+                            });
                         }
 
                         var endpoints = controller.GetMethods(BindingFlags.Instance | BindingFlags.Public).Where(f => f.IsRoute()).ToList();
                         foreach (var endpoint in endpoints)
                         {
+                            var endpointNotMappedAttributes = endpoint.GetAttributes<NotMappedAttribute>();
+                            if (endpointNotMappedAttributes.Any())
+                                continue;
                             EndpointItem endpointItem = new EndpointItem();
                             var routeAttribute = endpoint.GetCustomAttribute(typeof(RouteAttribute));
                             if (routeAttribute == null)
@@ -78,16 +88,24 @@ namespace DionysosFX.Module.OpenApi
                             var versioningAttributes = endpoint.GetAttributes<ApiVersionAttribute>();
                             foreach (var version in versioningAttributes)
                             {
-                                if (endpointItem.Versions.Any(f => f == version.Version))
+                                if (endpointItem.Versions.Any(f => f.Version == version.Version))
                                     continue;
-                                endpointItem.Versions.Add(version.Version);
-                                if (!DocumentationResponse.Versions.Any(f => f == version.Version))
-                                    DocumentationResponse.Versions.Add(version.Version);
+                                endpointItem.Versions.Add(new VersionItem()
+                                {
+                                    Version = version.Version,
+                                    Deprecated = version.Deprecated
+                                });
+                                if (!DocumentationResponse.Versions.Any(f => f.Version == version.Version))
+                                    DocumentationResponse.Versions.Add(new VersionItem()
+                                    {
+                                        Version = version.Version,
+                                        Deprecated = version.Deprecated
+                                    });
                             }
 
-                            endpointItem.Versions.AddRange(DocumentationResponse.Versions);
-                            endpointItem.Versions = endpointItem.Versions.Distinct().ToList();
-
+                            endpointItem.Versions.AddRange(DocumentationResponse.Versions.Where(f => endpointItem.Versions.Any(y => f.Version != y.Version)).ToList());
+                            endpointItem.Versions = endpointItem.Versions.OrderBy(f => f.Version).ToList();
+                            
                             var methodParameters = endpoint.GetParameters();
 
                             var parameterAttributes = endpoint.GetAttributes<ParameterAttribute>();
@@ -149,19 +167,6 @@ namespace DionysosFX.Module.OpenApi
         {
             if (context.IsHandled)
                 return;
-            var apiModuleOptions = context.Container.Resolve<WebApiModuleOptions>();
-            if (apiModuleOptions == null || apiModuleOptions.ResponseType != ResponseType.Json)
-                throw new Exception("OpenAPI supported the only json");
-            var openApiOptions = context.Container.Resolve<OpenApiModuleOptions>();
-            if (openApiOptions == null)
-                throw new Exception("OpenAPI Options not found");
-            DocumentationResponse.ApplicationName = openApiOptions.ApplicationName;
-            if (context.Request.Url.LocalPath == "/open-api" && context.Request.HttpMethod == "GET")
-            {
-                var expireTime = TimeSpan.FromHours(1).TotalSeconds;
-                context.AddCacheExpire(expireTime);
-                new Ok(DocumentationResponse).ExecuteResponse(context);
-            }
         }
 
         public void Dispose()

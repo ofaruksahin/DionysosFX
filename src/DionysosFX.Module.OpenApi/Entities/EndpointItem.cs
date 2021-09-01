@@ -33,6 +33,6 @@ namespace DionysosFX.Module.OpenApi.Entities
         /// 
         /// </summary>
         [JsonProperty("versions")]
-        public List<string> Versions { get; set; } = new List<string>();
+        public List<VersionItem> Versions { get; set; } = new List<VersionItem>();
     }
 }

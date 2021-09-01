@@ -30,7 +30,9 @@ namespace DionysosFX.Module.StaticFile
         public async Task HandleRequestAsync(IHttpContext context)
         {
             if (options == null)
-                options = context.Container.Resolve<StaticFileOptions>();
+                if(context.Container.TryResolve<StaticFileOptions>(out options))
+                {
+                }
             if (context.IsHandled)
                 return;
             string fileName = string.Empty;

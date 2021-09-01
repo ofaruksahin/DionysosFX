@@ -18,8 +18,7 @@ namespace DionysosFX.Module.WebApi
 
         public static IHostBuilder UseWebApiModule(this IHostBuilder @this)
         {
-            var module = @this.Container.Resolve<WebApiModule>();
-            if (module == null)
+            if(!@this.Container.TryResolve<WebApiModule>(out WebApiModule module))            
                 throw new Exception($"{nameof(module)} Module not found");
             @this.ModuleCollection.Add(module.GetType().Name, module);
             return @this;
@@ -36,6 +35,11 @@ namespace DionysosFX.Module.WebApi
                 return @this.BaseType.IsWebApiController();
         }
         
-        public static WebApiModuleOptions GetWebApiModuleOptions(this IHttpContext @this) => @this.Container.Resolve<WebApiModuleOptions>();   
+        public static WebApiModuleOptions GetWebApiModuleOptions(this IHttpContext @this)
+        {
+            if (@this.Container.TryResolve<WebApiModuleOptions>(out WebApiModuleOptions rsv))
+                return rsv;
+            return null;            
+        } 
     }
 }

@@ -26,8 +26,7 @@ namespace DionysosFX.Module.StaticFile
 
         public static  IHostBuilder UseStaticFileModule(this IHostBuilder @this)
         {
-            var module = @this.Container.Resolve<StaticFileModule>();
-            if (module == null)
+            if(!@this.Container.TryResolve<StaticFileModule>(out StaticFileModule module))            
                 throw new Exception($"{nameof(module)} Module not found");
             @this.ModuleCollection.Add(module.GetType().Name, module);
             return @this;

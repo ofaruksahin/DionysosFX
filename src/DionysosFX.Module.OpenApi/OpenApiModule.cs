@@ -1,9 +1,6 @@
 ﻿using Autofac;
-using DionysosFX.Module.OpenApi.Attributes;
 using DionysosFX.Module.OpenApi.Entities;
 using DionysosFX.Module.WebApi;
-using DionysosFX.Module.WebApi.Attributes;
-using DionysosFX.Module.WebApi.EnpointResults;
 using DionysosFX.Module.WebApiVersioning;
 using DionysosFX.Swan.DataAnnotations;
 using DionysosFX.Swan.Extensions;
@@ -16,7 +13,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using static DionysosFX.Module.OpenApi.Entities.SchemaItem;
 
 namespace DionysosFX.Module.OpenApi
 {
@@ -37,12 +33,7 @@ namespace DionysosFX.Module.OpenApi
                         var controllerNotMappedAttributes = controller.GetAttributes<NotMappedAttribute>();
                         if (controllerNotMappedAttributes.Any())
                             continue;
-                        var controllerItem = new ControllerItem();
-                        controllerItem.Name = controller.Name;
-
-                        var controllerDescriptionAttribute = controller.GetCustomAttribute(typeof(DescriptionAttribute));
-                        if (controllerDescriptionAttribute != null)
-                            controllerItem.Description = ((DescriptionAttribute)controllerDescriptionAttribute).Description;
+                        var controllerItem = controller.ToController();
 
                         var controllerRouteAttribute = controller.GetCustomAttribute(typeof(RouteAttribute));
 
@@ -72,19 +63,7 @@ namespace DionysosFX.Module.OpenApi
                             var endpointNotMappedAttributes = endpoint.GetAttributes<NotMappedAttribute>();
                             if (endpointNotMappedAttributes.Any())
                                 continue;
-                            EndpointItem endpointItem = new EndpointItem();
-                            var routeAttribute = endpoint.GetCustomAttribute(typeof(RouteAttribute));
-                            if (routeAttribute == null)
-                                throw new Exception($"{endpoint.Name} Route Attribute not found.");
-
-                            endpointItem.Name = string.Format("{0}{1}", routePrefix, ((RouteAttribute)routeAttribute).Route);
-                            if (endpointItem.Name.Contains("{"))
-                                endpointItem.Name = endpointItem.Name.Substring(0, endpointItem.Name.IndexOf("{"));
-                            endpointItem.Verb = ((RouteAttribute)routeAttribute).Verb.ToString();
-
-                            var endpointDescriptionAttribute = endpoint.GetCustomAttribute(typeof(DescriptionAttribute));
-                            if (endpointDescriptionAttribute != null)
-                                endpointItem.Description = ((DescriptionAttribute)endpointDescriptionAttribute).Description;
+                            var endpointItem = endpoint.ToEndpoint(routePrefix,schemaTypes);
 
                             var versioningAttributes = endpoint.GetAttributes<ApiVersionAttribute>();
                             foreach (var version in versioningAttributes)
@@ -106,39 +85,6 @@ namespace DionysosFX.Module.OpenApi
 
                             endpointItem.Versions.AddRange(DocumentationResponse.Versions.Where(f => endpointItem.Versions.Any(y => f.Version != y.Version)).ToList());
                             endpointItem.Versions = endpointItem.Versions.OrderBy(f => f.Version).ToList();
-                            
-                            var methodParameters = endpoint.GetParameters();
-
-                            var parameterAttributes = endpoint.GetAttributes<ParameterAttribute>();
-                            endpointItem.Parameters = parameterAttributes
-                                .Select(f => new ParameterItem(f.Name, f.Description))
-                                .ToList();
-
-                            foreach (var item in endpointItem.Parameters)
-                            {
-                                var methodParameter = methodParameters.FirstOrDefault(f => f.Name == item.Name);
-                                if (methodParameter == null)
-                                    continue;
-                                item.TypeName = methodParameter.ParameterType.GetName();
-                                if (!methodParameter.ParameterType.IsSystemType() && !schemaTypes.Any(f => f.FullName == methodParameter.ParameterType.FullName))
-                                    schemaTypes.Add(methodParameter.ParameterType);
-                                var convertAttribute = methodParameter.GetCustomAttributes()
-                                  .Where(f => f.GetType().GetInterface(nameof(IParameterConverter)) != null)
-                                  .FirstOrDefault();
-                                item.PrefixType = convertAttribute.GetType().FullName;
-                            }
-
-                            var responseTypeAttributes = endpoint.GetAttributes<ResponseTypeAttribute>();
-                            endpointItem.ResponseTypes = responseTypeAttributes
-                                .Select(f => new ResponseTypeItem(f.StatusCode, f.Type.GetName(), f.Description))
-                                .ToList();
-
-                            List<Type> responseGenericTypes = new List<Type>();
-                            foreach (var responseType in responseTypeAttributes)
-                                responseType.Type.GetGenericTypesRecursive(ref responseGenericTypes);
-
-                            schemaTypes.AddRange(responseGenericTypes.Where(f => schemaTypes.Any(y => y.FullName != f.FullName)).Select(f => f));
-
                             controllerItem.Endpoints.Add(endpointItem);
                         }
                         DocumentationResponse.Controllers.Add(controllerItem);
@@ -148,18 +94,7 @@ namespace DionysosFX.Module.OpenApi
 
             foreach (var schemaType in schemaTypes)
             {
-                SchemaItem schemaItem = new SchemaItem(schemaType.FullName);
-                var schemaDescriptionAttribute = schemaType.GetAttributes<DescriptionAttribute>().FirstOrDefault();
-                if (schemaDescriptionAttribute != null)
-                    schemaItem.Description = schemaDescriptionAttribute.Description;
-                schemaItem.SchemaProperties = schemaType
-                    .GetProperties()
-                    .Select(f => new SchemaPropertyItem()
-                    {
-                        Name = f.Name,
-                        Type = f.PropertyType.FullName,
-                        Description = (f.GetCustomAttribute(typeof(DescriptionAttribute)) as DescriptionAttribute)?.Description
-                    }).ToList();
+                var schemaItem = schemaType.ToSchemaItem();
                 DocumentationResponse.Schemas.Add(schemaItem);
             }
         }

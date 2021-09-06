@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace DionysosFX.Host.Net.Internal
 {
     /// <summary>
-    /// 
+    /// This class listening web requests
     /// </summary>
     internal class SystemHttpListener : IHttpListener
     {
         /// <summary>
-        /// 
+        /// .Net Default Request Listener object
         /// </summary>
         private System.Net.HttpListener _listener;
 
@@ -27,27 +27,27 @@ namespace DionysosFX.Host.Net.Internal
         }
 
         /// <summary>
-        /// 
+        /// Listener Status
         /// </summary>
         public bool IsListening => _listener == null ? false : _listener.IsListening;
 
         /// <summary>
-        /// 
+        /// Listener name
         /// </summary>
         public string Name { get => "DionysosFX Web Server"; }
 
         /// <summary>
-        /// 
+        /// web prefixes
         /// </summary>
         private List<string> _prefixes;
 
         /// <summary>
-        /// 
+        /// web prefixes
         /// </summary>
         public IReadOnlyList<string> Prefixes => _prefixes;
 
         /// <summary>
-        /// 
+        /// Add a new prefix method
         /// </summary>
         /// <param name="prefix"></param>
         public void AddPrefix(string prefix)
@@ -56,7 +56,7 @@ namespace DionysosFX.Host.Net.Internal
         }
        
         /// <summary>
-        /// 
+        /// wait a new web request
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
@@ -75,7 +75,7 @@ namespace DionysosFX.Host.Net.Internal
         }
 
         /// <summary>
-        /// 
+        /// Start listener object and set isListening state true
         /// </summary>
         public void Start()
         {
@@ -86,7 +86,7 @@ namespace DionysosFX.Host.Net.Internal
         }
 
         /// <summary>
-        /// 
+        /// Stop listener
         /// </summary>
         public void Stop()
         {
@@ -94,7 +94,7 @@ namespace DionysosFX.Host.Net.Internal
         }
 
         /// <summary>
-        /// 
+        /// Dispose listener
         /// </summary>
         public void Dispose()
         {

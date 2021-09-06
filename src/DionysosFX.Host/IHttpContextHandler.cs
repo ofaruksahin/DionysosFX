@@ -3,13 +3,10 @@ using System.Threading.Tasks;
 
 namespace DionysosFX.Host
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public interface IHttpContextHandler
     {
         /// <summary>
-        /// 
+        /// Wait a new web request and process request
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>

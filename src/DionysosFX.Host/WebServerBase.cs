@@ -17,27 +17,22 @@ namespace DionysosFX.Host
         where TStarup : IHostBuilder
     {
         /// <summary>
-        /// 
+        /// Store web listening status
         /// </summary>
         private WebServerState _state = WebServerState.Created;
 
         /// <summary>
-        /// 
+        /// DionysosFX App Instance Configs
         /// </summary>
         private IHostBuilder _hostBuilder;
 
         /// <summary>
-        /// 
+        /// DionysosFX App Instance Configs
         /// </summary>
-        public IHostBuilder HostBuilder => _hostBuilder;
-
-        public WebServerBase(IHostBuilder hostBuilder)
-        {
-            _hostBuilder = hostBuilder;
-        }
+        public IHostBuilder HostBuilder => _hostBuilder;      
 
         /// <summary>
-        /// 
+        /// Store web listening status
         /// </summary>
         public WebServerState State
         {
@@ -58,18 +53,23 @@ namespace DionysosFX.Host
             }
         }
 
+        public WebServerBase(IHostBuilder hostBuilder)
+        {
+            _hostBuilder = hostBuilder;
+        }
+
         /// <summary>
-        /// 
+        /// Server state change method
         /// </summary>
         public event EventHandler<WebServerStateChangeEventArgs> StateChanged;
 
         /// <summary>
-        /// 
+        /// Server handle the exception and trigger a 'OnFatalException' event
         /// </summary>
         public event EventHandler<OnFatalExceptionEventArgs> OnFatalException;
 
         /// <summary>
-        /// 
+        /// DionysosFX App Prepare Method
         /// </summary>
         /// <param name="cancellationToken"></param>
         protected virtual void Prepare(CancellationToken cancellationToken)
@@ -78,19 +78,14 @@ namespace DionysosFX.Host
         }
 
         /// <summary>
-        /// 
+        /// Handle a new web request after than process request method
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         protected abstract Task ProcessRequestAsync(CancellationToken cancellationToken);
 
         /// <summary>
-        /// 
-        /// </summary>
-        //protected abstract void OnFatalException();
-
-        /// <summary>
-        /// 
+        /// Handled web request and process request method
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
@@ -143,7 +138,7 @@ namespace DionysosFX.Host
         }
 
         /// <summary>
-        /// 
+        /// Start DionysosFX App
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>

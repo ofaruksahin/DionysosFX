@@ -87,7 +87,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.ItemTempl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.WebAPI.ItemTemplate", "template\item\DionysosFX.Module.WebAPI.ItemTemplate\DionysosFX.Module.WebAPI.ItemTemplate.csproj", "{21B54BDA-2E00-4C4E-B4DF-3C484DFC376B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.OpenApi.UI", "src\DionysosFX.Module.OpenApi.UI\DionysosFX.Module.OpenApi.UI.csproj", "{A6E72643-1067-4846-8F43-2A51B77E1866}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.OpenApi.UI", "src\DionysosFX.Module.OpenApi.UI\DionysosFX.Module.OpenApi.UI.csproj", "{A6E72643-1067-4846-8F43-2A51B77E1866}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.WebApi.JSON", "src\DionysosFX.Module.WebApi.JSON\DionysosFX.Module.WebApi.JSON.csproj", "{6CC9D9C5-5F51-4D9A-92C2-5079BB0EAAA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.WebApi.XML", "src\DionysosFX.Module.WebApi.XML\DionysosFX.Module.WebApi.XML.csproj", "{1A96875C-1C85-4B98-AC7E-2B83AB8302C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.IWebApi", "src\DionysosFX.Module.IWebApi\DionysosFX.Module.IWebApi.csproj", "{CC026E32-4AB1-4B59-BE22-5C36C795DB2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -195,6 +201,18 @@ Global
 		{A6E72643-1067-4846-8F43-2A51B77E1866}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6E72643-1067-4846-8F43-2A51B77E1866}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6E72643-1067-4846-8F43-2A51B77E1866}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CC9D9C5-5F51-4D9A-92C2-5079BB0EAAA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CC9D9C5-5F51-4D9A-92C2-5079BB0EAAA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CC9D9C5-5F51-4D9A-92C2-5079BB0EAAA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CC9D9C5-5F51-4D9A-92C2-5079BB0EAAA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A96875C-1C85-4B98-AC7E-2B83AB8302C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A96875C-1C85-4B98-AC7E-2B83AB8302C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A96875C-1C85-4B98-AC7E-2B83AB8302C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A96875C-1C85-4B98-AC7E-2B83AB8302C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC026E32-4AB1-4B59-BE22-5C36C795DB2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC026E32-4AB1-4B59-BE22-5C36C795DB2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC026E32-4AB1-4B59-BE22-5C36C795DB2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC026E32-4AB1-4B59-BE22-5C36C795DB2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -232,6 +250,9 @@ Global
 		{9AE6D378-F5C1-4448-9067-CB458D61DD36} = {3AA70917-AC99-48EA-8D9D-E548C2AFEB24}
 		{21B54BDA-2E00-4C4E-B4DF-3C484DFC376B} = {3AA70917-AC99-48EA-8D9D-E548C2AFEB24}
 		{A6E72643-1067-4846-8F43-2A51B77E1866} = {81B6B15B-EE4A-4372-98CF-E04F6C94793C}
+		{6CC9D9C5-5F51-4D9A-92C2-5079BB0EAAA7} = {9330F910-A00F-4B99-8D68-21C7FAE3A429}
+		{1A96875C-1C85-4B98-AC7E-2B83AB8302C3} = {9330F910-A00F-4B99-8D68-21C7FAE3A429}
+		{CC026E32-4AB1-4B59-BE22-5C36C795DB2B} = {9330F910-A00F-4B99-8D68-21C7FAE3A429}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {649875DE-A7F9-4D8E-BD5C-D785B7554E16}

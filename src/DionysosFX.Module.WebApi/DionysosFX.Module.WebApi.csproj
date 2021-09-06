@@ -5,6 +5,8 @@
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DionysosFX.Module.IWebApi\DionysosFX.Module.IWebApi.csproj" />
     <ProjectReference Include="..\DionysosFX.Swan\DionysosFX.Swan.csproj" />
   </ItemGroup>
 

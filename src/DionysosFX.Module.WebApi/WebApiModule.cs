@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using DionysosFX.Module.WebApi.Attributes;
+using DionysosFX.Module.IWebApi;
 using DionysosFX.Module.WebApi.EnpointResults;
 using DionysosFX.Swan.Modules;
 using DionysosFX.Swan.Net;

@@ -1,4 +1,4 @@
-﻿using DionysosFX.Module.WebApi.Attributes;
+﻿using DionysosFX.Module.IWebApi;
 using DionysosFX.Swan.Net;
 using DionysosFX.Swan.Routing;
 using Newtonsoft.Json;
@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace DionysosFX.Module.WebApi
+namespace DionysosFX.Module.WebApi.JSON
 {
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class JsonDataAttribute : Attribute, IParameterConverter

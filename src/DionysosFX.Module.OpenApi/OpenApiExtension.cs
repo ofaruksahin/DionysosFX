@@ -1,6 +1,6 @@
-﻿using DionysosFX.Module.OpenApi.Attributes;
+﻿using DionysosFX.Module.IWebApi;
+using DionysosFX.Module.OpenApi.Attributes;
 using DionysosFX.Module.OpenApi.Entities;
-using DionysosFX.Module.WebApi.Attributes;
 using DionysosFX.Swan.Extensions;
 using DionysosFX.Swan.Routing;
 using System;

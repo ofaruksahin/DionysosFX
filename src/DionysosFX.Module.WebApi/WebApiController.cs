@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DionysosFX.Module.IWebApi;
 using DionysosFX.Swan.Net;
 using System;
 

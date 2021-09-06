@@ -8,13 +8,10 @@ using System.Threading.Tasks;
 
 namespace DionysosFX.Host
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public partial class WebServer : WebServerBase<IHostBuilder>
     {
         /// <summary>
-        /// 
+        /// Web Request listener object
         /// </summary>
         IHttpListener _listener;
 
@@ -28,14 +25,7 @@ namespace DionysosFX.Host
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        //protected override void OnFatalException()
-        //{
-        //}
-
-        /// <summary>
-        /// 
+        /// Await a new web request and process web request
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
@@ -50,7 +40,7 @@ namespace DionysosFX.Host
         }
 
         /// <summary>
-        /// 
+        /// DionysosFX App Prepare method
         /// </summary>
         /// <param name="cancellationToken"></param>
         protected override void Prepare(CancellationToken cancellationToken)
@@ -59,7 +49,7 @@ namespace DionysosFX.Host
         }
 
         /// <summary>
-        /// 
+        /// DionysosFX App Create a listener and start listening web request
         /// </summary>
         /// <returns></returns>
         private IHttpListener CreateHttpListener()
@@ -84,7 +74,7 @@ namespace DionysosFX.Host
         }
 
         /// <summary>
-        /// 
+        /// Dispose DionysosFX App
         /// </summary>
         /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)

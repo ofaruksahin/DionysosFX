@@ -1,15 +1,14 @@
-﻿using DionysosFX.Module.WebApi.Attributes;
-using DionysosFX.Swan.Extensions;
+﻿using DionysosFX.Swan.Extensions;
 using DionysosFX.Swan.Net;
 using DionysosFX.Swan.Routing;
 using System;
 using System.Linq;
 using System.Reflection;
 
-namespace DionysosFX.Module.WebApi
+namespace DionysosFX.Module.IWebApi
 {
     [AttributeUsage(AttributeTargets.Parameter)]
-    public sealed class QueryDataAttribute : Attribute, IParameterConverter
+    public class QueryDataAttribute :Attribute, IParameterConverter
     {
         public object Convert(IHttpContext context, RouteResolveResponse route, ParameterInfo parameterInfo)
         {

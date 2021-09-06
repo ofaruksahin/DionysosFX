@@ -12,8 +12,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DionysosFX.Host\DionysosFX.Host.csproj" />
+    <ProjectReference Include="..\DionysosFX.Module.IWebApi\DionysosFX.Module.IWebApi.csproj" />
     <ProjectReference Include="..\DionysosFX.Module.OpenApi\DionysosFX.Module.OpenApi.csproj" />
     <ProjectReference Include="..\DionysosFX.Module.StaticFile\DionysosFX.Module.StaticFile.csproj" />
+    <ProjectReference Include="..\DionysosFX.Module.WebApi.JSON\DionysosFX.Module.WebApi.JSON.csproj" />
     <ProjectReference Include="..\DionysosFX.Module.WebApi\DionysosFX.Module.WebApi.csproj" />
     <ProjectReference Include="..\DionysosFX.Swan\DionysosFX.Swan.csproj" />
   </ItemGroup>

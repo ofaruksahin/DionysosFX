@@ -4,12 +4,12 @@ using System;
 namespace DionysosFX.Host
 {
     /// <summary>
-    /// 
+    /// DionysosFX App Instance Configuration Object
     /// </summary>
     public class Host
     {
         /// <summary>
-        /// 
+        /// DionysosFX Configuration Object
         /// </summary>
         IHostBuilder _hostBuilder;
 
@@ -22,7 +22,7 @@ namespace DionysosFX.Host
         }
 
         /// <summary>
-        /// 
+        /// DionysosFX App Instance startup object
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>

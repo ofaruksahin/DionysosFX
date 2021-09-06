@@ -6,13 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.2.0" />
-    <PackageReference Include="HttpMultipartParser" Version="5.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DionysosFX.Swan\DionysosFX.Swan.csproj" />
+    <ProjectReference Include="..\DionysosFX.Module.IWebApi\DionysosFX.Module.IWebApi.csproj" />
   </ItemGroup>
 
 </Project>

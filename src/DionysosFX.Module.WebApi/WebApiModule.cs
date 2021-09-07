@@ -43,7 +43,7 @@ namespace DionysosFX.Module.WebApi
                                 routes.Add(resolveResponse);
                         }
                     }
-                }               
+                }
             }
             catch (Exception)
             {
@@ -70,7 +70,7 @@ namespace DionysosFX.Module.WebApi
                 IDictionary<RouteResolveResponse, List<object>> routeItemsDictionary = new Dictionary<RouteResolveResponse, List<object>>();
                 foreach (var routeItem in routeItems)
                 {
-                    if (routeItem.QueryString.Count != context.Request.QueryString.Count)
+                    if (routeItems.Count() > 1 && routeItem.QueryString.Count != context.Request.QueryString.Count)
                         continue;
                     if (instance == null || instance.GetType() != routeItem.EndpointType)
                     {
@@ -85,12 +85,11 @@ namespace DionysosFX.Module.WebApi
                         var customAttributes = invokeParameter.GetCustomAttributes();
                         var attribute = customAttributes.FirstOrDefault(f => f.GetType().GetInterface(typeof(IParameterConverter).Name) != null);
                         if (attribute is IParameterConverter converter)
-                            _invokeParameters.Add(converter.Convert(context,routeItem, invokeParameter));                       
+                            _invokeParameters.Add(converter.Convert(context, routeItem, invokeParameter));
                     }
 
                     if (_invokeParameters.Count == routeItem.InvokeParameters.Count)
                     {
-                        _invokeParameters.RemoveAll(f => f == null);
                         routeItemsDictionary.Add(routeItem, _invokeParameters);
                     }
                 }

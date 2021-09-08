@@ -5,6 +5,7 @@ using DionysosFX.Module.WebApi.JSON;
 using DionysosFX.Swan.Routing;
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace DionysosFX.Module.WebApi.Lab
 {
@@ -20,7 +21,7 @@ namespace DionysosFX.Module.WebApi.Lab
         }
 
         [Route(HttpVerb.GET, "/list")]
-        public IEndpointResult List()
+        public async Task<IEndpointResult> List()
         {
             var users = _userService.GetAll();
             return new Ok(new BaseResult<List<User>>()

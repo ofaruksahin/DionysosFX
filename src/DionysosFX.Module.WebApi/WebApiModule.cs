@@ -112,6 +112,8 @@ namespace DionysosFX.Module.WebApi
                             invokeResult = endpointItem.Key.Invoke.Invoke(instance, endpointItem.Value.ToArray());
                         if (invokeResult is IEndpointResult invkResult)
                             invkResult.ExecuteResponse(context);
+                        else if (invokeResult is Task<IEndpointResult> invkTask)
+                            (await invkTask).ExecuteResponse(context);
                         foreach (IEndpointFilter item in endpointFilters)
                         {
                             if (context.IsHandled)

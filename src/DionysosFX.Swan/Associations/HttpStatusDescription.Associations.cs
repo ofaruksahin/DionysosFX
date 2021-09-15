@@ -2,8 +2,14 @@
 
 namespace DionysosFX.Swan.Associations
 {
+    /// <summary>
+    /// Web response types
+    /// </summary>
     public static class HttpStatusDescription
     {
+        /// <summary>
+        /// This variable store web response status codes and descriptions
+        /// </summary>
         private static readonly IReadOnlyDictionary<int, string> Dictionary = new Dictionary<int, string>
         {
             { 100, "Continue" },
@@ -68,21 +74,42 @@ namespace DionysosFX.Swan.Associations
             { 511, "Network Authentication Required" },
         };
 
+        /// <summary>
+        /// This method when called with status code parameter return status code description
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
         public static bool TryGet(System.Net.HttpStatusCode code, out string description) => Dictionary.TryGetValue((int)code, out description);
 
+        /// <summary>
+        /// This method when called with status code parameter return status code description
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
         public static bool TryGet(int code, out string description) => Dictionary.TryGetValue(code, out description);
 
+        /// <summary>
+        /// This method when called with status code parameter return status code description
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public static string Get(System.Net.HttpStatusCode code)
         {
             Dictionary.TryGetValue((int)code, out var description);
             return description;
         }
 
+        /// <summary>
+        /// This method when called with status code parameter return status code description
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public static string Get(int code)
         {
             Dictionary.TryGetValue(code, out var description);
             return description;
         }
-
     }
 }

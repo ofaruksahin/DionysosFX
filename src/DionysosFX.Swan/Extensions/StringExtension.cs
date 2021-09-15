@@ -5,6 +5,11 @@ namespace DionysosFX.Swan.Extensions
 {
     public static class StringExtension
     {
+        /// <summary>
+        /// Type Name Normalization
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static string GetName(this Type type)
         {
             string text = string.Empty;

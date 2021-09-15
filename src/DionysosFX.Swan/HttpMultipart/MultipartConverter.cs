@@ -9,6 +9,12 @@ namespace DionysosFX.Swan.HttpMultipart
 {
     public static class MultipartConverter
     {
+        /// <summary>
+        /// Http request form data convert to destination type
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="destType"></param>
+        /// <returns></returns>
         public static object ToFormObject(this IHttpContext @this, Type destType)
         {
             var result = Activator.CreateInstance(destType);

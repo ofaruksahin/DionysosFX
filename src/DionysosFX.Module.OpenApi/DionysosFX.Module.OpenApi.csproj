@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DionysosFX.Module.IWebApi\DionysosFX.Module.IWebApi.csproj" />
+    <ProjectReference Include="..\DionysosFX.Module.WebApi.JSON\DionysosFX.Module.WebApi.JSON.csproj" />
     <ProjectReference Include="..\DionysosFX.Module.WebApiVersioning\DionysosFX.Module.WebApiVersioning.csproj" />
     <ProjectReference Include="..\DionysosFX.Module.WebApi\DionysosFX.Module.WebApi.csproj" />
     <ProjectReference Include="..\DionysosFX.Swan\DionysosFX.Swan.csproj" />

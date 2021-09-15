@@ -1,5 +1,6 @@
-﻿using DionysosFX.Module.WebApi;
-using DionysosFX.Module.WebApi.EnpointResults;
+﻿using DionysosFX.Module.IWebApi;
+using DionysosFX.Module.WebApi;
+using DionysosFX.Module.WebApi.JSON;
 using DionysosFX.Swan.Routing;
 
 namespace DionysosFX.Module.WebApiVersioning.Lab.Controllers

@@ -1,6 +1,6 @@
 ﻿using DionysosFX.Swan.Net;
 
-namespace DionysosFX.Module.WebApi.EnpointResults
+namespace DionysosFX.Module.IWebApi
 {
     public interface IEndpointResult
     {

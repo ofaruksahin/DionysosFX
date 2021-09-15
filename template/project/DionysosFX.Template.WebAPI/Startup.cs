@@ -63,7 +63,7 @@ namespace DionysosFX.Template.WebAPI
             _hostBuilder.AddCors(
                 corsOptions
                 );
-            _hostBuilder.AddWebApiModule(new WebApiModuleOptions(ResponseType.Json));
+            _hostBuilder.AddWebApiModule();
             _hostBuilder.AddOpenApiModule(new OpenApiModuleOptions("DionysosFX Example OpenAPI"));
             _hostBuilder.UseWebApiVersionModule();
             _hostBuilder.AddWebApiVersionModule(new WebApiVersioningModuleOptions("1.0.0.0"));

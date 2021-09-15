@@ -25,7 +25,7 @@ namespace DionysosFX.Module.FluentValidator.Lab
         public void Configure()
         {
             _hostBuilder.AddPrefix("http://*:1923");
-            _hostBuilder.AddWebApiModule(new WebApiModuleOptions(ResponseType.Json));
+            _hostBuilder.AddWebApiModule();
             FluentValidatonOptions options = new FluentValidatonOptions();
             options.AutoDetect = true;
             options.OnValidationFail += Options_OnValidationFail;

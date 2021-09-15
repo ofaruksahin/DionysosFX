@@ -1,6 +1,6 @@
 ﻿using DionysosFX.Module.FluentValidator.Lab.Entities;
+using DionysosFX.Module.IWebApi;
 using DionysosFX.Module.WebApi;
-using DionysosFX.Module.WebApi.EnpointResults;
 using DionysosFX.Module.WebApi.JSON;
 using DionysosFX.Swan.Routing;
 

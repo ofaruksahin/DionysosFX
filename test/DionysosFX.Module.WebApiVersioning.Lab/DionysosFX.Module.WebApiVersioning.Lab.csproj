@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\DionysosFX.Host\DionysosFX.Host.csproj" />
+    <ProjectReference Include="..\..\src\DionysosFX.Module.WebApi.JSON\DionysosFX.Module.WebApi.JSON.csproj" />
     <ProjectReference Include="..\..\src\DionysosFX.Module.WebApiVersioning\DionysosFX.Module.WebApiVersioning.csproj" />
     <ProjectReference Include="..\..\src\DionysosFX.Module.WebApi\DionysosFX.Module.WebApi.csproj" />
   </ItemGroup>

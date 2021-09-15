@@ -7,12 +7,9 @@ namespace DionysosFX.Module.WebApi
 {
     public static class WebApiModuleExtension
     {
-        public static IHostBuilder AddWebApiModule(this IHostBuilder @this,WebApiModuleOptions options = null)
+        public static IHostBuilder AddWebApiModule(this IHostBuilder @this)
         {
             @this.ContainerBuilder.RegisterType<WebApiModule>().SingleInstance();
-            if (options == null)
-                options = new WebApiModuleOptions();
-            @this.ContainerBuilder.Register(r => options).As<WebApiModuleOptions>().SingleInstance();
             return @this;
         }
 
@@ -34,12 +31,5 @@ namespace DionysosFX.Module.WebApi
             else
                 return @this.BaseType.IsWebApiController();
         }
-        
-        public static WebApiModuleOptions GetWebApiModuleOptions(this IHttpContext @this)
-        {
-            if (@this.Container.TryResolve(out WebApiModuleOptions rsv))
-                return rsv;
-            return null;            
-        } 
     }
 }

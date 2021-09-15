@@ -22,7 +22,7 @@ namespace DionysosFX.Module.WebApiVersioning.Lab
         public void Configure()
         {
             _hostBuilder.AddPrefix("http://*:1923");
-            _hostBuilder.AddWebApiModule(new WebApiModuleOptions(ResponseType.Json));
+            _hostBuilder.AddWebApiModule();
             var webApiVersioningModuleOptions = new WebApiVersioningModuleOptions("0.0.0.5");
             webApiVersioningModuleOptions.OnVersionException += WebApiVersioningModuleOptions_OnInvalidEvent;
             _hostBuilder.AddWebApiVersionModule(webApiVersioningModuleOptions);

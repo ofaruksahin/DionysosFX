@@ -1,6 +1,5 @@
 ﻿using DionysosFX.Module.IWebApi;
 using DionysosFX.Module.Test;
-using DionysosFX.Module.WebApi.EnpointResults;
 using DionysosFX.Module.WebApi.JSON;
 using DionysosFX.Swan.Routing;
 using System.Collections.Generic;

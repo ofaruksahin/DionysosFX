@@ -20,7 +20,7 @@ namespace DionysosFX.Module.WebApi.Lab
         public void Configure()
         {
             _hostBuilder.AddPrefix("http://*:1923");
-            _hostBuilder.AddWebApiModule(new WebApiModuleOptions(ResponseType.Json));
+            _hostBuilder.AddWebApiModule();
 
             _hostBuilder.ContainerBuilder
                 .RegisterType<UserService>()

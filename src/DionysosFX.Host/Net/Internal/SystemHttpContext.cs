@@ -26,7 +26,7 @@ namespace DionysosFX.Host.Net.Internal
             _cancellationToken = cancellationToken;
 
             _response = new SystemHttpResponse(this,context.Response);
-            _request = new SystemHttpRequest(context.Request); 
+            _request = new SystemHttpRequest(context.Request);             
         }
 
         /// <summary>

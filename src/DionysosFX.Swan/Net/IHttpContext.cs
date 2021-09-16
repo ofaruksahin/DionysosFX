@@ -4,12 +4,12 @@ using System.Threading;
 namespace DionysosFX.Swan.Net
 {
     /// <summary>
-    /// 
+    /// HttpContext
     /// </summary>
     public interface IHttpContext
     {
         /// <summary>
-        /// 
+        /// Request Unique Id
         /// </summary>
         string Id
         {
@@ -17,7 +17,7 @@ namespace DionysosFX.Swan.Net
         }
 
         /// <summary>
-        /// 
+        /// Request Cancellation Token
         /// </summary>
         CancellationToken CancellationToken
         {
@@ -25,7 +25,7 @@ namespace DionysosFX.Swan.Net
         }
 
         /// <summary>
-        /// 
+        /// Request Object
         /// </summary>
         IHttpRequest Request 
         { 
@@ -33,7 +33,7 @@ namespace DionysosFX.Swan.Net
         }
 
         /// <summary>
-        /// 
+        /// Response Object
         /// </summary>
         IHttpResponse Response 
         { 
@@ -41,7 +41,7 @@ namespace DionysosFX.Swan.Net
         }
 
         /// <summary>
-        /// 
+        /// Request IsHandled
         /// </summary>
         bool IsHandled 
         { 
@@ -49,15 +49,18 @@ namespace DionysosFX.Swan.Net
         }
 
         /// <summary>
-        /// 
+        /// Request Close
         /// </summary>
         void Close();
 
         /// <summary>
-        /// 
+        /// Request Set Handled
         /// </summary>
         void SetHandled();
 
+        /// <summary>
+        /// Web Server Dependency Injection Container
+        /// </summary>
         IContainer Container
         {
             get;

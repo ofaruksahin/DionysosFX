@@ -7,12 +7,21 @@ namespace DionysosFX.Module.OpenApi.Entities
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class ResponseTypeItem  :Attribute
     {
+        /// <summary>
+        /// Response status code
+        /// </summary>
         [JsonProperty("status_code")]
         public HttpStatusCode StatusCode { get; set; }
 
+        /// <summary>
+        /// Response data type
+        /// </summary>
         [JsonProperty("type")]
         public string TypeName { get; set; }
 
+        /// <summary>
+        /// Response description
+        /// </summary>
         [JsonProperty("description")]
         public string Description { get; set; } = string.Empty;
 

@@ -6,6 +6,9 @@ using System.Net;
 
 namespace DionysosFX.Module.WebApi.JSON
 {
+    /// <summary>
+    /// Json BadRequest
+    /// </summary>
     public class BadRequest : EndpointResult
     {
         public BadRequest(object result = null) : base(result)

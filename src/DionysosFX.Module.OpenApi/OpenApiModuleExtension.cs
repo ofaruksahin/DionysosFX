@@ -6,6 +6,12 @@ namespace DionysosFX.Module.OpenApi
 {
     public static class OpenApiModuleExtension
     {
+        /// <summary>
+        /// OpenAPI module add the container
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public static IHostBuilder AddOpenApiModule(this IHostBuilder @this, OpenApiModuleOptions options)
         {
             @this.ContainerBuilder.Register(r => options).As<OpenApiModuleOptions>().SingleInstance();
@@ -16,6 +22,11 @@ namespace DionysosFX.Module.OpenApi
             return @this;
         }
 
+        /// <summary>
+        /// OpenAPI module add module container
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
         public static IHostBuilder UseOpenApiModule(this IHostBuilder @this)
         {
             if(!@this.Container.TryResolve(out OpenApiModule module))            

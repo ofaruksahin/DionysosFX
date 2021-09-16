@@ -6,6 +6,9 @@ using System.Net;
 
 namespace DionysosFX.Module.WebApi.JSON
 {
+    /// <summary>
+    /// Json InternalServerError
+    /// </summary>
     public class InternalServerError : EndpointResult
     {
         public InternalServerError(object result = null) : base(result)

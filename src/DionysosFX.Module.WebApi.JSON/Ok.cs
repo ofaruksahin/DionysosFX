@@ -6,6 +6,9 @@ using System.Net;
 
 namespace DionysosFX.Module.WebApi.JSON
 {
+    /// <summary>
+    /// Json Ok
+    /// </summary>
     public class Ok : EndpointResult
     {
         public Ok(object result = null) : base(result)

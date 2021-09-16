@@ -55,7 +55,7 @@ namespace DionysosFX.Template.WebAPI
         public void Configure()
         {
             _hostBuilder.AddPrefix("http://*:1923");
-            var corsOptions = new CorsModuleOptions();
+            var corsOptions = new CorsModuleOptions();                  
             corsOptions
                 .AllowAnyHeaders()
                 .AllowAnyMethods().

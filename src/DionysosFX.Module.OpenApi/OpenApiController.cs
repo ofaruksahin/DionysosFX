@@ -9,6 +9,9 @@ using System;
 
 namespace DionysosFX.Module.OpenApi
 {
+    /// <summary>
+    /// OpenAPI controller
+    /// </summary>
     [Route("/open-api")]
     [NotMapped]
     internal class OpenApiController :WebApiController

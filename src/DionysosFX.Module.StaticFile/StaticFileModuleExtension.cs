@@ -1,12 +1,16 @@
 ﻿using Autofac;
 using DionysosFX.Swan;
-using DionysosFX.Swan.Modules;
 using System;
 
 namespace DionysosFX.Module.StaticFile
 {
     public static class StaticFileModuleExtension
     {
+        /// <summary>
+        /// Static File module add container
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
         public static IHostBuilder AddStaticFileModule(this IHostBuilder @this)
         {
             StaticFileOptions options = new StaticFileOptions();
@@ -16,6 +20,12 @@ namespace DionysosFX.Module.StaticFile
             return @this;
         }
 
+        /// <summary>
+        /// Static File module add container
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public static IHostBuilder AddStaticFileModule(this IHostBuilder @this,StaticFileOptions options)
         {
             @this.ContainerBuilder.RegisterType<StaticFileModule>().SingleInstance();
@@ -23,7 +33,11 @@ namespace DionysosFX.Module.StaticFile
             return @this;
         }
 
-
+        /// <summary>
+        /// Static file module add module container
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
         public static  IHostBuilder UseStaticFileModule(this IHostBuilder @this)
         {
             if(!@this.Container.TryResolve(out StaticFileModule module))            

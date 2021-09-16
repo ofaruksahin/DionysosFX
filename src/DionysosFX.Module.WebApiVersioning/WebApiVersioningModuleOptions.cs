@@ -6,12 +6,12 @@ namespace DionysosFX.Module.WebApiVersioning
     public class WebApiVersioningModuleOptions
     {
         /// <summary>
-        /// 
+        /// Default API Version
         /// </summary>
         public string DefaultVersion { get; set; }
 
         /// <summary>
-        /// 
+        /// OnVersionException
         /// </summary>
         public event EventHandler<OnVersionExceptionEventArgs> OnVersionException;
 
@@ -25,7 +25,7 @@ namespace DionysosFX.Module.WebApiVersioning
         }
 
         /// <summary>
-        /// 
+        /// Trigger OnVersionException method
         /// </summary>
         /// <param name="version"></param>
         /// <param name="context"></param>

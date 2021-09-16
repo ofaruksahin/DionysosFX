@@ -7,12 +7,22 @@ namespace DionysosFX.Module.WebApi
 {
     public static class WebApiModuleExtension
     {
+        /// <summary>
+        /// Web Api module add container
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
         public static IHostBuilder AddWebApiModule(this IHostBuilder @this)
         {
             @this.ContainerBuilder.RegisterType<WebApiModule>().SingleInstance();
             return @this;
         }
 
+        /// <summary>
+        /// Web api module add module container 
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
         public static IHostBuilder UseWebApiModule(this IHostBuilder @this)
         {
             if(!@this.Container.TryResolve(out WebApiModule module))            
@@ -21,6 +31,11 @@ namespace DionysosFX.Module.WebApi
             return @this;
         }
 
+        /// <summary>
+        /// Type is WebApiController ?
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
         public static bool IsWebApiController(this Type @this)
         {
             if (@this.BaseType == null)

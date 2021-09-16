@@ -7,6 +7,12 @@ namespace DionysosFX.Module.Cors
 {
     public static class CorsModuleExtension
     {
+        /// <summary>
+        /// Add cors module in container
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public static IHostBuilder AddCors(this IHostBuilder @this,CorsModuleOptions options)
         {
             @this.ContainerBuilder.RegisterType<CorsModule>().SingleInstance();
@@ -14,6 +20,11 @@ namespace DionysosFX.Module.Cors
             return @this;
         }
 
+        /// <summary>
+        /// Add cors module in module collection
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
         public static IHostBuilder UseCors(this IHostBuilder @this)
         {
             if(!@this.Container.TryResolve(out CorsModule module))

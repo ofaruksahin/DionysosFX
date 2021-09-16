@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DionysosFX.Swan.Exceptions;
 using DionysosFX.Swan.Extensions;
 using DionysosFX.Swan.Net;
 using DionysosFX.Swan.Routing;
@@ -8,15 +9,18 @@ using System.Reflection;
 
 namespace DionysosFX.Module.WebApiVersioning
 {
+    /// <summary>
+    /// API version attribute
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class ApiVersionAttribute : Attribute, IEndpointFilter
     {
         /// <summary>
-        /// 
+        /// Api version supported version
         /// </summary>
         public string Version { get; set; }
         /// <summary>
-        /// 
+        /// Api version is deprecated ?
         /// </summary>
         public bool Deprecated { get; set; }
 
@@ -31,6 +35,11 @@ namespace DionysosFX.Module.WebApiVersioning
             Deprecated = deprecated;
         }
 
+        /// <summary>
+        /// Web request trigger before then check api version 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="httpContext"></param>
         public void OnBefore(object sender, IHttpContext httpContext)
         {
             if (sender is RouteResolveResponse rsv)
@@ -57,11 +66,10 @@ namespace DionysosFX.Module.WebApiVersioning
                 {
                     var triggerOnValidEvent = options.GetType().GetMethod(WebApiVersioningConstant.TriggerOnVersionException, BindingFlags.Instance | BindingFlags.NonPublic);
                     if (triggerOnValidEvent == null)
-                        throw new Exception("ApiVersioningModule trigger event method not found");
+                        throw new MethodNotFoundException(nameof(WebApiVersioningConstant.TriggerOnVersionException));                        
                     triggerOnValidEvent.Invoke(options, new object[] { requestApiVersion, requestApiVersion == Version ? Deprecated : false, httpContext });
                 }
             }
-
         }
 
         public void OnAfter(object sender, IHttpContext httpContext)

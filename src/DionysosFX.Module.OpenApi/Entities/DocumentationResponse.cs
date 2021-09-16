@@ -5,12 +5,14 @@ namespace DionysosFX.Module.OpenApi.Entities
 {
     internal class DocumentationResponse
     {
-        [JsonProperty("application_name")]
-        ///
+        /// <summary>
+        /// Application Name
+        /// </summary>
+        [JsonProperty("application_name")]        
         public string ApplicationName { get; set; }
 
         /// <summary>
-        /// 
+        /// Controllers
         /// </summary>
         [JsonProperty("controllers")]
         public List<ControllerItem> Controllers
@@ -20,7 +22,7 @@ namespace DionysosFX.Module.OpenApi.Entities
         } = new List<ControllerItem>();
 
         /// <summary>
-        /// 
+        /// Versions
         /// </summary>
         [JsonProperty("versions")]
         public List<VersionItem> Versions
@@ -30,7 +32,7 @@ namespace DionysosFX.Module.OpenApi.Entities
         } = new List<VersionItem>();
 
         /// <summary>
-        /// 
+        /// Schemas
         /// </summary>
         [JsonProperty("schema")]
         public List<SchemaItem> Schemas

@@ -6,6 +6,9 @@ using System.Net;
 
 namespace DionysosFX.Module.OpenApi.Attributes
 {
+    /// <summary>
+    /// This attribute add action and return response
+    /// </summary>
     public class ResponseTypeAttribute : ResponseTypeItem
     {
         [JsonIgnore]

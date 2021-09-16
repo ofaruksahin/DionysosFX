@@ -6,6 +6,9 @@ using System.Reflection;
 
 namespace DionysosFX.Module.IWebApi
 {
+    /// <summary>
+    /// Object type is form data
+    /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class FormDataAttribute : Attribute, IParameterConverter
     {

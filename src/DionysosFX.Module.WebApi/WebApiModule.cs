@@ -13,15 +13,17 @@ using System.Threading.Tasks;
 namespace DionysosFX.Module.WebApi
 {
     /// <summary>
-    /// 
+    /// Web Api Module 
     /// </summary>
     internal class WebApiModule : IWebModule
     {
+        /// <summary>
+        /// Web api routes
+        /// </summary>
         List<RouteResolveResponse> routes = new List<RouteResolveResponse>();
-        Assembly assembly = null;
 
         /// <summary>
-        /// 
+        /// Static file module started was  and trigged this method
         /// </summary>
         /// <param name="cancellationToken"></param>
         public void Start(CancellationToken cancellationToken)
@@ -51,7 +53,7 @@ namespace DionysosFX.Module.WebApi
         }
 
         /// <summary>
-        /// 
+        /// Static file module handle request and trigged this method
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
@@ -123,6 +125,12 @@ namespace DionysosFX.Module.WebApi
             }
         }
 
+        /// <summary>
+        /// Controller create instance
+        /// </summary>
+        /// <param name="routeItem"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
         private object CreateInstance(RouteResolveResponse routeItem, IHttpContext context)
         {
             object instance = null;

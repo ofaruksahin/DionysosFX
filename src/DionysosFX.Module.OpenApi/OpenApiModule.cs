@@ -16,9 +16,20 @@ using System.Threading.Tasks;
 
 namespace DionysosFX.Module.OpenApi
 {
+    /// <summary>
+    /// OpenAPI Module
+    /// </summary>
     internal class OpenApiModule : IWebModule
     {
+        /// <summary>
+        /// Documentation response
+        /// </summary>
         internal DocumentationResponse DocumentationResponse = new DocumentationResponse();
+        
+        /// <summary>
+        /// OpenAPI module started was  and trigged this method
+        /// </summary>
+        /// <param name="cancellationToken"></param>
         public void Start(CancellationToken cancellationToken)
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -99,6 +110,11 @@ namespace DionysosFX.Module.OpenApi
             }
         }
 
+        /// <summary>
+        /// OpenAPI module handle request and trigged this method
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public async Task HandleRequestAsync(IHttpContext context)
         {
             if (context.IsHandled)

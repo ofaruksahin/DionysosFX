@@ -16,17 +16,35 @@ using System.Threading.Tasks;
 
 namespace DionysosFX.Module.StaticFile
 {
+    /// <summary>
+    /// Static file module
+    /// </summary>
     internal class StaticFileModule : IWebModule
     {
+        /// <summary>
+        /// Static file options
+        /// </summary>
         StaticFileOptions options = null;
+        /// <summary>
+        /// Files
+        /// </summary>
         ConcurrentDictionary<string, StaticFileItem> _files = null;
 
+        /// <summary>
+        /// Static file module started was  and trigged this method
+        /// </summary>
+        /// <param name="cancellationToken"></param>
         public void Start(CancellationToken cancellationToken)
         {
             _files = new();
             PeriodicTask.Create(HandleExpireFiles, 1, cancellationToken);
         }
 
+        /// <summary>
+        /// Static file module handle request and trigged this method
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public async Task HandleRequestAsync(IHttpContext context)
         {
             if (options == null)
@@ -97,6 +115,9 @@ namespace DionysosFX.Module.StaticFile
             }
         }
 
+        /// <summary>
+        ///  
+        /// </summary>
         private void HandleExpireFiles()
         {
             List<KeyValuePair<string, StaticFileItem>> deleteItems = new();

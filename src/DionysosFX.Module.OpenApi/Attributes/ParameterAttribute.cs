@@ -2,6 +2,10 @@
 
 namespace DionysosFX.Module.OpenApi.Attributes
 {
+    /// <summary>
+    /// This attribute add Action Method
+    /// Action Method parameters add desciption
+    /// </summary>
     public class ParameterAttribute : ParameterItem
     {
 

@@ -7,6 +7,9 @@ using System.Reflection;
 
 namespace DionysosFX.Module.IWebApi
 {
+    /// <summary>
+    /// Query data attribute
+    /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
     public class QueryDataAttribute :Attribute, IParameterConverter
     {

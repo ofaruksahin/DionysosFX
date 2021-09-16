@@ -1,12 +1,14 @@
 ﻿using DionysosFX.Module.IWebApi;
 using DionysosFX.Swan.Net;
 using Newtonsoft.Json;
-using System;
 using System.IO;
 using System.Net;
 
 namespace DionysosFX.Module.WebApi.JSON
 {
+    /// <summary>
+    /// Json NotFound
+    /// </summary>
     public class NotFound : EndpointResult
     {
         public NotFound(object result = null) : base(result)

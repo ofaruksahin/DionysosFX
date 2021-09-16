@@ -8,6 +8,9 @@ using System.Reflection;
 
 namespace DionysosFX.Module.WebApi.JSON
 {
+    /// <summary>
+    /// Object type is json data
+    /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
     public sealed class JsonDataAttribute : Attribute, IParameterConverter
     {

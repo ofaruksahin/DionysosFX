@@ -12,6 +12,11 @@ namespace DionysosFX.Module.OpenApi
 {
     internal static class OpenApiExtension
     {
+        /// <summary>
+        /// Type convert to controller
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static ControllerItem ToController(this Type type)
         {
             ControllerItem controllerItem = new ControllerItem();
@@ -24,6 +29,13 @@ namespace DionysosFX.Module.OpenApi
             return controllerItem;
         }
 
+        /// <summary>
+        /// Type methods convert to endpoint
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="routePrefix"></param>
+        /// <param name="schemaTypes"></param>
+        /// <returns></returns>
         public static EndpointItem ToEndpoint(this MethodInfo method, string routePrefix = "", List<Type> schemaTypes = null)
         {
             EndpointItem endpointItem = new EndpointItem();
@@ -78,6 +90,11 @@ namespace DionysosFX.Module.OpenApi
             return endpointItem;
         }
 
+        /// <summary>
+        /// Type convert to schema item
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static SchemaItem ToSchemaItem(this Type type)
         {
             SchemaItem schemaItem = new SchemaItem(type.FullName);

@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using DionysosFX.Module.IWebApi;
+using DionysosFX.Swan.Extensions;
 using DionysosFX.Swan.Modules;
 using DionysosFX.Swan.Net;
 using DionysosFX.Swan.Routing;
@@ -75,7 +76,9 @@ namespace DionysosFX.Module.WebApi
                         continue;
                     if (instance == null || instance.GetType() != routeItem.EndpointType)
                     {
-                        instance = CreateInstance(routeItem, context);
+                        routeItem.ConstructorParameters = routeItem.ConstructorParameters ?? (new List<ParameterInfo>());
+                        instance = routeItem.ConstructorParameters.CreateInstance(context, routeItem.EndpointType.GetTypeInfo());
+                        //instance = CreateInstance(routeItem, context);
                     }
 
                     routeItem.SetHttpContext?.Invoke(instance, new[] { context });
@@ -123,39 +126,6 @@ namespace DionysosFX.Module.WebApi
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Controller create instance
-        /// </summary>
-        /// <param name="routeItem"></param>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        private object CreateInstance(RouteResolveResponse routeItem, IHttpContext context)
-        {
-            object instance = null;
-
-            List<object> constructorParameters = new List<object>();
-
-            foreach (var item in routeItem.ConstructorParameters)
-            {
-                try
-                {
-                    var ctParam = context.Container.Resolve(item.ParameterType);
-                    constructorParameters.Add(ctParam);
-                }
-                catch (Exception)
-                {
-                    constructorParameters.Add(null);
-                }
-            }
-
-            instance = Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo(), constructorParameters.ToArray());
-
-            if (instance == null)
-                instance = Activator.CreateInstance(routeItem.EndpointType.GetTypeInfo());
-
-            return instance;
         }
 
         public void Dispose()

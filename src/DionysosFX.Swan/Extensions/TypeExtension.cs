@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Autofac;
+using DionysosFX.Swan.Net;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -160,6 +162,33 @@ namespace DionysosFX.Swan.Extensions
             if (methodInfo == null)
                 return null;
             return methodInfo.Invoke(instance, parameters);
+        }
+
+        public static object CreateInstance<T>(this List<ParameterInfo> constructorParameters, IHttpContext context) => constructorParameters.CreateInstance(context,typeof(T));
+
+        public static object CreateInstance(this List<ParameterInfo> constructorParameters, IHttpContext context,Type destType)
+        {
+            object instance = null;
+            List<object> _parameters = new List<object>();
+
+            foreach (var item in constructorParameters)
+            {
+                object ctParam = null;
+                if (!context.Container.TryResolve(item.ParameterType, out ctParam))
+                    _parameters.Add(null);
+                else
+                    _parameters.Add(ctParam);
+            }
+
+            try
+            {
+                instance = Activator.CreateInstance(destType, _parameters.ToArray());
+            }
+            catch (Exception)
+            {
+
+            }
+            return instance;
         }
     }
 }

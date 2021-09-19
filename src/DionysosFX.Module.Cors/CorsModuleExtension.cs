@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using DionysosFX.Swan;
+using DionysosFX.Swan.Exceptions;
 using System;
 using System.Linq;
 
@@ -27,8 +28,8 @@ namespace DionysosFX.Module.Cors
         /// <returns></returns>
         public static IHostBuilder UseCors(this IHostBuilder @this)
         {
-            if(!@this.Container.TryResolve(out CorsModule module))
-                throw new Exception($"{nameof(module)} Module not found");
+            if (!@this.Container.TryResolve(out CorsModule module))
+                throw new ModuleNotFoundException(typeof(CorsModule).Name);
             @this.ModuleCollection.Add(module.GetType().Name, module);            
             return @this; 
         }

@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using DionysosFX.Swan;
+using DionysosFX.Swan.Exceptions;
 using System;
 
 namespace DionysosFX.Module.StaticFile
@@ -40,8 +41,8 @@ namespace DionysosFX.Module.StaticFile
         /// <returns></returns>
         public static  IHostBuilder UseStaticFileModule(this IHostBuilder @this)
         {
-            if(!@this.Container.TryResolve(out StaticFileModule module))            
-                throw new Exception($"{nameof(module)} Module not found");
+            if (!@this.Container.TryResolve(out StaticFileModule module))
+                throw new ModuleNotFoundException(typeof(StaticFileModule).Name);
             @this.ModuleCollection.Add(module.GetType().Name, module);
             return @this;
         }

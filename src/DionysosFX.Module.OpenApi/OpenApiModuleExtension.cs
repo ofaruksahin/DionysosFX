@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using DionysosFX.Swan;
+using DionysosFX.Swan.Exceptions;
 using System;
 
 namespace DionysosFX.Module.OpenApi
@@ -29,8 +30,8 @@ namespace DionysosFX.Module.OpenApi
         /// <returns></returns>
         public static IHostBuilder UseOpenApiModule(this IHostBuilder @this)
         {
-            if(!@this.Container.TryResolve(out OpenApiModule module))            
-                throw new Exception($"{nameof(module)} Module not found");
+            if (!@this.Container.TryResolve(out OpenApiModule module))
+                throw new ModuleNotFoundException(typeof(OpenApiModule).Name);
             @this.ModuleCollection.Add(module.GetType().Name, module);
             return @this;
         }

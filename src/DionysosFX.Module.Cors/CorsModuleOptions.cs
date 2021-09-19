@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using DionysosFX.Swan;
+using System.Collections.Generic;
 
 namespace DionysosFX.Module.Cors
 {
     /// <summary>
     /// Cors module options
     /// </summary>
-    public class CorsModuleOptions
+    public class CorsModuleOptions : ConfiguredObject
     {
         /// <summary>
         /// Allowed request headers

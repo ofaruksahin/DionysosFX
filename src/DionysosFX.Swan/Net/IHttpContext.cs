@@ -1,5 +1,7 @@
 ﻿using Autofac;
+using System.Net.WebSockets;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace DionysosFX.Swan.Net
 {
@@ -57,6 +59,12 @@ namespace DionysosFX.Swan.Net
         /// Request Set Handled
         /// </summary>
         void SetHandled();
+
+        /// <summary>
+        /// Accept a web socket request
+        /// </summary>
+        /// <returns></returns>
+        Task<HttpListenerWebSocketContext> AcceptWebSocketRequest();
 
         /// <summary>
         /// Web Server Dependency Injection Container

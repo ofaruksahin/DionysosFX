@@ -2,7 +2,9 @@
 using DionysosFX.Swan.Net;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Net.WebSockets;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace DionysosFX.Host.Net.Internal
 {
@@ -105,6 +107,13 @@ namespace DionysosFX.Host.Net.Internal
             if (_isHandled)
                 return;
             _isHandled = true;
+        }
+
+        public async Task<HttpListenerWebSocketContext> AcceptWebSocketRequest()
+        {
+            var webSocketContext = await _context.AcceptWebSocketAsync(null);
+            _isHandled = true;
+            return webSocketContext;
         }
     }
 }

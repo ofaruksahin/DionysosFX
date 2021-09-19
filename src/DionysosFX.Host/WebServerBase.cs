@@ -29,7 +29,7 @@ namespace DionysosFX.Host
         /// <summary>
         /// DionysosFX App Instance Configs
         /// </summary>
-        public IHostBuilder HostBuilder => _hostBuilder;      
+        public IHostBuilder HostBuilder => _hostBuilder;
 
         /// <summary>
         /// Store web listening status
@@ -123,8 +123,12 @@ namespace DionysosFX.Host
                 if (!context.IsHandled)
                 {
                     context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                    context.Close();
                 }
-                context.Close();
+                if (!context.Request.IsWebSocketRequest)
+                {
+                    context.Close();
+                }
             }
         }
 

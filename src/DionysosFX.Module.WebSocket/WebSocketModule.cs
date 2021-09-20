@@ -57,8 +57,7 @@ namespace DionysosFX.Module.WebSocket
             if (socket.Instance != null)
             {
                 var httpListenerWebSocketContext = await context.AcceptWebSocketRequest();
-                if (socket.OnBeforeConnected != null)
-                    socket.OnBeforeConnected.Invoke(socket.Instance, new[] { httpListenerWebSocketContext });
+                socket.Instance.Invoke(WebSocketConstants.OnBeforeConnectedMethod,BindingFlags.Instance | BindingFlags.NonPublic, new[] { httpListenerWebSocketContext });                
             }          
         }
 

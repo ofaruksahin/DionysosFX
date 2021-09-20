@@ -11,8 +11,6 @@ namespace DionysosFX.Module.WebSocket
         public string Route { get; set; }
         public object Instance { get; set; }
         public bool IsInstanceGenerated { get; set; }
-        //public ConstructorInfo Constructor { get; set; }
         public List<ParameterInfo> ConstructorParameters { get; set; }
-        public MethodInfo OnBeforeConnected { get; set; }
     }
 }

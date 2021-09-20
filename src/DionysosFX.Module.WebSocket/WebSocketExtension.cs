@@ -78,10 +78,7 @@ namespace DionysosFX.Module.WebSocket
                         socketItem.IsInstanceGenerated = false;
                         var constructor = hub.GetConstructors().FirstOrDefault();
                         if (constructor != null)
-                        {
                             socketItem.ConstructorParameters = constructor.GetParameters().ToList();
-                        }
-                        socketItem.OnBeforeConnected = hub.GetCustomMethod(WebSocketConstants.OnBeforeConnectedMethod, BindingFlags.Instance | BindingFlags.NonPublic);
                         result.Add(socketItem);
                     }
                 }

@@ -16,7 +16,7 @@ namespace DionysosFX.Module.WebSocket
     {
         WebSocketModuleOptions options = null;
 
-        ConcurrentDictionary<string, IHttpListenerWebSocketContext> activeClients = new ConcurrentDictionary<string, IHttpListenerWebSocketContext>();
+        ConcurrentDictionary<string, IHttpListenerWebSocketContext> clients = new ConcurrentDictionary<string, IHttpListenerWebSocketContext>();
 
         ConcurrentDictionary<string, List<IHttpListenerWebSocketContext>> groups = new ConcurrentDictionary<string, List<IHttpListenerWebSocketContext>>();
 
@@ -37,7 +37,7 @@ namespace DionysosFX.Module.WebSocket
             if (_webSocketContext.WebSocket.State == WebSocketState.Open)
             {
                 await OnConnected(_webSocketContext);
-                activeClients.TryAdd(_webSocketContext.SecWebSocketKey, _webSocketContext);
+                clients.TryAdd(_webSocketContext.SecWebSocketKey, _webSocketContext);
                 try
                 {
                     while (_webSocketContext.WebSocket.State == WebSocketState.Open)
@@ -76,7 +76,6 @@ namespace DionysosFX.Module.WebSocket
         private async Task OnBeforeDisconnected(IHttpListenerWebSocketContext context)
         {
             await OnDisconnected(context);
-            activeClients.TryRemove(context.SecWebSocketKey ,out IHttpListenerWebSocketContext _context);
         }
 
         public virtual async Task OnDisconnected(IHttpListenerWebSocketContext context)
@@ -91,13 +90,13 @@ namespace DionysosFX.Module.WebSocket
 
         private void PeriodicTaskDoWork()
         {
-            List<string> removedClientKeys = activeClients
+            List<string> removedClientKeys = clients
                 .Where(f => f.Value.WebSocket.State != WebSocketState.Connecting && f.Value.WebSocket.State != WebSocketState.Open)
                 .Select(f => f.Key)
                 .ToList();
 
             foreach (var key in removedClientKeys)
-                activeClients.TryRemove(key, out IHttpListenerWebSocketContext _ctx);
+                clients.TryRemove(key, out IHttpListenerWebSocketContext _ctx);
         }
 
         public void Dispose()

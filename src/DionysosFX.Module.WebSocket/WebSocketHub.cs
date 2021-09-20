@@ -36,8 +36,8 @@ namespace DionysosFX.Module.WebSocket
 
             if (_webSocketContext.WebSocket.State == WebSocketState.Open)
             {
-                await OnConnected(_webSocketContext);
                 clients.TryAdd(_webSocketContext.SecWebSocketKey, _webSocketContext);
+                await OnConnected(_webSocketContext);
                 try
                 {
                     while (_webSocketContext.WebSocket.State == WebSocketState.Open)
@@ -47,9 +47,9 @@ namespace DionysosFX.Module.WebSocket
                             WebSocketReceiveResult result;
                             do
                             {
-                                byte[] bytes = new byte[options.BufferSize];
-                                result = await _webSocketContext.WebSocket.ReceiveAsync(bytes, CancellationToken.None);
-                                ms.Write(bytes, 0, result.Count);
+                                byte[] buffer = new byte[options.BufferSize];
+                                result = await _webSocketContext.WebSocket.ReceiveAsync(buffer, CancellationToken.None);
+                                ms.Write(buffer, 0, result.Count);
                             } while (!result.EndOfMessage);
 
                             if(result.MessageType == WebSocketMessageType.Text)
@@ -75,12 +75,71 @@ namespace DionysosFX.Module.WebSocket
 
         private async Task OnBeforeDisconnected(IHttpListenerWebSocketContext context)
         {
+            if (context.WebSocket.State == WebSocketState.Connecting || context.WebSocket.State == WebSocketState.Open)
+                context.WebSocket.Abort();
             await OnDisconnected(context);
         }
 
         public virtual async Task OnDisconnected(IHttpListenerWebSocketContext context)
         {
 
+        }
+
+        public void AddGroup(string groupName,IHttpListenerWebSocketContext context)
+        {
+            if (groups.ContainsKey(groupName))
+            {
+                if (groups.TryGetValue(groupName,out List<IHttpListenerWebSocketContext> _ctxs))
+                {
+                    _ctxs.Add(context);
+                }
+            }
+            else
+            {
+                var ctxs = new List<IHttpListenerWebSocketContext>() { context };
+                groups.TryAdd(groupName, ctxs);
+            }
+        }
+
+        public void RemoveGroup(string groupName,IHttpListenerWebSocketContext context)
+        {
+            if(groups.TryGetValue(groupName,out List<IHttpListenerWebSocketContext> _ctxs))
+            {
+                _ctxs.RemoveAll(f => f.SecWebSocketKey == context.SecWebSocketKey);
+            }
+        }
+
+        public async Task Send(IHttpListenerWebSocketContext context,string message,bool endOfMessage = true)
+        {
+            try
+            {
+                byte[] buffer = new byte[options.BufferSize];
+                buffer = Encoding.UTF8.GetBytes(message);
+                await context.WebSocket.SendAsync(buffer, WebSocketMessageType.Text, endOfMessage, new CancellationToken());                
+            }
+            catch (WebSocketException)
+            {
+                OnBeforeDisconnected(context);
+            }
+        }
+
+        public async Task SendToOther(IHttpListenerWebSocketContext context,string message, bool endOfMessage = true)
+        {
+            var otherClients = clients
+                .Where(f => f.Key != context.SecWebSocketKey)
+                .Select(f => f.Value)
+                .ToList();
+            foreach (var otherContext in otherClients)
+                await Send(otherContext, message, endOfMessage);
+        }
+
+        public async Task SendToGroup(string groupName,string message, bool endOfMessage = true)
+        {
+            if(groups.TryGetValue(groupName,out List<IHttpListenerWebSocketContext> _ctxs))
+            {
+                foreach (var context in _ctxs)
+                    await Send(context, message, endOfMessage);
+            }
         }
 
         public virtual async Task OnMessage(IHttpListenerWebSocketContext context,string message)
@@ -96,7 +155,31 @@ namespace DionysosFX.Module.WebSocket
                 .ToList();
 
             foreach (var key in removedClientKeys)
-                clients.TryRemove(key, out IHttpListenerWebSocketContext _ctx);
+            {
+                if (clients.TryRemove(key, out IHttpListenerWebSocketContext _ctx))
+                {
+                    List<string> groupNames = groups
+                                    .Where(f => f.Value.Any(y => y.SecWebSocketKey == _ctx.SecWebSocketKey))
+                                    .Select(f => f.Key)
+                                    .ToList();
+
+                    foreach (var groupName in groupNames)
+                    {
+                        if (groups.TryGetValue(groupName,out List<IHttpListenerWebSocketContext> _ctxs))
+                        {
+                            _ctxs.RemoveAll(f => f.SecWebSocketKey == _ctx.SecWebSocketKey);
+                        }                            
+                    }
+                }           
+            }
+
+            List<string> removedGroups = groups
+                .Where(f => !f.Value.Any())
+                .Select(f => f.Key)
+                .ToList();
+
+            foreach (var key in removedGroups)
+                groups.TryRemove(key, out List<IHttpListenerWebSocketContext> _ctxs);
         }
 
         public void Dispose()

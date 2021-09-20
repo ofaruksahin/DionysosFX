@@ -28,6 +28,7 @@ namespace DionysosFX.Module.WebSocket
                     continue;
                 webSocket.Instance = webSocket.ConstructorParameters.CreateInstance(Container, webSocket.SocketType);
                 webSocket.Instance.Invoke(WebSocketConstants.SetOptions, BindingFlags.Instance | BindingFlags.NonPublic, new[] { options });
+                webSocket.Instance.Invoke(WebSocketConstants.SetIContainer, BindingFlags.Instance| BindingFlags.NonPublic,new[] { Container});
                 webSocket.IsInstanceGenerated = webSocket.Instance != null;
             }
         }

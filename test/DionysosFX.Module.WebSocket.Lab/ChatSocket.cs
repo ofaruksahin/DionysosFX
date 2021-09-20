@@ -8,7 +8,7 @@ namespace DionysosFX.Module.WebSocket.Lab
     public class ChatSocket : WebSocketHub
     {
         public override async Task OnConnected(IHttpListenerWebSocketContext context)
-        {
+        {            
             Console.WriteLine(context.SecWebSocketKey + " Connected");
         }
 

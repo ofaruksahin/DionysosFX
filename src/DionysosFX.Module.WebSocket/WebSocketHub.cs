@@ -1,4 +1,5 @@
-﻿using DionysosFX.Module.WebSocket.Internal;
+﻿using Autofac;
+using DionysosFX.Module.WebSocket.Internal;
 using DionysosFX.Swan.Threading;
 using System;
 using System.Collections.Concurrent;
@@ -20,6 +21,8 @@ namespace DionysosFX.Module.WebSocket
 
         ConcurrentDictionary<string, List<IHttpListenerWebSocketContext>> groups = new ConcurrentDictionary<string, List<IHttpListenerWebSocketContext>>();
 
+        public IContainer Container;
+
         public WebSocketHub()
         {
             PeriodicTask.Create(PeriodicTaskDoWork, 5);
@@ -28,6 +31,11 @@ namespace DionysosFX.Module.WebSocket
         private void SetOptions(WebSocketModuleOptions options)
         {
             this.options = options;
+        }
+
+        private void SetIContainer(IContainer container)
+        {
+            Container = container;
         }
 
         private async Task OnBeforeConnected(HttpListenerWebSocketContext webSocketContext)

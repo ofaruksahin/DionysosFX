@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using DionysosFX.Swan;
-using DionysosFX.Swan.Constants;
 using DionysosFX.Swan.Exceptions;
 using DionysosFX.Swan.Extensions;
 using System;
@@ -12,13 +11,33 @@ namespace DionysosFX.Module.WebSocket
 {
     public static class WebSocketExtension
     {
-        internal static string OnBeforeConnectedMethod => "OnBeforeConnected";
-
         public static IHostBuilder AddWebSocket(this IHostBuilder @this)
         {
             @this
                 .ContainerBuilder
                 .RegisterType<WebSocketModule>()
+                .SingleInstance();
+
+            WebSocketModuleOptions options = new WebSocketModuleOptions();
+
+            @this
+                .ContainerBuilder
+                .Register(i => options)
+                .SingleInstance();
+
+            return @this;
+        }
+
+        public static IHostBuilder AddWebSocket(this IHostBuilder @this,WebSocketModuleOptions options)
+        {
+            @this
+              .ContainerBuilder
+              .RegisterType<WebSocketModule>()
+              .SingleInstance();
+
+            @this
+                .ContainerBuilder
+                .Register(i => options)
                 .SingleInstance();
             return @this;
         }
@@ -62,7 +81,7 @@ namespace DionysosFX.Module.WebSocket
                         {
                             socketItem.ConstructorParameters = constructor.GetParameters().ToList();
                         }
-                        socketItem.OnBeforeConnected = hub.GetCustomMethod(OnBeforeConnectedMethod, BindingFlags.Instance | BindingFlags.NonPublic);
+                        socketItem.OnBeforeConnected = hub.GetCustomMethod(WebSocketConstants.OnBeforeConnectedMethod, BindingFlags.Instance | BindingFlags.NonPublic);
                         result.Add(socketItem);
                     }
                 }

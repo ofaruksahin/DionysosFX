@@ -22,7 +22,7 @@ namespace DionysosFX.Module.WebSocket.Internal
 
         public void Abort()
         {
-            _webSocket.Abort();
+            _webSocket.Abort();            
         }
 
         public Task CloseAsync(WebSocketCloseStatus closeStatus, string statusDescription, CancellationToken cancellationToken)=> _webSocket.CloseAsync(closeStatus, statusDescription, cancellationToken);
@@ -32,7 +32,7 @@ namespace DionysosFX.Module.WebSocket.Internal
         public Task SendAsync(ArraySegment<byte> buffer, WebSocketMessageType messageType, bool endOfMessage, CancellationToken cancellationToken) => _webSocket.SendAsync(buffer, messageType, endOfMessage, cancellationToken);
 
         public void Dispose()
-        {
+        {            
             _webSocket.Dispose();
         }
     }

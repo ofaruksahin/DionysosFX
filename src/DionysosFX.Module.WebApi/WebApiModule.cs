@@ -77,7 +77,7 @@ namespace DionysosFX.Module.WebApi
                     if (instance == null || instance.GetType() != routeItem.EndpointType)
                     {
                         routeItem.ConstructorParameters = routeItem.ConstructorParameters ?? (new List<ParameterInfo>());
-                        instance = routeItem.ConstructorParameters.CreateInstance(context, routeItem.EndpointType.GetTypeInfo());
+                        instance = routeItem.ConstructorParameters.CreateInstance(context.Container, routeItem.EndpointType.GetTypeInfo());
                         //instance = CreateInstance(routeItem, context);
                     }
 
@@ -125,6 +125,7 @@ namespace DionysosFX.Module.WebApi
                         }
                     }
                 }
+                instance = null;
             }
         }
 

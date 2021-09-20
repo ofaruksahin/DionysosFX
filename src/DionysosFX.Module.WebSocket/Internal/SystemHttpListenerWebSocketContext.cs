@@ -11,7 +11,7 @@ namespace DionysosFX.Module.WebSocket.Internal
         private HttpListenerWebSocketContext _context;        
         public SystemHttpListenerWebSocketContext(HttpListenerWebSocketContext context)
         {
-            _context = context;     
+            _context = context;                 
         }
 
         public CookieCollection CookieCollection => _context.CookieCollection;

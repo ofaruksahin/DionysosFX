@@ -158,15 +158,15 @@ namespace DionysosFX.Swan.Extensions
         /// <returns></returns>
         public static object? Invoke(this object instance,string methodName,BindingFlags bindingFlags, object[]? parameters)
         {
-            var methodInfo = instance.GetType().GetMethod(methodName, bindingFlags);
+            var methodInfo = instance.GetType().GetCustomMethod(methodName, bindingFlags);
             if (methodInfo == null)
                 return null;
             return methodInfo.Invoke(instance, parameters);
         }
 
-        public static object CreateInstance<T>(this List<ParameterInfo> constructorParameters, IHttpContext context) => constructorParameters.CreateInstance(context,typeof(T));
+        public static object CreateInstance<T>(this List<ParameterInfo> constructorParameters, IContainer container) => constructorParameters.CreateInstance(container, typeof(T));
 
-        public static object CreateInstance(this List<ParameterInfo> constructorParameters, IHttpContext context,Type destType)
+        public static object CreateInstance(this List<ParameterInfo> constructorParameters, IContainer container,Type destType)
         {
             object instance = null;
             List<object> _parameters = new List<object>();
@@ -174,7 +174,7 @@ namespace DionysosFX.Swan.Extensions
             foreach (var item in constructorParameters)
             {
                 object ctParam = null;
-                if (!context.Container.TryResolve(item.ParameterType, out ctParam))
+                if (!container.TryResolve(item.ParameterType, out ctParam))
                     _parameters.Add(null);
                 else
                     _parameters.Add(ctParam);

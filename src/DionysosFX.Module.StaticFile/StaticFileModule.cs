@@ -19,7 +19,7 @@ namespace DionysosFX.Module.StaticFile
     /// <summary>
     /// Static file module
     /// </summary>
-    internal class StaticFileModule : IWebModule
+    internal class StaticFileModule : WebModuleBase
     {
         /// <summary>
         /// Static file options
@@ -34,9 +34,10 @@ namespace DionysosFX.Module.StaticFile
         /// Static file module started was  and trigged this method
         /// </summary>
         /// <param name="cancellationToken"></param>
-        public void Start(CancellationToken cancellationToken)
+        public override void Start(CancellationToken cancellationToken)
         {
             _files = new();
+            Container.TryResolve<StaticFileOptions>(out options);
             PeriodicTask.Create(HandleExpireFiles, 1, cancellationToken);
         }
 
@@ -45,12 +46,8 @@ namespace DionysosFX.Module.StaticFile
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public async Task HandleRequestAsync(IHttpContext context)
+        public override async Task HandleRequestAsync(IHttpContext context)
         {
-            if (options == null)
-                if(context.Container.TryResolve(out options))
-                {
-                }
             if (context.IsHandled)
                 return;
             string fileName = string.Empty;
@@ -134,7 +131,7 @@ namespace DionysosFX.Module.StaticFile
 
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             _files.Clear();
             _files = null;

@@ -1,8 +1,9 @@
 ﻿using Autofac;
 using DionysosFX.Swan;
+using DionysosFX.Swan.Constants;
 using DionysosFX.Swan.Exceptions;
-using System;
-using System.Linq;
+using DionysosFX.Swan.Extensions;
+using System.Reflection;
 
 namespace DionysosFX.Module.Cors
 {
@@ -15,7 +16,7 @@ namespace DionysosFX.Module.Cors
         /// <param name="options"></param>
         /// <returns></returns>
         public static IHostBuilder AddCors(this IHostBuilder @this,CorsModuleOptions options)
-        {
+        {            
             @this.ContainerBuilder.RegisterType<CorsModule>().SingleInstance();
             @this.ContainerBuilder.Register(i => options).As<CorsModuleOptions>().SingleInstance();
             return @this;
@@ -30,6 +31,7 @@ namespace DionysosFX.Module.Cors
         {
             if (!@this.Container.TryResolve(out CorsModule module))
                 throw new ModuleNotFoundException(typeof(CorsModule).Name);
+            module.SetIContainer(@this.Container);
             @this.ModuleCollection.Add(module.GetType().Name, module);            
             return @this; 
         }

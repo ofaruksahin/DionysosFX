@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using DionysosFX.Swan;
 using DionysosFX.Swan.Exceptions;
-using System;
 
 namespace DionysosFX.Module.OpenApi
 {
@@ -32,6 +31,7 @@ namespace DionysosFX.Module.OpenApi
         {
             if (!@this.Container.TryResolve(out OpenApiModule module))
                 throw new ModuleNotFoundException(typeof(OpenApiModule).Name);
+            module.SetIContainer(@this.Container);
             @this.ModuleCollection.Add(module.GetType().Name, module);
             return @this;
         }

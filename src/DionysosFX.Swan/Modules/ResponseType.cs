@@ -1,3 +1,0 @@
-﻿namespace DionysosFX.Swan.Modules
-{
-}

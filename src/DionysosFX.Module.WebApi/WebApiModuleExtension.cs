@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using DionysosFX.Swan;
 using DionysosFX.Swan.Exceptions;
-using DionysosFX.Swan.Net;
 using System;
 
 namespace DionysosFX.Module.WebApi
@@ -28,6 +27,7 @@ namespace DionysosFX.Module.WebApi
         {
             if (!@this.Container.TryResolve(out WebApiModule module))
                 throw new ModuleNotFoundException(typeof(WebApiModule).Name);
+            module.SetIContainer(@this.Container);
             @this.ModuleCollection.Add(module.GetType().Name, module);
             return @this;
         }

@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using DionysosFX.Swan;
+using DionysosFX.Swan.Constants;
 using DionysosFX.Swan.Exceptions;
 using DionysosFX.Swan.Extensions;
 using System;
@@ -24,10 +25,11 @@ namespace DionysosFX.Module.WebSocket
 
         public static IHostBuilder UseWebSocket(this IHostBuilder @this)
         {
-            WebSocketModule webSocketModule = null;
-            if (!@this.Container.TryResolve<WebSocketModule>(out webSocketModule))
+            WebSocketModule module = null;
+            if (!@this.Container.TryResolve<WebSocketModule>(out module))
                 throw new ModuleNotFoundException(typeof(WebSocketModule).Name);
-            @this.ModuleCollection.Add(webSocketModule.GetType().Name, webSocketModule);
+            module.SetIContainer(@this.Container);
+            @this.ModuleCollection.Add(module.GetType().Name, module);
             return @this;
         }
 

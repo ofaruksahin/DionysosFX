@@ -12,7 +12,7 @@ namespace DionysosFX.Swan.Modules
         /// </summary>
         /// <param name="name"></param>
         /// <param name="module"></param>
-        void Add(string name, IWebModule module);
+        void Add(string name, WebModuleBase module);
 
         /// <summary>
         /// Starts the all module

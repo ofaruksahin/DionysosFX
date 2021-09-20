@@ -19,7 +19,7 @@ namespace DionysosFX.Module.OpenApi
     /// <summary>
     /// OpenAPI Module
     /// </summary>
-    internal class OpenApiModule : IWebModule
+    internal class OpenApiModule : WebModuleBase
     {
         /// <summary>
         /// Documentation response
@@ -30,7 +30,7 @@ namespace DionysosFX.Module.OpenApi
         /// OpenAPI module started was  and trigged this method
         /// </summary>
         /// <param name="cancellationToken"></param>
-        public void Start(CancellationToken cancellationToken)
+        public override void Start(CancellationToken cancellationToken)
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             List<Type> schemaTypes = new List<Type>();
@@ -115,14 +115,14 @@ namespace DionysosFX.Module.OpenApi
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public async Task HandleRequestAsync(IHttpContext context)
+        public override async Task HandleRequestAsync(IHttpContext context)
         {
             if (context.IsHandled)
                 return;
         }
 
-        public void Dispose()
-        {
+        public override void Dispose()
+        {            
             DocumentationResponse = null;
         }
     }

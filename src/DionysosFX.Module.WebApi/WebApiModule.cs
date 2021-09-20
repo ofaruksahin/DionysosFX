@@ -16,7 +16,7 @@ namespace DionysosFX.Module.WebApi
     /// <summary>
     /// Web Api Module 
     /// </summary>
-    internal class WebApiModule : IWebModule
+    internal class WebApiModule : WebModuleBase
     {
         /// <summary>
         /// Web api routes
@@ -27,7 +27,7 @@ namespace DionysosFX.Module.WebApi
         /// Static file module started was  and trigged this method
         /// </summary>
         /// <param name="cancellationToken"></param>
-        public void Start(CancellationToken cancellationToken)
+        public override void Start(CancellationToken cancellationToken)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace DionysosFX.Module.WebApi
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public async Task HandleRequestAsync(IHttpContext context)
+        public override async Task HandleRequestAsync(IHttpContext context)
         {
             if (context.IsHandled)
                 return;
@@ -128,8 +128,10 @@ namespace DionysosFX.Module.WebApi
             }
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
+            routes.Clear();
+            routes = null;
         }
     }
 }

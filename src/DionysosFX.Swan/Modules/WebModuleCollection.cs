@@ -9,16 +9,16 @@ namespace DionysosFX.Swan.Modules
 {
     public class WebModuleCollection : IWebModuleCollection
     {
-        private List<IWebModule> _modules = null;
-        private List<(string, IWebModule)> _modulesWithNames = null;
+        private List<WebModuleBase> _modules = null;
+        private List<(string, WebModuleBase)> _modulesWithNames = null;
 
         public WebModuleCollection()
         {
-            _modules = new List<IWebModule>();
-            _modulesWithNames = new List<(string, IWebModule)>();
+            _modules = new List<WebModuleBase>();
+            _modulesWithNames = new List<(string, WebModuleBase)>();
         }
 
-        public void Add(string name,IWebModule module)
+        public void Add(string name, WebModuleBase module)
         {
             if (_modulesWithNames.Any(f => f.Item1 == name))
                 throw new Exception($"{nameof(module)} Already added.");

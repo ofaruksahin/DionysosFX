@@ -1,7 +1,9 @@
 ﻿using Autofac;
 using DionysosFX.Swan;
+using DionysosFX.Swan.Constants;
 using DionysosFX.Swan.Exceptions;
-using System;
+using DionysosFX.Swan.Extensions;
+using System.Reflection;
 
 namespace DionysosFX.Module.StaticFile
 {
@@ -43,6 +45,7 @@ namespace DionysosFX.Module.StaticFile
         {
             if (!@this.Container.TryResolve(out StaticFileModule module))
                 throw new ModuleNotFoundException(typeof(StaticFileModule).Name);
+            module.SetIContainer(@this.Container);
             @this.ModuleCollection.Add(module.GetType().Name, module);
             return @this;
         }

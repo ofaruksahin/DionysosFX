@@ -10,13 +10,13 @@ namespace DionysosFX.Module.Cors
     /// <summary>
     /// Cors module
     /// </summary>
-    internal class CorsModule : IWebModule
+    internal class CorsModule : WebModuleBase
     {
         /// <summary>
         /// When module was started than trigged start
         /// </summary>
         /// <param name="cancellationToken"></param>
-        public void Start(CancellationToken cancellationToken)
+        public override void Start(CancellationToken cancellationToken)
         {
         }
 
@@ -25,7 +25,7 @@ namespace DionysosFX.Module.Cors
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public async Task HandleRequestAsync(IHttpContext context)
+        public override async Task HandleRequestAsync(IHttpContext context)
         {
             if (!context.Container.TryResolve(out CorsModuleOptions options))
                 throw new Exception("Cors Module Options is not defined");
@@ -36,7 +36,7 @@ namespace DionysosFX.Module.Cors
             context.Response.Headers[CorsModuleConstants.AccessControlMaxAge] = options.MaxAge.ToString();
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
         }
     }

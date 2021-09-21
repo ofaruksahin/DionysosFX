@@ -7,6 +7,7 @@ using DionysosFX.Swan.Extensions;
 using DionysosFX.Swan.Modules;
 using DionysosFX.Swan.Net;
 using DionysosFX.Swan.Routing;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,9 +32,9 @@ namespace DionysosFX.Module.OpenApi
         /// </summary>
         /// <param name="cancellationToken"></param>
         public override void Start(CancellationToken cancellationToken)
-        {
+        {            
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            List<Type> schemaTypes = new List<Type>();
+            List<Type> schemaTypes = new List<Type>();             
             foreach (var assembly in assemblies)
             {
                 var types = assembly.GetTypes().Where(f => f.IsWebApiController()).ToList();
@@ -102,7 +103,6 @@ namespace DionysosFX.Module.OpenApi
                     }
                 }
             }
-
             foreach (var schemaType in schemaTypes)
             {
                 var schemaItem = schemaType.ToSchemaItem();

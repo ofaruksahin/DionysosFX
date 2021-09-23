@@ -1,6 +1,12 @@
 ﻿using Autofac;
+using DionysosFX.Module.WebApi;
 using DionysosFX.Swan;
 using DionysosFX.Swan.Exceptions;
+using DionysosFX.Swan.Routing;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace DionysosFX.Module.OpenApi
 {

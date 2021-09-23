@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DionysosFX.Swan.DataAnnotations;
 using DionysosFX.Swan.Net;
 using System;
 using System.Collections;
@@ -190,5 +191,9 @@ namespace DionysosFX.Swan.Extensions
             }
             return instance;
         }
+
+        public static bool IsNotMapped(this Type @this) => @this.GetCustomAttribute<NotMappedAttribute>() != null;
+
+        public static bool IsNotMapped(this MethodInfo @this) => @this.GetCustomAttribute<NotMappedAttribute>() != null;
     }
 }

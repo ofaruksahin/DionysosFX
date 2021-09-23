@@ -1,8 +1,11 @@
 ﻿using DionysosFX.Module.IWebApi;
 using DionysosFX.Module.OpenApi.Attributes;
 using DionysosFX.Module.OpenApi.Entities;
+using DionysosFX.Module.WebApi;
 using DionysosFX.Swan.Extensions;
 using DionysosFX.Swan.Routing;
+using HttpMultipartParser;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -111,6 +114,77 @@ namespace DionysosFX.Module.OpenApi
                     Description = (f.GetCustomAttribute(typeof(DescriptionAttribute)) as DescriptionAttribute)?.Description
                 }).ToList();
             return schemaItem;
+        }
+
+        public static List<Type> GetControllers()
+        {
+            List<Type> types = new List<Type>();
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var assembly in assemblies)
+            {
+                var controllers = assembly
+                    .GetTypes()
+                    .Where(f => f.IsWebApiController())
+                    .ToList();
+                types.AddRange(controllers);
+            }
+            return types;
+        }
+
+        public static List<MethodInfo> GetEndpoints(Type controller)
+        {
+            List<MethodInfo> endpoints = new List<MethodInfo>();
+            var methods = controller
+                .GetMethods(BindingFlags.Instance | BindingFlags.Public)
+                .Where(f => f.IsRoute())
+                .ToList();
+            endpoints.AddRange(methods);
+            return endpoints;
+        }
+
+        public static IDictionary<string,OpenApiSchema> GetOpenApiSchema(Type type)
+        {
+            IDictionary<string, OpenApiSchema> schema = new Dictionary<string, OpenApiSchema>();
+
+            var properties = type.GetProperties();
+
+            foreach (var property in properties)
+            {
+                OpenApiSchema openApiSchema = new OpenApiSchema();
+
+                if(property.PropertyType == typeof(string) ||property.PropertyType == typeof(DateTime) || property.PropertyType == typeof(DateTime?))
+                {
+                    openApiSchema.Type = "string";
+                }  
+                else if(property.PropertyType == typeof(List<FilePart>) || property.PropertyType == typeof(FilePart))
+                {
+                    openApiSchema.Type = "binary";
+                }
+                else if(property.PropertyType == typeof(int) ||property.PropertyType == typeof(int?))
+                {
+                    openApiSchema.Type = "integer";
+                }
+                else if(property.PropertyType == typeof(float) || property.PropertyType == typeof(float? )||property.PropertyType == typeof(double) || property.PropertyType == typeof(double?) )
+                {
+                    openApiSchema.Type = "number";
+                }
+                else if(property.PropertyType == typeof(bool) || property.PropertyType == typeof(bool?) )
+                {
+                    openApiSchema.Type = "boolean";
+                }    
+                else if (property.IsArray())
+                {
+                    openApiSchema.Type = "array";
+                }
+                else
+                {
+                    openApiSchema.Type = "object";
+                }
+
+                schema.Add(property.Name, openApiSchema);
+            }
+
+            return schema;
         }
     }
 }

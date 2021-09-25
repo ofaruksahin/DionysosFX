@@ -11,6 +11,7 @@ using DionysosFX.Swan.Routing;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Extensions;
 using Microsoft.OpenApi.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -70,7 +71,7 @@ namespace DionysosFX.Module.OpenApi
             {
                 var document = new OpenApiDocument();
                 document.Components = new OpenApiComponents();
-                document.Components.Schemas = new Dictionary<string,OpenApiSchema>();
+                document.Components.Schemas = new Dictionary<string, OpenApiSchema>();
                 var info = new OpenApiInfo();
                 info.Version = version;
                 info.Title = "";
@@ -144,7 +145,7 @@ namespace DionysosFX.Module.OpenApi
                             route = route.Substring(0, indexOf);
                         }
 
-                        if(route.EndsWith("/"))
+                        if (route.EndsWith("/"))
                             route = route.TrimEnd('/');
 
                         var pathItem = new OpenApiPathItem();
@@ -163,6 +164,23 @@ namespace DionysosFX.Module.OpenApi
                         {
                             OpenApiResponse apiResponse = new OpenApiResponse();
                             apiResponse.Description = responseTypeAttr.Description;
+
+                            OpenApiSchema schema = new OpenApiSchema();
+                            schema.Properties = new Dictionary<string, OpenApiSchema>();
+                            schema.Type = "object";
+                            schema.Properties = OpenApiExtension.GetOpenApiSchema(responseTypeAttr.Type);
+
+                            if (!document.Components.Schemas.ContainsKey(responseTypeAttr.Type.GetName()))
+                                document.Components.Schemas.Add(new KeyValuePair<string, OpenApiSchema>(responseTypeAttr.Type.GetName(), schema));
+
+                            OpenApiMediaType mediaType = new OpenApiMediaType();
+                            mediaType.Schema = new OpenApiSchema();
+                            mediaType.Schema.Items = new OpenApiSchema();
+                            mediaType.Schema.Items.Reference = new OpenApiReference();
+                            mediaType.Schema.Items.Reference.Type = ReferenceType.Schema;
+                            mediaType.Schema.Items.Reference.Id = responseTypeAttr.Type.GetName();
+                            apiResponse.Content.Add(new KeyValuePair<string, OpenApiMediaType>(responseTypeAttr.Type.GetName(), mediaType));
+
                             apiOperation.Responses.Add(((int)responseTypeAttr.StatusCode).ToString(), apiResponse);
                         }
 
@@ -173,14 +191,14 @@ namespace DionysosFX.Module.OpenApi
                         {
                             var methodParameter = methodParameters.FirstOrDefault(f => f.Name == parameter.Name);
                             if (methodParameter == null)
-                                continue;                      
+                                continue;
 
                             var converter = methodParameter
                               .GetCustomAttributes()
                               .FirstOrDefault(f => f.GetType().BaseType != null && f.GetType().GetInterface(nameof(IParameterConverter)) != null);
 
                             if (converter != null)
-                            {                            
+                            {
                                 switch (converter)
                                 {
                                     case QueryDataAttribute:
@@ -188,29 +206,34 @@ namespace DionysosFX.Module.OpenApi
                                         apiParameter.Name = parameter.Name;
                                         apiParameter.Description = parameter.Description;
                                         apiParameter.In = ParameterLocation.Query;
-                                        apiParameter.Required = true;                                        
+                                        apiParameter.Required = true;
                                         apiOperation.Parameters.Add(apiParameter);
                                         break;
                                     case JsonDataAttribute:
                                     case FormDataAttribute:
                                         apiOperation.RequestBody.Content = new Dictionary<string, OpenApiMediaType>();
-                                        OpenApiMediaType jsonMediaType = new OpenApiMediaType();
+
                                         OpenApiSchema schema = new OpenApiSchema();
                                         schema.Properties = new Dictionary<string, OpenApiSchema>();
-                                        schema.Type = "object";
+                                        schema.Type = methodParameter.ParameterType.IsArray() ? "array" : "object";
                                         schema.Properties = OpenApiExtension.GetOpenApiSchema(methodParameter.ParameterType);
-                                        jsonMediaType.Schema = schema;                                        
-                                        if(converter is JsonDataAttribute)
-                                        apiOperation.RequestBody.Content.Add(new KeyValuePair<string, OpenApiMediaType>("application/json", jsonMediaType));
+
+                                        OpenApiMediaType jsonMediaType = new OpenApiMediaType();
+                                        jsonMediaType.Schema = new OpenApiSchema();
+                                        jsonMediaType.Schema.Items = new OpenApiSchema();
+                                        jsonMediaType.Schema.Items.Reference = new OpenApiReference();
+                                        jsonMediaType.Schema.Items.Reference.Type = ReferenceType.Schema;
+                                        jsonMediaType.Schema.Items.Reference.Id = methodParameter.ParameterType.GetName();
+
+                                        if (!document.Components.Schemas.ContainsKey(methodParameter.ParameterType.GetName()))
+                                            document.Components.Schemas.Add(new KeyValuePair<string, OpenApiSchema>(methodParameter.ParameterType.GetName(), schema));
+                                        if (converter is JsonDataAttribute)
+                                            apiOperation.RequestBody.Content.Add(new KeyValuePair<string, OpenApiMediaType>("application/json", jsonMediaType));
                                         else
                                             apiOperation.RequestBody.Content.Add(new KeyValuePair<string, OpenApiMediaType>("multipart/form-data", jsonMediaType));
-                                        if (!document.Components.Schemas.ContainsKey(methodParameter.ParameterType.FullName))
-                                        {
-                                            document.Components.Schemas.Add(new KeyValuePair<string, OpenApiSchema>(methodParameter.ParameterType.FullName, schema));
-                                        }
                                         break;
-                                }                                                                
-                            }                          
+                                }
+                            }
                         }
 
                         switch (endpointRouteAttr.Verb)
@@ -245,82 +268,6 @@ namespace DionysosFX.Module.OpenApi
                 File.WriteAllText(@"C:\Users\Faruk\Desktop\test\swagger2.json", a);
                 documents.Add(document);
             }
-
-            //var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            //List<Type> schemaTypes = new List<Type>();             
-            //foreach (var assembly in assemblies)
-            //{
-            //    var types = assembly.GetTypes().Where(f => f.IsWebApiController()).ToList();
-            //    if (types.Any())
-            //    {
-            //        foreach (var controller in types)
-            //        {
-            //            var controllerNotMappedAttributes = controller.GetAttributes<NotMappedAttribute>();
-            //            if (controllerNotMappedAttributes.Any())
-            //                continue;
-            //            var controllerItem = controller.ToController();
-
-            //            var controllerRouteAttribute = controller.GetCustomAttribute(typeof(RouteAttribute));
-
-            //            string routePrefix = string.Empty;
-            //            if (controllerRouteAttribute != null)
-            //                routePrefix = ((RouteAttribute)controllerRouteAttribute).Route;
-
-            //            if (!string.IsNullOrEmpty(routePrefix) && !routePrefix.StartsWith("/"))
-            //                routePrefix = string.Format("/{0}", routePrefix);
-
-            //            var controllerVersions = controller.GetAttributes<ApiVersionAttribute>();
-
-            //            foreach (var controllerVersion in controllerVersions)
-            //            {
-            //                if (DocumentationResponse.Versions.Any(f => f.Version == controllerVersion.Version))
-            //                    continue;
-            //                DocumentationResponse.Versions.Add(new VersionItem()
-            //                {
-            //                    Version = controllerVersion.Version,
-            //                    Deprecated = controllerVersion.Deprecated
-            //                });
-            //            }
-
-            //            var endpoints = controller.GetMethods(BindingFlags.Instance | BindingFlags.Public).Where(f => f.IsRoute()).ToList();
-            //            foreach (var endpoint in endpoints)
-            //            {
-            //                var endpointNotMappedAttributes = endpoint.GetAttributes<NotMappedAttribute>();
-            //                if (endpointNotMappedAttributes.Any())
-            //                    continue;
-            //                var endpointItem = endpoint.ToEndpoint(routePrefix,schemaTypes);
-
-            //                var versioningAttributes = endpoint.GetAttributes<ApiVersionAttribute>();
-            //                foreach (var version in versioningAttributes)
-            //                {
-            //                    if (endpointItem.Versions.Any(f => f.Version == version.Version))
-            //                        continue;
-            //                    endpointItem.Versions.Add(new VersionItem()
-            //                    {
-            //                        Version = version.Version,
-            //                        Deprecated = version.Deprecated
-            //                    });
-            //                    if (!DocumentationResponse.Versions.Any(f => f.Version == version.Version))
-            //                        DocumentationResponse.Versions.Add(new VersionItem()
-            //                        {
-            //                            Version = version.Version,
-            //                            Deprecated = version.Deprecated
-            //                        });
-            //                }
-
-            //                endpointItem.Versions.AddRange(DocumentationResponse.Versions.Where(f => endpointItem.Versions.Any(y => f.Version != y.Version)).ToList());
-            //                endpointItem.Versions = endpointItem.Versions.OrderBy(f => f.Version).ToList();
-            //                controllerItem.Endpoints.Add(endpointItem);
-            //            }
-            //            DocumentationResponse.Controllers.Add(controllerItem);
-            //        }
-            //    }
-            //}
-            //foreach (var schemaType in schemaTypes)
-            //{
-            //    var schemaItem = schemaType.ToSchemaItem();
-            //    DocumentationResponse.Schemas.Add(schemaItem);
-            //}
         }
 
         /// <summary>

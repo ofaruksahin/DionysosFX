@@ -44,18 +44,25 @@ namespace DionysosFX.Swan.Extensions
         }
 
         /// <summary>
-        /// Parameter is type
+        /// Parameter is Array
         /// </summary>
         /// <param name="parameterInfo"></param>
         /// <returns></returns>
         public static bool IsArray(this ParameterInfo parameterInfo) => (parameterInfo.ParameterType.IsArray) || (parameterInfo.ParameterType.IsGenericType && parameterInfo.ParameterType.GetGenericTypeDefinition() == typeof(List<>));
 
         /// <summary>
-        /// Property is type
+        /// Property is Array
         /// </summary>
         /// <param name="propertyInfo"></param>
         /// <returns></returns>
         public static bool IsArray(this PropertyInfo propertyInfo) => (propertyInfo.PropertyType.IsArray) || (propertyInfo.PropertyType.IsGenericType && propertyInfo.PropertyType.GetGenericTypeDefinition() == typeof(List<>));
+
+        /// <summary>
+        /// Type is Array
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static bool IsArray(this Type type) => (type.IsArray) || (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>));
 
         /// <summary>
         /// Convert object to web form data
@@ -157,7 +164,7 @@ namespace DionysosFX.Swan.Extensions
         /// <param name="bindingFlags"></param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        public static object? Invoke(this object instance,string methodName,BindingFlags bindingFlags, object[]? parameters)
+        public static object? Invoke(this object instance, string methodName, BindingFlags bindingFlags, object[]? parameters)
         {
             var methodInfo = instance.GetType().GetCustomMethod(methodName, bindingFlags);
             if (methodInfo == null)
@@ -167,7 +174,7 @@ namespace DionysosFX.Swan.Extensions
 
         public static object CreateInstance<T>(this List<ParameterInfo> constructorParameters, IContainer container) => constructorParameters.CreateInstance(container, typeof(T));
 
-        public static object CreateInstance(this List<ParameterInfo> constructorParameters, IContainer container,Type destType)
+        public static object CreateInstance(this List<ParameterInfo> constructorParameters, IContainer container, Type destType)
         {
             object instance = null;
             List<object> _parameters = new List<object>();

@@ -146,63 +146,72 @@ namespace DionysosFX.Module.OpenApi
         {
             IDictionary<string, OpenApiSchema> schema = new Dictionary<string, OpenApiSchema>();
 
+            if (type.IsArray())
+                type = type.GetGenericArguments()[0];
+
             var properties = type.GetProperties();
 
             foreach (var property in properties)
             {
-                OpenApiSchema openApiSchema = new OpenApiSchema();
-
-                if (property.PropertyType == typeof(string) || property.PropertyType == typeof(DateTime) || property.PropertyType == typeof(DateTime?))
-                {
-                    openApiSchema.Type = "string";
-                    if (property.PropertyType == typeof(DateTime) || property.PropertyType == typeof(DateTime?))
-                    {
-                        openApiSchema.Items = new OpenApiSchema();
-                        openApiSchema.Items.Type = "string";
-                        openApiSchema.Items.Format = "date-time";
-                    }
-                }
-                else if (property.PropertyType == typeof(List<FilePart>) || property.PropertyType == typeof(FilePart))
-                {
-                    openApiSchema.Items = new OpenApiSchema();
-                    openApiSchema.Type = "array";
-                    openApiSchema.Items.Type = "string";
-                    openApiSchema.Items.Format = "binary";
-                }
-                else if (property.PropertyType == typeof(int) || property.PropertyType == typeof(int?))
-                {
-                    openApiSchema.Type = "integer";
-                    openApiSchema.Items = new OpenApiSchema();
-                    openApiSchema.Items.Type = "integer";
-                    openApiSchema.Items.Format = "int64";
-                }
-                else if (property.PropertyType == typeof(float) || property.PropertyType == typeof(float?) || property.PropertyType == typeof(double) || property.PropertyType == typeof(double?))
-                {
-                    openApiSchema.Type = "number";
-                    openApiSchema.Items = new OpenApiSchema();
-                    openApiSchema.Items.Type = "number";
-                    if (property.PropertyType == typeof(float) || property.PropertyType == typeof(float?))
-                        openApiSchema.Items.Format = "float";
-                    else
-                        openApiSchema.Items.Format = "double";
-                }
-                else if (property.PropertyType == typeof(bool) || property.PropertyType == typeof(bool?))
-                {
-                    openApiSchema.Type = "boolean";
-                }
-                else if (property.IsArray())
-                {
-                    openApiSchema.Type = "array";
-                }
-                else
-                {
-                    openApiSchema.Type = "object";
-                }
+                var openApiSchema = GetTypeSchema(property.PropertyType);
 
                 schema.Add(property.Name, openApiSchema);
             }
 
             return schema;
+        } 
+        
+        public static OpenApiSchema GetTypeSchema(Type type)
+        {
+            OpenApiSchema openApiSchema = new OpenApiSchema();
+
+            if (type == typeof(string) || type == typeof(DateTime) || type == typeof(DateTime?))
+            {
+                openApiSchema.Type = "string";
+                if (type == typeof(DateTime) || type == typeof(DateTime?))
+                {
+                    openApiSchema.Items = new OpenApiSchema();
+                    openApiSchema.Items.Type = "string";
+                    openApiSchema.Items.Format = "date-time";
+                }
+            }
+            else if (type == typeof(List<FilePart>) || type == typeof(FilePart))
+            {
+                openApiSchema.Items = new OpenApiSchema();
+                openApiSchema.Type = "array";
+                openApiSchema.Items.Type = "string";
+                openApiSchema.Items.Format = "binary";
+            }
+            else if (type  == typeof(int) || type == typeof(int?))
+            {
+                openApiSchema.Type = "integer";
+                openApiSchema.Items = new OpenApiSchema();
+                openApiSchema.Items.Type = "integer";
+                openApiSchema.Items.Format = "int64";
+            }
+            else if (type == typeof(float) || type == typeof(float?) || type == typeof(double) || type == typeof(double?))
+            {
+                openApiSchema.Type = "number";
+                openApiSchema.Items = new OpenApiSchema();
+                openApiSchema.Items.Type = "number";
+                if (type == typeof(float) || type == typeof(float?))
+                    openApiSchema.Items.Format = "float";
+                else
+                    openApiSchema.Items.Format = "double";
+            }
+            else if (type == typeof(bool) || type == typeof(bool?))
+            {
+                openApiSchema.Type = "boolean";
+            }
+            else if (type.IsArray())
+            {
+                openApiSchema.Type = "array";
+            }
+            else
+            {
+                openApiSchema.Type = "object";
+            }
+            return openApiSchema;
         }
     }
 }

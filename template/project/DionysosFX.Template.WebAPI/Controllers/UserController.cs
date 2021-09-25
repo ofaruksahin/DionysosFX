@@ -20,7 +20,7 @@ namespace DionysosFX.Template.WebAPI.Controllers
     [AuthorizeFilter]
     [Description("Controller Description")]
     [ApiVersion("1.0.0.0")]
-    public class UserController : WebApiController, IController<User>
+    public class UserController : WebApiController
     {
         IUserService _userService;
 
@@ -71,7 +71,7 @@ namespace DionysosFX.Template.WebAPI.Controllers
         [Parameter("entity","User Item")]
         public IEndpointResult Insert([JsonData] User entity)
         {
-            _userService.Insert(entity);
+            //_userService.Insert(entity);
             return new Ok(entity);
         }
 

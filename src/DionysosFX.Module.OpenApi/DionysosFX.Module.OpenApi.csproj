@@ -3,6 +3,14 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>DionysosFX.OpenApi</PackageId>
+    <Version>1.0.0.0-alpha</Version>
+    <Authors>DionysosFX</Authors>
+    <Product>DionysosFX</Product>
+    <PackageProjectUrl>https://github.com/ofaruksahin/DionysosFX/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ofaruksahin/DionysosFX/</RepositoryUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +24,25 @@
     <ProjectReference Include="..\DionysosFX.Module.WebApiVersioning\DionysosFX.Module.WebApiVersioning.csproj" />
     <ProjectReference Include="..\DionysosFX.Module.WebApi\DionysosFX.Module.WebApi.csproj" />
     <ProjectReference Include="..\DionysosFX.Swan\DionysosFX.Swan.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="swagger\swagger-ui-bundle.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="swagger\swagger-ui-standalone-preset.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="swagger\swagger-ui.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="swagger\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

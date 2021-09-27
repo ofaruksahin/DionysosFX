@@ -64,7 +64,12 @@ namespace DionysosFX.Template.WebAPI
                 corsOptions
                 );
             _hostBuilder.AddWebApiModule();
-            _hostBuilder.AddOpenApiModule(new OpenApiModuleOptions("DionysosFX Example OpenAPI"));
+            var openApiOptions = new OpenApiModuleOptions();
+            openApiOptions.Title = "Title";
+            openApiOptions.Description = "Description";
+            openApiOptions.EnableBearerToken = true;
+            openApiOptions.Headers.Add("X-Api-Version");
+            _hostBuilder.AddOpenApiModule(openApiOptions);
             _hostBuilder.UseWebApiVersionModule();
             _hostBuilder.AddWebApiVersionModule(new WebApiVersioningModuleOptions("1.0.0.0"));
             _hostBuilder.AddStaticFileModule();

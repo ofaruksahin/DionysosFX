@@ -42,7 +42,7 @@ namespace DionysosFX.WebApplication
             staticFileOptions.AllowedMimeTypes.Add("*");
             _hostBuilder.AddStaticFileModule(staticFileOptions);
             _hostBuilder.AddWebApiModule();
-            _hostBuilder.AddOpenApiModule(new OpenApiModuleOptions("DionysosFX"));
+            _hostBuilder.AddOpenApiModule(new OpenApiModuleOptions());
 
             _hostBuilder
                 .ContainerBuilder

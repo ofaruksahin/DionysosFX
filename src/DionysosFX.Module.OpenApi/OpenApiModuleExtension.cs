@@ -1,12 +1,8 @@
 ﻿using Autofac;
-using DionysosFX.Module.WebApi;
 using DionysosFX.Swan;
 using DionysosFX.Swan.Exceptions;
-using DionysosFX.Swan.Routing;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace DionysosFX.Module.OpenApi
 {
@@ -39,6 +35,14 @@ namespace DionysosFX.Module.OpenApi
                 throw new ModuleNotFoundException(typeof(OpenApiModule).Name);
             module.SetIContainer(@this.Container);
             @this.ModuleCollection.Add(module.GetType().Name, module);
+            return @this;
+        }
+
+        public static List<string> AddHeader(this List<string> @this,string key)
+        {
+            if (@this.Any(f=> f.Equals(key)))
+                return @this;
+            @this.Add(key);
             return @this;
         }
     }

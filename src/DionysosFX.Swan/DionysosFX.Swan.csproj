@@ -3,11 +3,27 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0.0-alpha</Version>
+    <Authors>DionysosFX</Authors>
+    <Product>DionysosFX</Product>
+    <Description>DionysosFX Framework Shared Resource</Description>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/ofaruksahin/DionysosFX/</RepositoryUrl>
+    <PackageTags>DionysosFX, .Net 6, Web API, Web Framework</PackageTags>
+    <PackageProjectUrl>https://github.com/ofaruksahin/DionysosFX/</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.2.0" />
     <PackageReference Include="HttpMultipartParser" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

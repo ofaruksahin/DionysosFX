@@ -7,6 +7,14 @@
     <StartupObject />
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>DionysosFX.WebApi</PackageId>
+    <Authors>DionysosFX.WebApi</Authors>
+    <Product>DionysosFX.WebApi</Product>
+    <PackageProjectUrl>https://github.com/ofaruksahin/DionysosFX/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ofaruksahin/DionysosFX/</RepositoryUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageIconUrl />
+    <Version>1.0.0.0-alpha</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +24,13 @@
   <ItemGroup>
     <ProjectReference Include="..\DionysosFX.Module.IWebApi\DionysosFX.Module.IWebApi.csproj" />
     <ProjectReference Include="..\DionysosFX.Swan\DionysosFX.Swan.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,4 @@
-﻿using DionysosFX.Module.IWebApi;
-using DionysosFX.Module.OpenApi.Attributes;
-using DionysosFX.Module.OpenApi.Entities;
+﻿using DionysosFX.Module.OpenApi.Attributes;
 using DionysosFX.Module.WebApi;
 using DionysosFX.Swan.Extensions;
 using DionysosFX.Swan.Routing;
@@ -15,105 +13,35 @@ namespace DionysosFX.Module.OpenApi
 {
     internal static class OpenApiExtension
     {
-        /// <summary>
-        /// Type convert to controller
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static ControllerItem ToController(this Type type)
+        public static OpenApiDocument GetDocument(OpenApiModuleOptions options, string versionName)
         {
-            ControllerItem controllerItem = new ControllerItem();
-            controllerItem.Name = type.Name;
+            var document = new OpenApiDocument();
+            document.Components = new OpenApiComponents();
+            document.Components.Schemas = new Dictionary<string, OpenApiSchema>();
 
-            var controllerDescriptionAttribute = type.GetCustomAttribute(typeof(DescriptionAttribute));
-            if (controllerDescriptionAttribute != null)
-                controllerItem.Description = ((DescriptionAttribute)controllerDescriptionAttribute).Description;
+            var info = new OpenApiInfo();
+            info.Version = versionName;
+            info.Title = options.Title;
 
-            return controllerItem;
-        }
+            OpenApiContact contact = new OpenApiContact();
+            contact.Name = options.ContactName;
+            contact.Email = options.ContactEmail;
+            info.Contact = contact;
 
-        /// <summary>
-        /// Type methods convert to endpoint
-        /// </summary>
-        /// <param name="method"></param>
-        /// <param name="routePrefix"></param>
-        /// <param name="schemaTypes"></param>
-        /// <returns></returns>
-        public static EndpointItem ToEndpoint(this MethodInfo method, string routePrefix = "", List<Type> schemaTypes = null)
-        {
-            EndpointItem endpointItem = new EndpointItem();
-            var routeAttribute = method.GetCustomAttribute(typeof(RouteAttribute));
-            if (routeAttribute == null)
-                throw new Exception($"{method.Name} Route Attribute not found");
+            document.Info = info;
 
-            endpointItem.Name = string.Format("{0}{1}", routePrefix, ((RouteAttribute)routeAttribute).Route);
-            if (endpointItem.Name.Contains("{"))
-                endpointItem.Name = endpointItem.Name.Substring(0, endpointItem.Name.IndexOf("{"));
+            document.Components.SecuritySchemes = new Dictionary<string, OpenApiSecurityScheme>();
 
-            endpointItem.Verb = ((RouteAttribute)routeAttribute).Verb.ToString();
-
-            var endpointDescriptionAttribute = method.GetCustomAttribute(typeof(DescriptionAttribute));
-            if (endpointDescriptionAttribute != null)
-                endpointItem.Description = ((DescriptionAttribute)endpointDescriptionAttribute).Description;
-
-            var methodParameters = method.GetParameters();
-            var parameterAttributes = method.GetAttributes<ParameterAttribute>();
-            endpointItem.Parameters = parameterAttributes
-                .Select(f => new ParameterItem(f.Name, f.Description))
-                .ToList();
-
-            foreach (var parameter in endpointItem.Parameters)
+            if (options.EnableBearerToken)
             {
-                var methodParameter = methodParameters.FirstOrDefault(f => f.Name == parameter.Name);
-                if (methodParameter == null)
-                    continue;
-
-                parameter.TypeName = methodParameter.ParameterType.GetName();
-                if (!methodParameter.ParameterType.IsSystemType())
-                    if (schemaTypes != null && !schemaTypes.Any(f => f.FullName == methodParameter.ParameterType.FullName))
-                        schemaTypes.Add(methodParameter.ParameterType);
-                var convertAttribute = methodParameter.GetCustomAttributes()
-                    .Where(f => f.GetType().GetInterface(nameof(IParameterConverter)) != null)
-                    .FirstOrDefault();
-                if (convertAttribute != null)
-                    parameter.PrefixType = convertAttribute.GetType().FullName;
+                OpenApiSecurityScheme openApiSecurityScheme = new OpenApiSecurityScheme();
+                openApiSecurityScheme.Type = SecuritySchemeType.Http;
+                openApiSecurityScheme.Scheme = "bearer";
+                openApiSecurityScheme.BearerFormat = "JWT";
+                document.Components.SecuritySchemes.Add(new KeyValuePair<string, OpenApiSecurityScheme>("bearerAuth", openApiSecurityScheme));
             }
 
-            var responseTypeAttributes = method.GetAttributes<ResponseTypeAttribute>();
-            endpointItem.ResponseTypes = responseTypeAttributes
-                .Select(f => new ResponseTypeItem(f.StatusCode, f.Type.GetName(), f.Description))
-                .ToList();
-
-            List<Type> responseGenericTypes = new List<Type>();
-            foreach (var responseType in responseTypeAttributes)
-                responseType.Type.GetGenericTypesRecursive(ref responseGenericTypes);
-
-            schemaTypes.AddRange(responseGenericTypes.Where(f => schemaTypes.Any(y => y.FullName != f.FullName)).Select(f => f));
-
-            return endpointItem;
-        }
-
-        /// <summary>
-        /// Type convert to schema item
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static SchemaItem ToSchemaItem(this Type type)
-        {
-            SchemaItem schemaItem = new SchemaItem(type.FullName);
-            var schemaDescriptionAttribute = type.GetAttributes<DescriptionAttribute>()
-                .FirstOrDefault();
-            if (schemaDescriptionAttribute != null)
-                schemaItem.Description = schemaDescriptionAttribute.Description;
-            schemaItem.SchemaProperties = type
-                .GetProperties()
-                .Select(f => new SchemaItem.SchemaPropertyItem()
-                {
-                    Name = f.Name,
-                    Type = f.PropertyType.FullName,
-                    Description = (f.GetCustomAttribute(typeof(DescriptionAttribute)) as DescriptionAttribute)?.Description
-                }).ToList();
-            return schemaItem;
+            return document;
         }
 
         public static List<Type> GetControllers()
@@ -142,7 +70,7 @@ namespace DionysosFX.Module.OpenApi
             return endpoints;
         }
 
-        public static IDictionary<string, OpenApiSchema> GetOpenApiSchema(Type type)
+        public static IDictionary<string, OpenApiSchema> GetOpenApiProperties(Type type)
         {
             IDictionary<string, OpenApiSchema> schema = new Dictionary<string, OpenApiSchema>();
 
@@ -153,15 +81,15 @@ namespace DionysosFX.Module.OpenApi
 
             foreach (var property in properties)
             {
-                var openApiSchema = GetTypeSchema(property.PropertyType);
+                var openApiSchema = GetOpenApiPropertyTypes(property.PropertyType);
 
                 schema.Add(property.Name, openApiSchema);
             }
 
             return schema;
-        } 
-        
-        public static OpenApiSchema GetTypeSchema(Type type)
+        }
+
+        public static OpenApiSchema GetOpenApiPropertyTypes(Type type)
         {
             OpenApiSchema openApiSchema = new OpenApiSchema();
 
@@ -182,7 +110,7 @@ namespace DionysosFX.Module.OpenApi
                 openApiSchema.Items.Type = "string";
                 openApiSchema.Items.Format = "binary";
             }
-            else if (type  == typeof(int) || type == typeof(int?))
+            else if (type == typeof(int) || type == typeof(int?))
             {
                 openApiSchema.Type = "integer";
                 openApiSchema.Items = new OpenApiSchema();
@@ -213,5 +141,78 @@ namespace DionysosFX.Module.OpenApi
             }
             return openApiSchema;
         }
+
+        public static OpenApiParameter GetOpenApiParameter(ParameterAttribute parameter)
+        {
+            var openApiParameter = new OpenApiParameter();
+            openApiParameter.Name = parameter.Name;
+            openApiParameter.Description = parameter.Description;
+            openApiParameter.In = ParameterLocation.Query;
+            openApiParameter.Required = true;
+            return openApiParameter;
+        }
+
+        public static void AddHeaders(OpenApiOperation operation, OpenApiModuleOptions options)
+        {
+            foreach (var header in options.Headers)
+            {
+                OpenApiParameter openApiHeader = new OpenApiParameter();
+                openApiHeader.Name = header;
+                openApiHeader.In = ParameterLocation.Header;
+                openApiHeader.Required = false;
+                operation.Parameters.Add(openApiHeader);
+            }
+        }
+
+        public static OpenApiMediaType GetOpenApiMediaType(Type type)
+        {
+            OpenApiMediaType mediaType = new OpenApiMediaType();
+            mediaType.Schema = new OpenApiSchema();
+            mediaType.Schema.Items = new OpenApiSchema();
+            mediaType.Schema.Items.Reference = new OpenApiReference();
+            mediaType.Schema.Items.Reference.Type = ReferenceType.Schema;
+            mediaType.Schema.Items.Reference.Id = type.GetName();
+            return mediaType;
+        }
+
+        public static void AddRequestBody(OpenApiDocument document, OpenApiOperation operation, Type type, string contentType)
+        {
+            var name = type.GetName();
+            operation.RequestBody.Content = new Dictionary<string, OpenApiMediaType>();
+
+            OpenApiSchema schmea = new OpenApiSchema();
+            schmea.Properties = new Dictionary<string, OpenApiSchema>();
+            schmea.Type = type.IsArray() ? "array" : "object";
+            schmea.Properties = GetOpenApiProperties(type);
+
+            var mediaType = GetOpenApiMediaType(type);
+
+            if (!document.Components.Schemas.ContainsKey(name))
+                document.Components.Schemas.Add(new KeyValuePair<string, OpenApiSchema>(name, schmea));
+
+            operation.RequestBody.Content.Add(new KeyValuePair<string, OpenApiMediaType>(contentType, mediaType));
+        }
+
+        public static void AddResponse(OpenApiDocument document,OpenApiOperation operation,ResponseTypeAttribute responseTypeAttr)
+        {
+            OpenApiResponse response = new OpenApiResponse();
+            response.Description = responseTypeAttr.Description;
+
+            OpenApiSchema schema = new OpenApiSchema();
+            schema.Properties = new Dictionary<string, OpenApiSchema>();
+            schema.Type = "object";
+            schema.Properties = GetOpenApiProperties(responseTypeAttr.Type);
+
+            var name = responseTypeAttr.Type.GetName();
+
+            if (!document.Components.Schemas.ContainsKey(name))
+                document.Components.Schemas.Add(new KeyValuePair<string, OpenApiSchema>(name, schema));
+
+            var mediaType = GetOpenApiMediaType(responseTypeAttr.Type);
+
+            response.Content.Add(new KeyValuePair<string, OpenApiMediaType>(name, mediaType));
+            string statusCode = ((int)responseTypeAttr.StatusCode).ToString();
+            operation.Responses.Add(statusCode, response);
+        }        
     }
 }

@@ -1,7 +1,4 @@
-﻿using DionysosFX.Module.OpenApi.Entities;
-using DionysosFX.Swan.Extensions;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Net;
 
 namespace DionysosFX.Module.OpenApi.Attributes
@@ -9,19 +6,24 @@ namespace DionysosFX.Module.OpenApi.Attributes
     /// <summary>
     /// This attribute add action and return response
     /// </summary>
-    public class ResponseTypeAttribute : ResponseTypeItem
+    [AttributeUsage(AttributeTargets.Method,AllowMultiple =true)]
+    public class ResponseTypeAttribute :Attribute
     {
-        [JsonIgnore]
         public Type Type { get; set; }
+        public string Description { get; set; }
+        public HttpStatusCode StatusCode { get; set; }
 
-        public ResponseTypeAttribute(HttpStatusCode StatusCode, Type Type) : base(StatusCode,Type.GetName())
+        public ResponseTypeAttribute(HttpStatusCode StatusCode, Type Type) 
         {
             this.Type = Type;
+            this.StatusCode = StatusCode;
         }
 
-        public ResponseTypeAttribute(HttpStatusCode StatusCode, Type Type, string Description) : base(StatusCode, Type.GetName(), Description)
+        public ResponseTypeAttribute(HttpStatusCode StatusCode, Type Type, string Description)
         {
             this.Type = Type;
+            this.StatusCode = StatusCode;
+            this.Description = Description;
         }
     }
 }

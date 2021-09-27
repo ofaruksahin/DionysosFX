@@ -7,6 +7,7 @@ using DionysosFX.Swan.Threading;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -62,9 +63,8 @@ namespace DionysosFX.Module.StaticFile
                     throw new Exception("Entry assembly not found");
                 fileName = Path.GetDirectoryName(entryAssembly.Location);
                 foreach (var dir in context.Request.RawUrl.Split('/'))
-                    fileName = Path.Combine(fileName, dir);
+                    fileName = Path.Combine(fileName, dir.ToLowerInvariant());
             }
-
             byte[] bytes = null;
             if (_files.ContainsKey(fileName))
             {

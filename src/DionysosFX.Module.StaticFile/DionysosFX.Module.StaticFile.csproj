@@ -3,10 +3,25 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0.0-alpha</Version>
+    <PackageId>DionysosFX.StaticFile</PackageId>
+    <Authors>DionysosFX.StaticFile</Authors>
+    <Product>DionysosFX.StaticFile</Product>
+    <PackageProjectUrl>https://github.com/ofaruksahin/DionysosFX/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ofaruksahin/DionysosFX/</RepositoryUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DionysosFX.Swan\DionysosFX.Swan.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

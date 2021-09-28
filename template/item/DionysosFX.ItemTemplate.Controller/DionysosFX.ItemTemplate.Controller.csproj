@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ControllerItem.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ControllerItem.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DionysosFX.Module.IWebApi" Version="1.0.0" />
+    <PackageReference Include="DionysosFX.Swan" Version="1.0.0-alpha" />
+    <PackageReference Include="DionysosFX.WebApi" Version="1.0.0-alpha" />
+  </ItemGroup>
+
+</Project>

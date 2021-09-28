@@ -4,6 +4,14 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.0.0-alpha</Version>
+    <PackageId>DionysosFX.WebApiVersioning</PackageId>
+    <Authors>DionysosFX</Authors>
+    <Product>DionysosFX</Product>
+    <PackageProjectUrl>https://github.com/ofaruksahin/DionysosFX/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ofaruksahin/DionysosFX/</RepositoryUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +20,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DionysosFX.Swan\DionysosFX.Swan.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

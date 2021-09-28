@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" ?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+    <Metadata>
+        <Identity Id="DionysosFX.Extensibility.4e6c7eaf-6814-4450-bdcb-ca5916cf9fc4" Version="1.0" Language="en-US" Publisher="Ömer Faruk Şahin" />
+        <DisplayName>DionysosFX Extensibility</DisplayName>
+        <Description xml:space="preserve">This extension provide DionysosFX project and item templates</Description>
+        <Icon>logo.ico</Icon>
+        <PreviewImage>logo.ico</PreviewImage>
+        <Tags>DionysosFX</Tags>
+    </Metadata>
+    <Installation>
+        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
+        <InstallationTarget Version="[16.0,17.0)" Id="Microsoft.VisualStudio.Pro" />
+        <InstallationTarget Version="[16.0,17.0)" Id="Microsoft.VisualStudio.Enterprise" />
+    </Installation>
+    <Dependencies>
+        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+    </Dependencies>
+    <Assets>
+    </Assets>
+    <Prerequisites>
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,17.0)" DisplayName="Visual Studio core editor" />
+    </Prerequisites>
+</PackageManifest>

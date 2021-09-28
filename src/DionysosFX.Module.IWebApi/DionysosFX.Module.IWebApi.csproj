@@ -3,10 +3,25 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>DionysosFX.IWebApi</PackageId>
+    <Authors>DionysosFX</Authors>
+    <Version>1.0.0-alpha</Version>
+    <Product>DionysosFX.IWebApi</Product>
+    <PackageProjectUrl>http://github.com/ofaruksahin/dionysosfx</PackageProjectUrl>
+    <RepositoryUrl>http://github.com/ofaruksahin/dionysosfx</RepositoryUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DionysosFX.Swan\DionysosFX.Swan.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

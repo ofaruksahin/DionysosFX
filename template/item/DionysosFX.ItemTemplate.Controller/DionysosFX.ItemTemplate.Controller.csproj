@@ -13,9 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DionysosFX.Module.IWebApi" Version="1.0.0" />
-    <PackageReference Include="DionysosFX.Swan" Version="1.0.0-alpha" />
-    <PackageReference Include="DionysosFX.WebApi" Version="1.0.0-alpha" />
+    <PackageReference Include="DionysosFX.IWebApi" Version="1.0.0.1-alpha" />
+    <PackageReference Include="DionysosFX.Swan" Version="1.0.0.1-alpha" />
+    <PackageReference Include="DionysosFX.WebApi" Version="1.0.0.1-alpha" />
   </ItemGroup>
 
 </Project>

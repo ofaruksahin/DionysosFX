@@ -11,7 +11,7 @@
     <RepositoryUrl>https://github.com/ofaruksahin/DionysosFX/</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
     <PackageIconUrl />
-    <Version>1.0.0.0-alpha</Version>
+    <Version>1.0.0.1-alpha</Version>
   </PropertyGroup>
 
   <ItemGroup>

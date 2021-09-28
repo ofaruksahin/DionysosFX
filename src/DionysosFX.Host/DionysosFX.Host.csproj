@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0.0-alpha</Version>
+    <Version>1.0.0.1-alpha</Version>
     <Authors>DionysosFX</Authors>
     <Company>DionysosFX</Company>
     <Description>DionysosFX create a new host via this library</Description>

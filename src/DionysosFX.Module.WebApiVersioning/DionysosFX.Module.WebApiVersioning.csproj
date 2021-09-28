@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0.0-alpha</Version>
+    <Version>1.0.0.1-alpha</Version>
     <PackageId>DionysosFX.WebApiVersioning</PackageId>
     <Authors>DionysosFX</Authors>
     <Product>DionysosFX</Product>

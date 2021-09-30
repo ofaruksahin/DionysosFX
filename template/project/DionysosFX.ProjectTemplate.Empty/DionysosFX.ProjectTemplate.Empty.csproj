@@ -1,18 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="EndpointFilterItem.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="EndpointFilterItem.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="DionysosFX.Host" Version="1.0.0.1-alpha" />
     <PackageReference Include="DionysosFX.Swan" Version="1.0.0.1-alpha" />
   </ItemGroup>
 

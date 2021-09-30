@@ -4,4 +4,16 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="WebSocketItem.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="WebSocketItem.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DionysosFX.WebSocket" Version="1.0.0.1-alpha" />
+  </ItemGroup>
+
 </Project>

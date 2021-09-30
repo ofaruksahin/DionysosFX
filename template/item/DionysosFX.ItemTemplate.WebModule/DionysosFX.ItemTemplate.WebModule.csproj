@@ -4,4 +4,16 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="WebModuleItem.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="WebModuleItem.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DionysosFX.Swan" Version="1.0.0.1-alpha" />
+  </ItemGroup>
+
 </Project>

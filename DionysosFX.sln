@@ -95,13 +95,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensibility", "Extensibil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Extensibility", "src\DionysosFX.Extensibility\DionysosFX.Extensibility.csproj", "{98940261-1CAA-43EB-B593-BFCDB154DD24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.ItemTemplate.Controller", "template\item\DionysosFX.ItemTemplate.Controller\DionysosFX.ItemTemplate.Controller.csproj", "{A70FAAD1-8A20-4A55-9FD8-2300663CC5F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.ItemTemplate.Controller", "template\item\DionysosFX.ItemTemplate.Controller\DionysosFX.ItemTemplate.Controller.csproj", "{A70FAAD1-8A20-4A55-9FD8-2300663CC5F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.ItemTemplate.WebModule", "template\item\DionysosFX.ItemTemplate.WebModule\DionysosFX.ItemTemplate.WebModule.csproj", "{F4C2BD7B-8447-417F-A109-E452E7875A4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.ItemTemplate.WebModule", "template\item\DionysosFX.ItemTemplate.WebModule\DionysosFX.ItemTemplate.WebModule.csproj", "{F4C2BD7B-8447-417F-A109-E452E7875A4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.ItemTemplate.EnpointFilter", "template\item\DionysosFX.ItemTemplate.EnpointFilter\DionysosFX.ItemTemplate.EnpointFilter.csproj", "{DBE121E8-4517-4B98-A723-70836FA73DEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.ItemTemplate.EnpointFilter", "template\item\DionysosFX.ItemTemplate.EnpointFilter\DionysosFX.ItemTemplate.EnpointFilter.csproj", "{DBE121E8-4517-4B98-A723-70836FA73DEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.ItemTemplate.WebSocket", "template\item\DionysosFX.ItemTemplate.WebSocket\DionysosFX.ItemTemplate.WebSocket.csproj", "{EB3EAD2F-67EA-4F60-899A-A53C5A91F121}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.ItemTemplate.WebSocket", "template\item\DionysosFX.ItemTemplate.WebSocket\DionysosFX.ItemTemplate.WebSocket.csproj", "{EB3EAD2F-67EA-4F60-899A-A53C5A91F121}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.ItemTemplate.EndpointResult", "template\item\DionysosFX.ItemTemplate.EndpointResult\DionysosFX.ItemTemplate.EndpointResult.csproj", "{58B57268-1ECD-47F1-9084-A65D1C5612D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.ProjectTemplate.Empty", "template\project\DionysosFX.ProjectTemplate.Empty\DionysosFX.ProjectTemplate.Empty.csproj", "{15E04C55-F9C4-4AED-86F9-AC5FF04B196B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -233,6 +237,14 @@ Global
 		{EB3EAD2F-67EA-4F60-899A-A53C5A91F121}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB3EAD2F-67EA-4F60-899A-A53C5A91F121}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB3EAD2F-67EA-4F60-899A-A53C5A91F121}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58B57268-1ECD-47F1-9084-A65D1C5612D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58B57268-1ECD-47F1-9084-A65D1C5612D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58B57268-1ECD-47F1-9084-A65D1C5612D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58B57268-1ECD-47F1-9084-A65D1C5612D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15E04C55-F9C4-4AED-86F9-AC5FF04B196B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15E04C55-F9C4-4AED-86F9-AC5FF04B196B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15E04C55-F9C4-4AED-86F9-AC5FF04B196B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15E04C55-F9C4-4AED-86F9-AC5FF04B196B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -276,6 +288,8 @@ Global
 		{F4C2BD7B-8447-417F-A109-E452E7875A4E} = {3AA70917-AC99-48EA-8D9D-E548C2AFEB24}
 		{DBE121E8-4517-4B98-A723-70836FA73DEF} = {3AA70917-AC99-48EA-8D9D-E548C2AFEB24}
 		{EB3EAD2F-67EA-4F60-899A-A53C5A91F121} = {3AA70917-AC99-48EA-8D9D-E548C2AFEB24}
+		{58B57268-1ECD-47F1-9084-A65D1C5612D3} = {3AA70917-AC99-48EA-8D9D-E548C2AFEB24}
+		{15E04C55-F9C4-4AED-86F9-AC5FF04B196B} = {14B3CC56-9B46-48AD-8DCD-E18A458D08C9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {649875DE-A7F9-4D8E-BD5C-D785B7554E16}

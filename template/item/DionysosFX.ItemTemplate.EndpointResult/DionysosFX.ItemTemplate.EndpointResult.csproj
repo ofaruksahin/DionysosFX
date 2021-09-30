@@ -5,15 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="EndpointFilterItem.cs" />
+    <Compile Remove="EndpointResultItem.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="EndpointFilterItem.cs" />
+    <Content Include="EndpointResultItem.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DionysosFX.Swan" Version="1.0.0.1-alpha" />
+    <PackageReference Include="DionysosFX.IWebApi" Version="1.0.0.1-alpha" />
   </ItemGroup>
 
 </Project>

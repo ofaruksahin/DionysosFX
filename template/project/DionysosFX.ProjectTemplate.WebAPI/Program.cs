@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DionysosFX.Template.WebAPI
+﻿namespace DionysosFX.ProjectTemplate.WebAPI
 {
     class Program
     {
@@ -11,7 +9,7 @@ namespace DionysosFX.Template.WebAPI
 
         private static void CreateStartup()
         {
-            Host.Host host = new Host.Host();
+            DionysosFX.Host.Host host = new DionysosFX.Host.Host();
             var startup = host.CreateStartup<Startup>();
             startup.Configure();
             startup.Build();

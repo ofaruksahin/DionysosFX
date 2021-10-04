@@ -2,7 +2,7 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
         <Identity Id="DionysosFX.Extensibility.4e6c7eaf-6814-4450-bdcb-ca5916cf9fc4" Version="1.0" Language="en-US" Publisher="Ömer Faruk Şahin" />
-        <DisplayName>DionysosFX Extensibility</DisplayName>
+        <DisplayName>DionysosFX</DisplayName>
         <Description xml:space="preserve">This extension provide DionysosFX project and item templates</Description>
         <Icon>logo.ico</Icon>
         <PreviewImage>logo.ico</PreviewImage>
@@ -23,6 +23,8 @@
         <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\DionysosFX_ItemTemplate_WebModule.zip" />
         <Asset Type="Microsoft.VisualStudio.ItemTemplate" d:Source="File" Path="ItemTemplates" d:TargetPath="ItemTemplates\DionysosFX_ItemTemplate_WebSocket.zip" />
         <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\DionysosFX_ProjectTemplate_Empty.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\DionysosFX_ProjectTemplate_WebAPI.zip" />
+        <Asset Type="Microsoft.VisualStudio.ProjectTemplate" d:Source="File" Path="ProjectTemplates" d:TargetPath="ProjectTemplates\DionysosFX_ProjectTemplate_WebSocket.zip" />
     </Assets>
     <Prerequisites>
         <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[16.0,17.0)" DisplayName="Visual Studio core editor" />

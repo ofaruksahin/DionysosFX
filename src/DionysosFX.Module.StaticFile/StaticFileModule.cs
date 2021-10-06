@@ -65,6 +65,15 @@ namespace DionysosFX.Module.StaticFile
                 foreach (var dir in context.Request.RawUrl.Split('/'))
                     fileName = Path.Combine(fileName, dir.ToLowerInvariant());
             }
+            while (fileName.Contains("?") || fileName.Contains("&"))
+            {
+                var indexOf = fileName.IndexOf('?');
+                if (indexOf == -1)
+                    indexOf = fileName.IndexOf('&');
+                if (indexOf != -1)
+                    fileName = fileName.Substring(0, indexOf);
+            }
+            var contentType = MimeType.Associations.GetValueOrDefault(Path.GetExtension(fileName));
             byte[] bytes = null;
             if (_files.ContainsKey(fileName))
             {
@@ -84,7 +93,19 @@ namespace DionysosFX.Module.StaticFile
                 {
                     if (File.Exists(fileName))
                     {
-                        bytes = Encoding.UTF8.GetBytes(File.ReadAllText(fileName));
+                        if (contentType.StartsWith("text"))
+                        {
+                            bytes = Encoding.UTF8.GetBytes(File.ReadAllText(fileName));
+                        }
+                        else
+                        {
+                            using (FileStream fs = File.Open(fileName, FileMode.Open, FileAccess.Read))
+                            {
+                                bytes = new byte[fs.Length];
+                                fs.Read(bytes, 0, (int)fs.Length);
+                            }
+                        }
+
                         if (options.CacheActive)
                         {
                             _files.TryAdd(fileName, new StaticFileItem(bytes, DateTime.Now.AddSeconds(options.ExpireTime)));
@@ -101,9 +122,10 @@ namespace DionysosFX.Module.StaticFile
 
             if (bytes != null)
             {
-                var contentType = MimeType.Associations.GetValueOrDefault(Path.GetExtension(fileName));
                 if (options.AllowedMimeTypes.Any(f => f == "*" || f == contentType))
                 {
+                    if (!contentType.StartsWith("text"))
+                        context.Response.Headers.Add("Content-disposition", "attachment; filename=" + fileName);
                     context.Response.OutputStream.Write(bytes);
                     context.Response.ContentType = contentType;
                     context.Response.StatusCode = (int)HttpStatusCode.OK;

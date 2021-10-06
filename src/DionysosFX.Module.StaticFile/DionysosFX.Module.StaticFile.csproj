@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.0.0.1-alpha</Version>
+    <Version>1.0.0.2-alpha</Version>
     <PackageId>DionysosFX.StaticFile</PackageId>
     <Authors>DionysosFX.StaticFile</Authors>
     <Product>DionysosFX.StaticFile</Product>

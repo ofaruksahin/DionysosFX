@@ -125,7 +125,7 @@ namespace DionysosFX.Module.StaticFile
                 if (options.AllowedMimeTypes.Any(f => f == "*" || f == contentType))
                 {
                     if (!contentType.StartsWith("text"))
-                        context.Response.Headers.Add("Content-disposition", "attachment; filename=" + fileName);
+                        context.Response.Headers.Add("Content-disposition", "attachment; filename=" + Guid.NewGuid().ToString()+Path.GetExtension(fileName));
                     context.Response.OutputStream.Write(bytes);
                     context.Response.ContentType = contentType;
                     context.Response.StatusCode = (int)HttpStatusCode.OK;

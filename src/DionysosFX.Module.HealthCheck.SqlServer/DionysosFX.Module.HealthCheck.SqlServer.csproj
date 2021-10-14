@@ -5,7 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\DionysosFX.Module.HealthCheck\DionysosFX.Module.HealthCheck.csproj" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DionysosFX.Module.HealthCheck\DionysosFX.Module.HealthCheck.csproj" />
   </ItemGroup>
 
 </Project>

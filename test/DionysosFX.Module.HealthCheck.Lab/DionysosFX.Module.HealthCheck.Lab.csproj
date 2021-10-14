@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DionysosFX.Host\DionysosFX.Host.csproj" />
+    <ProjectReference Include="..\..\src\DionysosFX.Module.HealthCheck.SqlServer\DionysosFX.Module.HealthCheck.SqlServer.csproj" />
+    <ProjectReference Include="..\..\src\DionysosFX.Module.HealthCheck\DionysosFX.Module.HealthCheck.csproj" />
+    <ProjectReference Include="..\..\src\DionysosFX.Module.IWebApi\DionysosFX.Module.IWebApi.csproj" />
+    <ProjectReference Include="..\..\src\DionysosFX.Module.WebApi.JSON\DionysosFX.Module.WebApi.JSON.csproj" />
+    <ProjectReference Include="..\..\src\DionysosFX.Module.WebApi\DionysosFX.Module.WebApi.csproj" />
+    <ProjectReference Include="..\..\src\DionysosFX.Swan\DionysosFX.Swan.csproj" />
+  </ItemGroup>
+
+</Project>

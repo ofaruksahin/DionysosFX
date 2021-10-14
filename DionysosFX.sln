@@ -109,9 +109,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.ProjectTemplate.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.ProjectTemplate.WebSocket", "template\project\DionysosFX.ProjectTemplate.WebSocket\DionysosFX.ProjectTemplate.WebSocket.csproj", "{0F312A38-E4EB-4CF5-8485-8AE98E5287A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.HealthCheck", "src\DionysosFX.Module.HealthCheck\DionysosFX.Module.HealthCheck.csproj", "{BA158646-509E-4906-AF14-1BD6388E2E0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.HealthCheck", "src\DionysosFX.Module.HealthCheck\DionysosFX.Module.HealthCheck.csproj", "{BA158646-509E-4906-AF14-1BD6388E2E0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.HealthCheck.SqlServer", "DionysosFX.Module.HealthCheck.SqlServer\DionysosFX.Module.HealthCheck.SqlServer.csproj", "{82E6AD82-27E4-49D0-B666-351109AA8730}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.HealthCheck.SqlServer", "src\DionysosFX.Module.HealthCheck.SqlServer\DionysosFX.Module.HealthCheck.SqlServer.csproj", "{46AB0B28-003D-4E63-9353-38653AB5085D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.HealthCheck.Lab", "test\DionysosFX.Module.HealthCheck.Lab\DionysosFX.Module.HealthCheck.Lab.csproj", "{99DF6A09-632C-459B-856A-9278DBB97EF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -259,10 +261,14 @@ Global
 		{BA158646-509E-4906-AF14-1BD6388E2E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA158646-509E-4906-AF14-1BD6388E2E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA158646-509E-4906-AF14-1BD6388E2E0B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{82E6AD82-27E4-49D0-B666-351109AA8730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82E6AD82-27E4-49D0-B666-351109AA8730}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{82E6AD82-27E4-49D0-B666-351109AA8730}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82E6AD82-27E4-49D0-B666-351109AA8730}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46AB0B28-003D-4E63-9353-38653AB5085D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46AB0B28-003D-4E63-9353-38653AB5085D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46AB0B28-003D-4E63-9353-38653AB5085D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46AB0B28-003D-4E63-9353-38653AB5085D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99DF6A09-632C-459B-856A-9278DBB97EF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99DF6A09-632C-459B-856A-9278DBB97EF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99DF6A09-632C-459B-856A-9278DBB97EF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99DF6A09-632C-459B-856A-9278DBB97EF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -311,7 +317,8 @@ Global
 		{71B1C1C5-81BC-4D9E-8C5F-5CA4535DEEA1} = {14B3CC56-9B46-48AD-8DCD-E18A458D08C9}
 		{0F312A38-E4EB-4CF5-8485-8AE98E5287A9} = {14B3CC56-9B46-48AD-8DCD-E18A458D08C9}
 		{BA158646-509E-4906-AF14-1BD6388E2E0B} = {5943F2D3-B734-4888-A358-0002294E9A63}
-		{82E6AD82-27E4-49D0-B666-351109AA8730} = {5943F2D3-B734-4888-A358-0002294E9A63}
+		{46AB0B28-003D-4E63-9353-38653AB5085D} = {5943F2D3-B734-4888-A358-0002294E9A63}
+		{99DF6A09-632C-459B-856A-9278DBB97EF1} = {C62BF36A-0637-4186-8CFE-937026B0D111}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {649875DE-A7F9-4D8E-BD5C-D785B7554E16}

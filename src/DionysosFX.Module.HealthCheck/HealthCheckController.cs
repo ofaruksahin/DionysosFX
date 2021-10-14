@@ -2,12 +2,14 @@
 using DionysosFX.Module.IWebApi;
 using DionysosFX.Module.WebApi;
 using DionysosFX.Module.WebApi.JSON;
+using DionysosFX.Swan.DataAnnotations;
 using DionysosFX.Swan.Routing;
 using System.Collections.Generic;
 
 namespace DionysosFX.Module.HealthCheck
 {
     [Route("/api/healthcheck")]
+    [NotMapped]
     public class HealthCheckController : WebApiController
     {
         [Route(HttpVerb.GET, "")]

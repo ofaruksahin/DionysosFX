@@ -26,7 +26,7 @@ namespace DionysosFX.Module.HealthCheck
         [JsonProperty("total_millisecond")]
         public double TotalMilliSecond
         {
-            get => (EndDate - StartDate).TotalMilliseconds;
+            get =>Math.Abs((EndDate - StartDate).TotalMilliseconds);
         }
 
         private bool _isHealthily = false;

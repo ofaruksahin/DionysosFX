@@ -113,7 +113,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.HealthChe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.HealthCheck.SqlServer", "src\DionysosFX.Module.HealthCheck.SqlServer\DionysosFX.Module.HealthCheck.SqlServer.csproj", "{46AB0B28-003D-4E63-9353-38653AB5085D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.HealthCheck.Lab", "test\DionysosFX.Module.HealthCheck.Lab\DionysosFX.Module.HealthCheck.Lab.csproj", "{99DF6A09-632C-459B-856A-9278DBB97EF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.HealthCheck.Lab", "test\DionysosFX.Module.HealthCheck.Lab\DionysosFX.Module.HealthCheck.Lab.csproj", "{99DF6A09-632C-459B-856A-9278DBB97EF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.HealthCheck.SqlServer.Test", "test\DionysosFX.Module.HealthCheck.SqlServer.Test\DionysosFX.Module.HealthCheck.SqlServer.Test.csproj", "{2A0B02DB-A600-4A4C-87AB-931D9E1C7BD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -269,6 +271,10 @@ Global
 		{99DF6A09-632C-459B-856A-9278DBB97EF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99DF6A09-632C-459B-856A-9278DBB97EF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99DF6A09-632C-459B-856A-9278DBB97EF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A0B02DB-A600-4A4C-87AB-931D9E1C7BD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A0B02DB-A600-4A4C-87AB-931D9E1C7BD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A0B02DB-A600-4A4C-87AB-931D9E1C7BD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A0B02DB-A600-4A4C-87AB-931D9E1C7BD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -319,6 +325,7 @@ Global
 		{BA158646-509E-4906-AF14-1BD6388E2E0B} = {5943F2D3-B734-4888-A358-0002294E9A63}
 		{46AB0B28-003D-4E63-9353-38653AB5085D} = {5943F2D3-B734-4888-A358-0002294E9A63}
 		{99DF6A09-632C-459B-856A-9278DBB97EF1} = {C62BF36A-0637-4186-8CFE-937026B0D111}
+		{2A0B02DB-A600-4A4C-87AB-931D9E1C7BD0} = {3E1F47E3-99EC-42F9-BB97-54EF29665F95}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {649875DE-A7F9-4D8E-BD5C-D785B7554E16}

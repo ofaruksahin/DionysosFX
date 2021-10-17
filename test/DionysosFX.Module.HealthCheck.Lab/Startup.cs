@@ -34,7 +34,7 @@ namespace DionysosFX.Module.HealthCheck.Lab
                 .AddHealthCheckItem(new SqlServerHealthCheck(new SqlServerHealthCheckOptions()
                 {
                     ConnectionString = "Server=.;Database=test;User Id=sa;Password=123456;",
-                    Sql = "SELECT 1;"
+                    Sql = "SELECT 1"
                 }));
             using (var cts = new CancellationTokenSource())
             {

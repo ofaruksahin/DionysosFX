@@ -8,6 +8,15 @@ namespace DionysosFX.Module.StaticFile
     /// </summary>
     public class StaticFileOptions
     {
+
+        private string _executionDirectory = string.Empty;
+
+        public string ExecutionDirectory
+        {
+            get => _executionDirectory;
+            set => _executionDirectory = value;
+        }
+
         /// <summary>
         /// Allowed mime types
         /// </summary>

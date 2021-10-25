@@ -57,11 +57,8 @@ namespace DionysosFX.Module.StaticFile
                 fileName = "index.html";
             }
             else
-            {
-                var entryAssembly = System.Reflection.Assembly.GetEntryAssembly();
-                if (entryAssembly == null)
-                    throw new Exception("Entry assembly not found");
-                fileName = Path.GetDirectoryName(entryAssembly.Location);
+            {                
+                fileName = options.ExecutionDirectory;
                 foreach (var dir in context.Request.RawUrl.Split('/'))
                     fileName = Path.Combine(fileName, dir.ToLowerInvariant());
             }

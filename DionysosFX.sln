@@ -119,7 +119,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.HealthChe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StringLocalization", "StringLocalization", "{7A05E080-0373-4C8A-ADAA-A5F148AE3B3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.StringLocalization", "src\DionysosFX.Module.StringLocalization\DionysosFX.Module.StringLocalization.csproj", "{FECD6332-DF9C-4DEF-A4B5-20FC60C94B4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.StringLocalization", "src\DionysosFX.Module.StringLocalization\DionysosFX.Module.StringLocalization.csproj", "{FECD6332-DF9C-4DEF-A4B5-20FC60C94B4E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConfigurationManager", "ConfigurationManager", "{D8B8FD9C-A430-458E-A316-13C6E0E98E26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.ConfigurationManager.Lab", "test\DionysosFX.Module.ConfigurationManager.Lab\DionysosFX.Module.ConfigurationManager.Lab.csproj", "{283A7612-2778-41CF-A383-A88697CCC4C1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.ConfigurationManager", "src\DionysosFX.Module.ConfigurationManager\DionysosFX.Module.ConfigurationManager.csproj", "{81FCE002-30F8-4AB7-91ED-105EF842A025}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -283,6 +289,14 @@ Global
 		{FECD6332-DF9C-4DEF-A4B5-20FC60C94B4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FECD6332-DF9C-4DEF-A4B5-20FC60C94B4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FECD6332-DF9C-4DEF-A4B5-20FC60C94B4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{283A7612-2778-41CF-A383-A88697CCC4C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{283A7612-2778-41CF-A383-A88697CCC4C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{283A7612-2778-41CF-A383-A88697CCC4C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{283A7612-2778-41CF-A383-A88697CCC4C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81FCE002-30F8-4AB7-91ED-105EF842A025}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81FCE002-30F8-4AB7-91ED-105EF842A025}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81FCE002-30F8-4AB7-91ED-105EF842A025}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81FCE002-30F8-4AB7-91ED-105EF842A025}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -336,6 +350,9 @@ Global
 		{2A0B02DB-A600-4A4C-87AB-931D9E1C7BD0} = {3E1F47E3-99EC-42F9-BB97-54EF29665F95}
 		{7A05E080-0373-4C8A-ADAA-A5F148AE3B3B} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
 		{FECD6332-DF9C-4DEF-A4B5-20FC60C94B4E} = {7A05E080-0373-4C8A-ADAA-A5F148AE3B3B}
+		{D8B8FD9C-A430-458E-A316-13C6E0E98E26} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
+		{283A7612-2778-41CF-A383-A88697CCC4C1} = {C62BF36A-0637-4186-8CFE-937026B0D111}
+		{81FCE002-30F8-4AB7-91ED-105EF842A025} = {D8B8FD9C-A430-458E-A316-13C6E0E98E26}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {649875DE-A7F9-4D8E-BD5C-D785B7554E16}

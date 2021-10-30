@@ -123,9 +123,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.StringLoc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConfigurationManager", "ConfigurationManager", "{D8B8FD9C-A430-458E-A316-13C6E0E98E26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.ConfigurationManager.Lab", "test\DionysosFX.Module.ConfigurationManager.Lab\DionysosFX.Module.ConfigurationManager.Lab.csproj", "{283A7612-2778-41CF-A383-A88697CCC4C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.ConfigurationManager.Lab", "test\DionysosFX.Module.ConfigurationManager.Lab\DionysosFX.Module.ConfigurationManager.Lab.csproj", "{283A7612-2778-41CF-A383-A88697CCC4C1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DionysosFX.Module.ConfigurationManager", "src\DionysosFX.Module.ConfigurationManager\DionysosFX.Module.ConfigurationManager.csproj", "{81FCE002-30F8-4AB7-91ED-105EF842A025}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DionysosFX.Module.StringLocalization.Json", "src\DionysosFX.Module.StringLocalization.Json\DionysosFX.Module.StringLocalization.Json.csproj", "{9EDB3CAD-84D8-4984-8FC8-CFBC6CA11495}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -297,6 +299,10 @@ Global
 		{81FCE002-30F8-4AB7-91ED-105EF842A025}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81FCE002-30F8-4AB7-91ED-105EF842A025}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81FCE002-30F8-4AB7-91ED-105EF842A025}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EDB3CAD-84D8-4984-8FC8-CFBC6CA11495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EDB3CAD-84D8-4984-8FC8-CFBC6CA11495}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EDB3CAD-84D8-4984-8FC8-CFBC6CA11495}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EDB3CAD-84D8-4984-8FC8-CFBC6CA11495}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -353,6 +359,7 @@ Global
 		{D8B8FD9C-A430-458E-A316-13C6E0E98E26} = {C6DA0C85-A059-4B2E-8DD5-631ABB4FAAAC}
 		{283A7612-2778-41CF-A383-A88697CCC4C1} = {C62BF36A-0637-4186-8CFE-937026B0D111}
 		{81FCE002-30F8-4AB7-91ED-105EF842A025} = {D8B8FD9C-A430-458E-A316-13C6E0E98E26}
+		{9EDB3CAD-84D8-4984-8FC8-CFBC6CA11495} = {7A05E080-0373-4C8A-ADAA-A5F148AE3B3B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {649875DE-A7F9-4D8E-BD5C-D785B7554E16}

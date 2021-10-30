@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DionysosFX.Module.StringLocalization
+namespace DionysosFX.Module.StringLocalization.Json
 {
     public class Class1
     {
